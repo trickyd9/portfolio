@@ -15,7 +15,7 @@
   "license": "Creative Commons",
   "author": "David Trick",
   "repository": {
-    "type":"git"
+    "type":"git",
     "url":"git+https://github.com/trickyd9/trickyd9.github.io"
   },
   "dependencies": {
