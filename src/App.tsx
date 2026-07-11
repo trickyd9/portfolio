@@ -1,21 +1,30 @@
 import { useMemo, useState } from 'react';
+import { HashRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Density, Mode } from '@cloudscape-design/global-styles';
 import '@cloudscape-design/global-styles/index.css';
-import AppLayout from '@cloudscape-design/components/app-layout';
-import ContentLayout from '@cloudscape-design/components/content-layout';
+import AppLayoutToolbar from '@cloudscape-design/components/app-layout-toolbar';
+import type { AppLayoutProps } from '@cloudscape-design/components/app-layout';
+import TopNavigation from '@cloudscape-design/components/top-navigation';
+import type { TopNavigationProps } from '@cloudscape-design/components/top-navigation';
+import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
+import Autosuggest from '@cloudscape-design/components/autosuggest';
+import type { AutosuggestProps } from '@cloudscape-design/components/autosuggest';
+import SideNavigation from '@cloudscape-design/components/side-navigation';
+import type { SideNavigationProps } from '@cloudscape-design/components/side-navigation';
+import Drawer from '@cloudscape-design/components/drawer';
 import Header from '@cloudscape-design/components/header';
 import SpaceBetween from '@cloudscape-design/components/space-between';
-import Select from '@cloudscape-design/components/select';
-import type { SelectProps } from '@cloudscape-design/components/select';
-import Container from '@cloudscape-design/components/container';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
-import { Board, BoardItem } from '@cloudscape-design/board-components';
-import type { BoardProps } from '@cloudscape-design/board-components';
 
 import { PERSONAS, type PersonaId } from './content/personas';
-import { WIDGETS, PERSONA_DEFAULT_LAYOUT, allWidgetIds, type WidgetId } from './content/widgets';
+import { WIDGETS, PERSONA_DEFAULT_LAYOUT, allWidgetIds, widgetsWithFullPages, type WidgetId } from './content/widgets';
+import Dashboard, { type BoardItemData } from './pages/Dashboard';
+import WidgetFullPage from './pages/WidgetFullPage';
+import AboutPage from './pages/AboutPage';
+import { applyStoredSettings, useDisplaySettings } from './hooks/useDisplaySettings';
 
-type BoardItemData = BoardProps.Item<{ widgetId: WidgetId }>;
+applyStoredSettings();
 
 function makeBoardItem(widgetId: WidgetId): BoardItemData {
   const def = WIDGETS[widgetId];
@@ -27,44 +36,39 @@ function makeBoardItem(widgetId: WidgetId): BoardItemData {
   };
 }
 
-const boardItemI18nStrings = {
-  dragHandleAriaLabel: 'Drag handle',
-  dragHandleAriaDescription:
-    'Use Space or Enter to activate drag, arrow keys to move, Space or Enter to submit, or Escape to discard.',
-  resizeHandleAriaLabel: 'Resize handle',
-  resizeHandleAriaDescription:
-    'Use Space or Enter to activate resize, arrow keys to resize, Space or Enter to submit, or Escape to discard.',
-};
+const ADD_WIDGETS_DRAWER_ID = 'add-widgets';
+const ABOUT_PATH = WIDGETS['about-me'].fullPagePath!;
 
-const boardI18nStrings: BoardProps.I18nStrings<{ widgetId: WidgetId }> = {
-  liveAnnouncementDndStarted: (operationType) => (operationType === 'resize' ? 'Resizing' : 'Dragging'),
-  liveAnnouncementDndItemReordered: () => 'Widget order changed',
-  liveAnnouncementDndItemResized: () => 'Widget resized',
-  liveAnnouncementDndItemInserted: () => 'Widget inserted',
-  liveAnnouncementDndCommitted: (operationType) => `${operationType} committed`,
-  liveAnnouncementDndDiscarded: (operationType) => `${operationType} discarded`,
-  liveAnnouncementItemRemoved: (op) => `Removed widget ${op.item.data.widgetId}`,
-  navigationAriaLabel: 'Dashboard widgets',
-  navigationAriaDescription: 'Drag or use arrow keys to reorder widgets on the dashboard.',
-  navigationItemAriaLabel: (item) => (item ? WIDGETS[item.data.widgetId].title : 'Empty'),
-};
+const navItems: SideNavigationProps.Item[] = [
+  { type: 'link', text: 'Dashboard', href: '/' },
+  { type: 'divider' },
+  {
+    type: 'section',
+    text: 'Full pages',
+    items: widgetsWithFullPages().map((w) => ({ type: 'link', text: w.title, href: w.fullPagePath })),
+  },
+];
 
-function App() {
+// Search covers the dashboard + every widget with a dedicated full page — titles only, per WIDGET-TRACKER.md.
+const searchOptions: AutosuggestProps.Options = [
+  { value: '/', label: 'Dashboard' },
+  ...widgetsWithFullPages().map((w) => ({ value: w.fullPagePath, label: w.title })),
+];
+
+function AppShell() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [personaId, setPersonaId] = useState<PersonaId>('recruiter');
-  const [items, setItems] = useState<BoardItemData[]>(() =>
-    PERSONA_DEFAULT_LAYOUT.recruiter.map(makeBoardItem)
-  );
+  const [items, setItems] = useState<BoardItemData[]>(() => PERSONA_DEFAULT_LAYOUT.recruiter.map(makeBoardItem));
+  const [activeDrawerId, setActiveDrawerId] = useState<string | null>(null);
+  const [searchValue, setSearchValue] = useState('');
+  const { density, mode, setDensity, setMode } = useDisplaySettings();
 
   const persona = PERSONAS.find((p) => p.id === personaId)!;
 
-  const personaOptions: SelectProps.Option[] = PERSONAS.map((p) => ({
-    value: p.id,
-    label: p.label,
-    description: p.goal,
-  }));
-
-  const onWidgetsBoard = useMemo(() => new Set(items.map((item) => item.data.widgetId)), [items]);
-  const availableToAdd = allWidgetIds().filter((id) => !onWidgetsBoard.has(id));
+  const onBoard = useMemo(() => new Set(items.map((item) => item.data.widgetId)), [items]);
+  const availableToAdd = allWidgetIds().filter((id) => !onBoard.has(id));
 
   function switchPersona(next: PersonaId) {
     setPersonaId(next);
@@ -75,78 +79,169 @@ function App() {
     setItems((prev) => [...prev, makeBoardItem(id)]);
   }
 
-  return (
-    <AppLayout
-      navigationHide
-      toolsHide
-      contentType="dashboard"
-      content={
-        <ContentLayout
-          header={
-            <Header
-              variant="h1"
-              description="Draft dashboard — every widget below is a content placeholder we refine together, one at a time (see WIDGET-TRACKER.md)."
-              actions={
-                <Select
-                  selectedOption={{ value: persona.id, label: persona.label, description: persona.goal }}
-                  onChange={({ detail }) => switchPersona(detail.selectedOption.value as PersonaId)}
-                  options={personaOptions}
-                  ariaLabel="Viewing as persona"
-                />
-              }
-            >
-              David Trick — Portfolio (local preview)
-            </Header>
-          }
-        >
-          <SpaceBetween size="l">
-            <Board<{ widgetId: WidgetId }>
-              items={items}
-              onItemsChange={(event) => setItems([...event.detail.items])}
-              i18nStrings={boardI18nStrings}
-              empty={<Box textAlign="center">No widgets on this dashboard yet — add one below.</Box>}
-              renderItem={(item, actions) => {
-                const def = WIDGETS[item.data.widgetId];
-                return (
-                  <BoardItem
-                    header={<Header>{def.title}</Header>}
-                    i18nStrings={boardItemI18nStrings}
-                    settings={
-                      <Button
-                        iconName="close"
-                        variant="icon"
-                        ariaLabel={`Remove ${def.title}`}
-                        onClick={() => actions.removeItem()}
-                      />
-                    }
-                  >
-                    <SpaceBetween size="xs">
-                      <Box variant="p">{def.condensed}</Box>
-                      <Box variant="small" color="text-status-inactive">
-                        Expanded: {def.expanded}
-                      </Box>
-                    </SpaceBetween>
-                  </BoardItem>
-                );
-              }}
-            />
+  function goTo(href: string) {
+    setSearchValue('');
+    navigate(href);
+  }
 
-            {availableToAdd.length > 0 && (
-              <Container header={<Header variant="h2">More widgets available to add</Header>}>
+  const currentFullPage = widgetsWithFullPages().find((w) => w.fullPagePath === location.pathname);
+  const breadcrumbItems: Array<{ text: string; href: string }> =
+    location.pathname === '/'
+      ? [{ text: 'Dashboard', href: '/' }]
+      : [{ text: 'Dashboard', href: '/' }, { text: currentFullPage?.title ?? location.pathname, href: location.pathname }];
+
+  const utilities: TopNavigationProps.Utility[] = [
+    {
+      type: 'button',
+      iconName: 'status-info',
+      ariaLabel: 'About me',
+      href: ABOUT_PATH,
+      onFollow: (event) => {
+        event.preventDefault();
+        goTo(ABOUT_PATH);
+      },
+    },
+    {
+      type: 'menu-dropdown',
+      iconName: 'settings',
+      ariaLabel: 'Preferences',
+      items: [
+        {
+          text: 'Appearance',
+          items: [
+            { id: 'mode-light', text: 'Light', itemType: 'checkbox', checked: mode === Mode.Light },
+            { id: 'mode-dark', text: 'Dark', itemType: 'checkbox', checked: mode === Mode.Dark },
+          ],
+        },
+        {
+          text: 'Density',
+          items: [
+            { id: 'density-comfortable', text: 'Comfortable', itemType: 'checkbox', checked: density === Density.Comfortable },
+            { id: 'density-compact', text: 'Compact', itemType: 'checkbox', checked: density === Density.Compact },
+          ],
+        },
+      ],
+      onItemClick: ({ detail }) => {
+        if (detail.id === 'mode-light') setMode(Mode.Light);
+        if (detail.id === 'mode-dark') setMode(Mode.Dark);
+        if (detail.id === 'density-comfortable') setDensity(Density.Comfortable);
+        if (detail.id === 'density-compact') setDensity(Density.Compact);
+      },
+    },
+    {
+      type: 'menu-dropdown',
+      text: persona.label,
+      description: 'Viewing as',
+      ariaLabel: 'Switch persona',
+      items: PERSONAS.map((p) => ({ id: p.id, text: p.label, description: p.goal })),
+      onItemClick: ({ detail }) => switchPersona(detail.id as PersonaId),
+    },
+  ];
+
+  const drawers: AppLayoutProps.Drawer[] =
+    location.pathname === '/'
+      ? [
+          {
+            id: ADD_WIDGETS_DRAWER_ID,
+            trigger: { iconName: 'add-plus' },
+            ariaLabels: {
+              drawerName: 'Add widgets',
+              triggerButton: 'Add widgets',
+              closeButton: 'Close add widgets drawer',
+            },
+            content: (
+              <Drawer header={<Header variant="h2">More widgets</Header>}>
                 <SpaceBetween size="s">
+                  <Box variant="p" color="text-status-inactive">
+                    Not currently on your dashboard.
+                  </Box>
+                  {availableToAdd.length === 0 && (
+                    <Box color="text-status-inactive">Every widget is already on the dashboard.</Box>
+                  )}
                   {availableToAdd.map((id) => (
-                    <Box key={id} display="inline-block" padding={{ right: 's' }}>
-                      <Button onClick={() => addWidget(id)}>+ {WIDGETS[id].title}</Button>
-                    </Box>
+                    <Button key={id} fullWidth onClick={() => addWidget(id)}>
+                      + {WIDGETS[id].title}
+                    </Button>
                   ))}
                 </SpaceBetween>
-              </Container>
-            )}
-          </SpaceBetween>
-        </ContentLayout>
-      }
-    />
+              </Drawer>
+            ),
+          },
+        ]
+      : [];
+
+  return (
+    <>
+      <div id="top-nav">
+        <TopNavigation
+          identity={{
+            title: 'David Trick',
+            // Identity's onFollow can't preventDefault (Cloudscape API limitation), so the
+            // href itself must be the real destination — a plain hash change, no SPA intercept needed.
+            href: '#/',
+          }}
+          search={
+            <Autosuggest
+              value={searchValue}
+              onChange={({ detail }) => setSearchValue(detail.value)}
+              onSelect={({ detail }) => detail.selectedOption?.value && goTo(detail.selectedOption.value)}
+              options={searchOptions}
+              placeholder="Search the site"
+              ariaLabel="Search the site"
+              enteredTextLabel={(value) => `Use: "${value}"`}
+            />
+          }
+          utilities={utilities}
+          i18nStrings={{ searchIconAriaLabel: 'Search', searchDismissIconAriaLabel: 'Close search' }}
+        />
+      </div>
+      <AppLayoutToolbar
+        headerSelector="#top-nav"
+        breadcrumbs={
+          <BreadcrumbGroup
+            items={breadcrumbItems}
+            onFollow={(event) => {
+              event.preventDefault();
+              goTo(event.detail.href);
+            }}
+          />
+        }
+        navigation={
+          <SideNavigation
+            header={{ text: 'David Trick', href: '/' }}
+            activeHref={location.pathname}
+            items={navItems}
+            onFollow={(event) => {
+              event.preventDefault();
+              navigate(event.detail.href);
+            }}
+          />
+        }
+        drawers={drawers}
+        activeDrawerId={activeDrawerId}
+        onDrawerChange={({ detail }) => setActiveDrawerId(detail.activeDrawerId)}
+        contentType="dashboard"
+        content={
+          <Routes>
+            <Route path="/" element={<Dashboard items={items} onItemsChange={setItems} />} />
+            {widgetsWithFullPages().map((w) => (
+              <Route
+                key={w.id}
+                path={w.fullPagePath}
+                element={w.id === 'about-me' ? <AboutPage /> : <WidgetFullPage widget={w} />}
+              />
+            ))}
+          </Routes>
+        }
+      />
+    </>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <HashRouter>
+      <AppShell />
+    </HashRouter>
+  );
+}

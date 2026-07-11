@@ -27,6 +27,8 @@ export interface WidgetDefinition {
   condensed: string;
   expanded: string;
   fullPage: string;
+  /** Route path for this widget's dedicated full page — undefined if it has none (see `fullPage`). */
+  fullPagePath?: string;
   personas: PersonaId[] | 'universal';
   columnSpan: 1 | 2 | 3 | 4;
   rowSpan: 1 | 2 | 3;
@@ -39,6 +41,7 @@ export const WIDGETS: Record<WidgetId, WidgetDefinition> = {
     condensed: 'Photo, one-line identity, current status ("open to X roles").',
     expanded: 'Short bio.',
     fullPage: 'Full bio + career narrative.',
+    fullPagePath: '/about',
     personas: 'universal',
     columnSpan: 2,
     rowSpan: 2,
@@ -69,6 +72,7 @@ export const WIDGETS: Record<WidgetId, WidgetDefinition> = {
     condensed: 'Filter dropdown (by category) + matching project list with short descriptions.',
     expanded: 'Brief overview of a selected project inline.',
     fullPage: 'Full case study page.',
+    fullPagePath: '/projects',
     personas: ['hiring-manager', 'ux-professional', 'technical-peer', 'other'],
     columnSpan: 2,
     rowSpan: 2,
@@ -79,6 +83,7 @@ export const WIDGETS: Record<WidgetId, WidgetDefinition> = {
     condensed: 'One-line pitch on your specialization.',
     expanded: 'Summary of the AWS persona program (20 personas, validation process, widget-based dashboards).',
     fullPage: 'Full write-up — arguably documents this site as an example.',
+    fullPagePath: '/persona-research',
     personas: ['ux-professional', 'hiring-manager'],
     columnSpan: 2,
     rowSpan: 1,
@@ -89,6 +94,7 @@ export const WIDGETS: Record<WidgetId, WidgetDefinition> = {
     condensed: 'Headline stat (e.g. "3-layer tenet system, 6 rules -> CI").',
     expanded: 'Summary of the UX audit program.',
     fullPage: 'Full write-up.',
+    fullPagePath: '/design-systems',
     personas: ['ux-professional', 'hiring-manager'],
     columnSpan: 2,
     rowSpan: 1,
@@ -99,6 +105,7 @@ export const WIDGETS: Record<WidgetId, WidgetDefinition> = {
     condensed: 'Headline: "AI development agents, 39 capabilities".',
     expanded: 'Summary of the agent package + Figma Make pipeline.',
     fullPage: 'Full write-up.',
+    fullPagePath: '/ai-augmented-build',
     personas: ['technical-peer', 'hiring-manager'],
     columnSpan: 2,
     rowSpan: 1,
@@ -119,6 +126,7 @@ export const WIDGETS: Record<WidgetId, WidgetDefinition> = {
     condensed: 'Compact vertical timeline, role titles + years.',
     expanded: 'Timeline with one-line achievement per role.',
     fullPage: 'Full experience page.',
+    fullPagePath: '/career-timeline',
     personas: ['recruiter', 'hiring-manager'],
     columnSpan: 1,
     rowSpan: 2,
@@ -139,6 +147,7 @@ export const WIDGETS: Record<WidgetId, WidgetDefinition> = {
     condensed: 'Rotating thumbnail gallery (protected images).',
     expanded: 'Larger preview + medium description.',
     fullPage: 'Full gallery page.',
+    fullPagePath: '/art-portfolio',
     personas: ['other'],
     columnSpan: 1,
     rowSpan: 2,
@@ -149,6 +158,7 @@ export const WIDGETS: Record<WidgetId, WidgetDefinition> = {
     condensed: 'One quote, rotating.',
     expanded: '2-3 quotes.',
     fullPage: 'Full list.',
+    fullPagePath: '/recommendations',
     personas: ['hiring-manager', 'recruiter'],
     columnSpan: 1,
     rowSpan: 1,
@@ -176,4 +186,10 @@ export const PERSONA_DEFAULT_LAYOUT: Record<PersonaId, WidgetId[]> = {
 
 export function allWidgetIds(): WidgetId[] {
   return Object.keys(WIDGETS) as WidgetId[];
+}
+
+export function widgetsWithFullPages(): Array<WidgetDefinition & { fullPagePath: string }> {
+  return allWidgetIds()
+    .map((id) => WIDGETS[id])
+    .filter((def): def is WidgetDefinition & { fullPagePath: string } => Boolean(def.fullPagePath));
 }
