@@ -1,14 +1,14 @@
 import ContentLayout from '@cloudscape-design/components/content-layout';
 import Header from '@cloudscape-design/components/header';
-import SpaceBetween from '@cloudscape-design/components/space-between';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 import { Board, BoardItem } from '@cloudscape-design/board-components';
 import type { BoardProps } from '@cloudscape-design/board-components';
 
 import { WIDGETS, type WidgetId } from '../content/widgets';
-
-export type BoardItemData = BoardProps.Item<{ widgetId: WidgetId }>;
+import type { BoardItemData } from '../content/boardItem';
+import Widget from '../widgets/Widget';
 
 const boardItemI18nStrings = {
   dragHandleAriaLabel: 'Drag handle',
@@ -19,7 +19,7 @@ const boardItemI18nStrings = {
     'Use Space or Enter to activate resize, arrow keys to resize, Space or Enter to submit, or Escape to discard.',
 };
 
-const boardI18nStrings: BoardProps.I18nStrings<{ widgetId: WidgetId }> = {
+const boardI18nStrings: BoardProps.I18nStrings<BoardItemData['data']> = {
   liveAnnouncementDndStarted: (operationType) => (operationType === 'resize' ? 'Resizing' : 'Dragging'),
   liveAnnouncementDndItemReordered: () => 'Widget order changed',
   liveAnnouncementDndItemResized: () => 'Widget resized',
@@ -38,18 +38,28 @@ interface DashboardProps {
 }
 
 export default function Dashboard({ items, onItemsChange }: DashboardProps) {
+  function toggleMode(widgetId: WidgetId) {
+    onItemsChange(
+      items.map((item) =>
+        item.data.widgetId === widgetId
+          ? { ...item, data: { ...item.data, mode: item.data.mode === 'compact' ? 'expanded' : 'compact' } }
+          : item,
+      ),
+    );
+  }
+
   return (
     <ContentLayout
       header={
         <Header
           variant="h1"
-          description="Draft dashboard — every widget below is a content placeholder we refine together, one at a time (see WIDGET-TRACKER.md)."
+          description="Draft dashboard — every widget below is refined content we can keep tuning together (see WIDGET-TRACKER.md)."
         >
           David Trick — Portfolio (local preview)
         </Header>
       }
     >
-      <Board<{ widgetId: WidgetId }>
+      <Board<BoardItemData['data']>
         items={items}
         onItemsChange={(event) => onItemsChange([...event.detail.items])}
         i18nStrings={boardI18nStrings}
@@ -61,20 +71,23 @@ export default function Dashboard({ items, onItemsChange }: DashboardProps) {
               header={<Header>{def.title}</Header>}
               i18nStrings={boardItemI18nStrings}
               settings={
-                <Button
-                  iconName="close"
-                  variant="icon"
-                  ariaLabel={`Remove ${def.title}`}
-                  onClick={() => actions.removeItem()}
-                />
+                <SpaceBetween size="xxs" direction="horizontal">
+                  <Button
+                    iconName={item.data.mode === 'compact' ? 'zoom-in' : 'zoom-out'}
+                    variant="icon"
+                    ariaLabel={`${item.data.mode === 'compact' ? 'Expand' : 'Compact'} ${def.title}`}
+                    onClick={() => toggleMode(item.data.widgetId)}
+                  />
+                  <Button
+                    iconName="close"
+                    variant="icon"
+                    ariaLabel={`Remove ${def.title}`}
+                    onClick={() => actions.removeItem()}
+                  />
+                </SpaceBetween>
               }
             >
-              <SpaceBetween size="xs">
-                <Box variant="p">{def.condensed}</Box>
-                <Box variant="small" color="text-status-inactive">
-                  Expanded: {def.expanded}
-                </Box>
-              </SpaceBetween>
+              <Widget widgetId={item.data.widgetId} mode={item.data.mode} />
             </BoardItem>
           );
         }}

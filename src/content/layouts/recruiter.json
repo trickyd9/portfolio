@@ -1,0 +1,8 @@
+[
+  { "widgetId": "about-me", "col": 1, "row": 1 },
+  { "widgetId": "looking-for", "col": 3, "row": 1 },
+  { "widgetId": "career-timeline", "col": 4, "row": 1 },
+  { "widgetId": "skills-tools-matrix", "col": 3, "row": 2 },
+  { "widgetId": "resume-download", "col": 1, "row": 3 },
+  { "widgetId": "contact", "col": 2, "row": 3 }
+]

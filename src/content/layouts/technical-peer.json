@@ -1,0 +1,8 @@
+[
+  { "widgetId": "about-me", "col": 1, "row": 1 },
+  { "widgetId": "ai-augmented-build", "col": 3, "row": 1 },
+  { "widgetId": "skills-tools-matrix", "col": 1, "row": 3 },
+  { "widgetId": "career-timeline", "col": 2, "row": 3 },
+  { "widgetId": "featured-projects", "col": 3, "row": 3 },
+  { "widgetId": "contact", "col": 1, "row": 4 }
+]

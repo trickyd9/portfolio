@@ -1,22 +1,17 @@
 import ContentLayout from '@cloudscape-design/components/content-layout';
 import Header from '@cloudscape-design/components/header';
 import Container from '@cloudscape-design/components/container';
-import SpaceBetween from '@cloudscape-design/components/space-between';
-import Box from '@cloudscape-design/components/box';
 import type { WidgetDefinition } from '../content/widgets';
+import Widget from '../widgets/Widget';
 
-// Placeholder full-page view for a widget — content to be refined per WIDGET-TRACKER.md.
-// Breadcrumbs (in App.tsx, via AppLayout's breadcrumbs slot) handle navigating back.
+// Full-page view for a widget — reuses the same shared Widget component and content
+// as the dashboard card, in its expanded form. Case-study-style visual treatment
+// (beyond the shared block rendering) can come later — see WIDGET-TRACKER.md.
 export default function WidgetFullPage({ widget }: { widget: WidgetDefinition }) {
   return (
     <ContentLayout header={<Header variant="h1">{widget.title}</Header>}>
-      <Container header={<Header variant="h2">Placeholder content</Header>}>
-        <SpaceBetween size="s">
-          <Box variant="p">{widget.fullPage}</Box>
-          <Box variant="small" color="text-status-inactive">
-            This page isn't written yet — see WIDGET-TRACKER.md to refine {widget.title}.
-          </Box>
-        </SpaceBetween>
+      <Container>
+        <Widget widgetId={widget.id} mode="expanded" />
       </Container>
     </ContentLayout>
   );

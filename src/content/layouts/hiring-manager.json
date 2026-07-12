@@ -1,0 +1,8 @@
+[
+  { "widgetId": "about-me", "col": 1, "row": 1 },
+  { "widgetId": "featured-projects", "col": 3, "row": 1 },
+  { "widgetId": "career-timeline", "col": 1, "row": 3 },
+  { "widgetId": "recommendations", "col": 2, "row": 3 },
+  { "widgetId": "design-systems-standards", "col": 3, "row": 3 },
+  { "widgetId": "contact", "col": 2, "row": 4 }
+]

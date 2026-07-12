@@ -5,3 +5,77 @@ body {
 #root {
   min-height: 100svh;
 }
+
+/* Custom TopNavigation content (App.tsx) — identity slot is title-only text in
+   Cloudscape's structured API, so the name/role/divider/resume-dropdown cluster
+   is hand-built here instead. See WIDGET-TRACKER.md for why. */
+.top-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 4px 20px;
+  gap: 16px;
+}
+
+.top-nav-identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.top-nav-identity-link {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.top-nav-role {
+  font-style: italic;
+  opacity: 0.85;
+}
+
+.top-nav-divider {
+  opacity: 0.4;
+}
+
+.top-nav-search {
+  flex: 1 1 auto;
+  max-width: 480px;
+}
+
+.top-nav-utilities {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+/* Strips the bordered-button chrome from a ButtonDropdown trigger, leaving plain
+   text + chevron — Cloudscape's ButtonDropdown has no built-in "link" variant
+   (unlike Button's `inline-link`), so this targets the trigger's own aria
+   attribute rather than a version-fragile internal class name. */
+.inline-dropdown button[aria-haspopup] {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.inline-dropdown button[aria-haspopup]:hover {
+  background: transparent !important;
+  text-decoration: underline;
+}
+
+/* About page (AboutPage.tsx) header bar — theme-aware via the `awsui-dark-mode`
+   class Cloudscape's own applyMode() toggles on the document. */
+.about-header {
+  background: #fafafa;
+}
+
+.awsui-dark-mode .about-header {
+  background: #1a1d22;
+}
