@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Box from '@cloudscape-design/components/box';
 import Badge from '@cloudscape-design/components/badge';
 import Link from '@cloudscape-design/components/link';
 import Button from '@cloudscape-design/components/button';
+import Select from '@cloudscape-design/components/select';
+import type { SelectProps } from '@cloudscape-design/components/select';
 
 import type { WidgetId } from '../content/widgets';
 import { WIDGET_CONTENT } from '../content/widgetContent';
@@ -64,23 +67,13 @@ function BlockRenderer({ block }: { block: Block }) {
       return (
         <SpaceBetween size="xs">
           {block.items.map((item, index) => (
-            <div key={index}>
-              {item.href ? (
-                <Link href={item.href} fontSize="body-m">
-                  {item.primary}
-                </Link>
-              ) : (
-                <Box variant="p">{item.primary}</Box>
-              )}
-              {item.secondary && (
-                <Box variant="small" color="text-body-secondary">
-                  {item.secondary}
-                </Box>
-              )}
-            </div>
+            <ListItemRow key={index} item={item} />
           ))}
         </SpaceBetween>
       );
+
+    case 'filterableList':
+      return <FilterableList block={block} />;
 
     case 'timeline':
       return (
@@ -136,4 +129,53 @@ function BlockRenderer({ block }: { block: Block }) {
         </Button>
       );
   }
+}
+
+function ListItemRow({ item }: { item: { primary: string; secondary?: string; href?: string } }) {
+  return (
+    <div>
+      {item.href ? (
+        <Link href={item.href} fontSize="body-m">
+          {item.primary}
+        </Link>
+      ) : (
+        <Box variant="p">{item.primary}</Box>
+      )}
+      {item.secondary && (
+        <Box variant="small" color="text-body-secondary">
+          {item.secondary}
+        </Box>
+      )}
+    </div>
+  );
+}
+
+const ALL_CATEGORIES_OPTION: SelectProps.Option = { value: 'all', label: 'All categories' };
+
+// The one interactive block type in this otherwise-declarative schema — a real
+// category filter, not just a static list. Defaults to "All categories" showing
+// a short preview (`defaultCount`); picking a specific category always shows its
+// full list (categories here are small — a handful of items each — so no cap is
+// needed once filtered). See WIDGET-TRACKER.md for why this lives as a block
+// type here rather than a bespoke per-widget component.
+function FilterableList({ block }: { block: Extract<Block, { type: 'filterableList' }> }) {
+  const options: SelectProps.Options = [ALL_CATEGORIES_OPTION, ...block.categories.map((category) => ({ value: category, label: category }))];
+  const [selected, setSelected] = useState<SelectProps.Option>(ALL_CATEGORIES_OPTION);
+
+  const filtered =
+    selected.value === 'all' ? block.items.slice(0, block.defaultCount) : block.items.filter((item) => item.category === selected.value);
+
+  return (
+    <SpaceBetween size="xs">
+      <Select
+        selectedOption={selected}
+        onChange={({ detail }) => setSelected(detail.selectedOption)}
+        options={options}
+        ariaLabel="Filter by category"
+      />
+      {filtered.map((item, index) => (
+        <ListItemRow key={index} item={item} />
+      ))}
+    </SpaceBetween>
+  );
 }

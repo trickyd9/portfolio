@@ -22,8 +22,11 @@ function projectToListItem(project: (typeof PROJECTS)[number]) {
     primary: project.title,
     secondary: `${project.category} · ${project.period} — ${project.description}`,
     href: CATEGORY_PAGE[project.category],
+    category: project.category,
   };
 }
+
+const PROJECT_CATEGORIES = Array.from(new Set(PROJECTS.map((p) => p.category)));
 
 export const WIDGET_CONTENT: Record<WidgetId, { compact: Block[]; expanded: Block[] }> = {
   'about-me': {
@@ -71,8 +74,12 @@ export const WIDGET_CONTENT: Record<WidgetId, { compact: Block[]; expanded: Bloc
   },
 
   'featured-projects': {
-    compact: [{ type: 'list', items: PROJECTS.slice(0, 4).map(projectToListItem) }],
-    expanded: [{ type: 'list', items: PROJECTS.slice(0, 8).map(projectToListItem) }],
+    compact: [
+      { type: 'filterableList', categories: PROJECT_CATEGORIES, defaultCount: 4, items: PROJECTS.map(projectToListItem) },
+    ],
+    expanded: [
+      { type: 'filterableList', categories: PROJECT_CATEGORIES, defaultCount: 8, items: PROJECTS.map(projectToListItem) },
+    ],
   },
 
   'persona-research-showcase': {

@@ -53,13 +53,14 @@ const BESPOKE_FULL_PAGES: Partial<Record<WidgetId, ComponentType>> = {
   'ai-augmented-build': AiAugmentedBuildPage,
 };
 
-// Phase 1: a plain static nav — About Me (home), a Projects group, then the
-// visual portfolio. The interactive widget dashboard lives at an unlinked
-// /dashboard route for now (see App.tsx's routing + WIDGET-TRACKER.md) rather
-// than being derived generically from widgetsWithFullPages(), since the order
-// and grouping here don't match that list's natural shape.
+// Phase 0b: the static nav (About Me home, Projects group, visual portfolio)
+// plus the persona-driven widget dashboard re-linked at /dashboard — hand
+// specified rather than derived generically from widgetsWithFullPages(),
+// since the order/grouping here don't match that list's natural shape and
+// /dashboard isn't a widget's full page. See WIDGET-TRACKER.md.
 const navItems: SideNavigationProps.Item[] = [
   { type: 'link', text: 'About Me', href: WIDGETS['about-me'].fullPagePath! },
+  { type: 'link', text: 'Dashboard', href: '/dashboard' },
   {
     type: 'section',
     text: 'Projects',
@@ -73,8 +74,11 @@ const navItems: SideNavigationProps.Item[] = [
   { type: 'link', text: 'University Visual Portfolio', href: WIDGETS['art-visual-portfolio'].fullPagePath! },
 ];
 
-// Search covers every widget with a dedicated full page — titles only, per WIDGET-TRACKER.md.
-const searchOptions: AutosuggestProps.Options = widgetsWithFullPages().map((w) => ({ value: w.fullPagePath, label: w.title }));
+// Search covers every widget with a dedicated full page, plus the dashboard itself.
+const searchOptions: AutosuggestProps.Options = [
+  { value: '/dashboard', label: 'Dashboard' },
+  ...widgetsWithFullPages().map((w) => ({ value: w.fullPagePath, label: w.title })),
+];
 
 function AppShell() {
   const location = useLocation();
@@ -106,10 +110,11 @@ function AppShell() {
   }
 
   const currentFullPage = widgetsWithFullPages().find((w) => w.fullPagePath === location.pathname);
+  const currentPageTitle = location.pathname === '/dashboard' ? 'Dashboard' : currentFullPage?.title ?? location.pathname;
   const breadcrumbItems: Array<{ text: string; href: string }> =
     location.pathname === '/'
       ? [{ text: 'About Me', href: '/' }]
-      : [{ text: 'About Me', href: '/' }, { text: currentFullPage?.title ?? location.pathname, href: location.pathname }];
+      : [{ text: 'About Me', href: '/' }, { text: currentPageTitle, href: location.pathname }];
 
   const preferencesItems: ButtonDropdownProps.Items = [
     {
@@ -224,9 +229,9 @@ function AppShell() {
                 items={preferencesItems}
                 onItemClick={onPreferencesItemClick}
               />
-              {/* Phase 1 is a static site — the persona-driven dashboard is deferred to
-                  the middle phase (see WIDGET-TRACKER.md), so this only shows on the
-                  still-reachable-but-unlinked /dashboard route, not site-wide. */}
+              {/* Persona switching only affects the dashboard's board layout, so this
+                  stays scoped to the /dashboard route rather than showing site-wide
+                  (see WIDGET-TRACKER.md). */}
               {location.pathname === '/dashboard' && (
                 <span className="inline-dropdown">
                   <ButtonDropdown

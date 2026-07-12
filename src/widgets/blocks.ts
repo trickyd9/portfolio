@@ -8,6 +8,14 @@ export type Block =
   | { type: 'stat'; value: string; label: string }
   | { type: 'tags'; items: string[] }
   | { type: 'list'; items: Array<{ primary: string; secondary?: string; href?: string }> }
+  | {
+      type: 'filterableList';
+      categories: string[];
+      /** How many items to show when the filter is "All categories" — a specific
+       * category always shows its full (small) list, no cap needed. */
+      defaultCount: number;
+      items: Array<{ primary: string; secondary?: string; href?: string; category: string }>;
+    }
   | { type: 'timeline'; items: Array<{ title: string; period: string; detail?: string }> }
   | { type: 'quote'; text: string; attribution: string }
   | { type: 'linkList'; items: Array<{ label: string; href: string; description?: string }> }
