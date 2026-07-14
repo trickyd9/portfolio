@@ -24,9 +24,17 @@ function QualificationList({ heading, items, detailLevel }: { heading: string; i
       <Box variant="strong" display="block">
         {heading}
       </Box>
-      <ul style={{ margin: '2px 0 0', paddingLeft: '18px' }}>
+      <ul style={{ margin: '2px 0 0', padding: 0, listStyle: 'none' }}>
         {shown.map((item) => (
-          <li key={item}>
+          // Native `<li>` markers align to the first line box in theory, but
+          // wrapped two-line bullets rendered the marker next to the second
+          // line in practice (Box variant="small" is inline — see the
+          // Box-inline gotcha in WIDGET-TRACKER.md). A manual bullet in an
+          // `align-items: flex-start` flex row pins it to line one regardless.
+          <li key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: '6px' }}>
+            <span aria-hidden="true" style={{ lineHeight: 1.4 }}>
+              •
+            </span>
             <Box variant="small">{item}</Box>
           </li>
         ))}
