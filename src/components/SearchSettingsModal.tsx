@@ -56,13 +56,9 @@ export default function SearchSettingsModal({ visible, onDismiss, initialValues,
       >
         <SpaceBetween size="l">
           <Box variant="p" color="text-body-secondary">
-            Fine-tune how the Job Market Explorer searches and displays results. Changes here apply when you select
-            Save — unlike the keyword, level, and location filters, which update as you type or select.
+            Applies when you select Save.
           </Box>
-          <FormField
-            label="Add roles"
-            description="Broaden the search beyond your primary role (set in the header dropdown, top right) to also include these."
-          >
+          <FormField label="Add roles" description="Include more roles alongside your primary one.">
             <Multiselect
               selectedOptions={additionalRoles}
               onChange={({ detail }) => setAdditionalRoles([...detail.selectedOptions])}
@@ -72,23 +68,17 @@ export default function SearchSettingsModal({ visible, onDismiss, initialValues,
               enableSelectAll
             />
           </FormField>
-          <FormField
-            label="Sort by"
-            description="Choose how listings within each company card are ordered — by curated relevance, how recently posted, or by compensation (undisclosed ranges sort last)."
-          >
+          <FormField label="Sort by" description="Order by relevance, recency, or pay.">
             <Select selectedOption={sortBy} onChange={({ detail }) => setSortBy(detail.selectedOption)} options={SORT_OPTIONS} />
           </FormField>
-          <FormField label="Jobs shown per company" description="Caps how many listings each company card shows before you'd need to scroll.">
+          <FormField label="Jobs shown per company" description="How many listings each card shows.">
             <Select
               selectedOption={jobsPerWidget}
               onChange={({ detail }) => setJobsPerWidget(detail.selectedOption)}
               options={JOBS_PER_WIDGET_OPTIONS}
             />
           </FormField>
-          <FormField
-            label="Detail level"
-            description="Compact shows only the first result's qualifications by default (others expand on click); Detailed expands every listing's qualifications automatically."
-          >
+          <FormField label="Detail level" description="Compact shows the top qualification; Detailed shows all of them.">
             <Select
               selectedOption={detailLevel}
               onChange={({ detail }) => setDetailLevel(detail.selectedOption)}
