@@ -15,7 +15,7 @@ import { COMPANIES, type CompanyId } from '../content/jobMarket/companies';
 import type { JobSeekerPersonaId } from '../content/jobMarket/personas';
 import { EXPERIENCE_LEVELS, type ExperienceLevel } from '../content/jobMarket/experienceLevels';
 import { LOCATION_OPTIONS, DEFAULT_LOCATION_ID, type LocationOptionId } from '../content/jobMarket/locations';
-import { getStaticJobListings, getAnthropicFallbackListings, type JobListing } from '../content/jobMarket/jobListings';
+import { getStaticJobListings, type JobListing } from '../content/jobMarket/jobListings';
 import { fetchLiveListings, type LiveFetchResult } from '../content/jobMarket/liveListings';
 import type { JobBoardItemData } from '../content/jobMarket/boardItem';
 import JobListingCard, { type DetailLevel } from '../components/JobListingCard';
@@ -104,12 +104,14 @@ export default function JobMarketPage({ items, onItemsChange, primaryPersonaId }
   // last-saved values instead of carrying over a discarded edit.
   const [settingsModalKey, setSettingsModalKey] = useState(0);
 
-  // Anthropic is fetched live (see liveListings.ts) — the other 5 companies
-  // are the static curated snapshot. No auto-refresh on filter changes (that
-  // would mean refetching Greenhouse on every keystroke); a manual Refresh
-  // button re-runs the fetch instead. Starts from the fallback snapshot so
-  // the board has content immediately, then swaps in real data once the
-  // first fetch resolves.
+  // Anthropic is fetched truly live; UW is a daily-refreshed snapshot fetched
+  // at runtime; Microsoft/Google/Boeing/Amazon are the static curated
+  // snapshot (see liveListings.ts / JobMarketBackend.md). No auto-refresh on
+  // filter changes (that would mean refetching on every keystroke); a manual
+  // Refresh button re-runs both fetches instead. Starts empty so the board
+  // shows the static companies immediately, then adds Anthropic/UW once the
+  // first fetch resolves (each independently falls back to its own curated
+  // snapshot on failure — see liveListings.ts).
   const [liveResult, setLiveResult] = useState<LiveFetchResult | null>(null);
   const [liveLoading, setLiveLoading] = useState(true);
 
@@ -135,7 +137,7 @@ export default function JobMarketPage({ items, onItemsChange, primaryPersonaId }
     ...settings.additionalRoles.map((o) => o.value as JobSeekerPersonaId),
   ]);
 
-  const allListings = [...getStaticJobListings(), ...(liveResult?.listings ?? getAnthropicFallbackListings())];
+  const allListings = [...getStaticJobListings(), ...(liveResult?.listings ?? [])];
 
   function matchesFilters(listing: JobListing) {
     if (!activePersonaIds.has(listing.persona)) return false;
@@ -160,7 +162,7 @@ export default function JobMarketPage({ items, onItemsChange, primaryPersonaId }
       header={
         <Header
           variant="h1"
-          description="A persona-driven dashboard for exploring current tech job openings — built as a live demo of the same persona/filter dashboard UX used throughout this site. Anthropic's listings are fetched live; the other 5 companies are a curated snapshot (checked dates shown per card) — see JobMarketBackend.md for the plan to make more of this live. Use the Role dropdown (top right) to set your primary role."
+          description="A persona-driven dashboard for exploring current tech job openings — built as a live demo of the same persona/filter dashboard UX used throughout this site. Anthropic is fetched live; UW is refreshed daily by an automated job; Microsoft/Google/Boeing/Amazon are a curated snapshot (checked dates shown per card) — see JobMarketBackend.md. Use the Role dropdown (top right) to set your primary role."
         >
           Job Market Explorer
         </Header>
@@ -209,11 +211,23 @@ export default function JobMarketPage({ items, onItemsChange, primaryPersonaId }
         </SpaceBetween>
 
         <Box variant="small" color="text-body-secondary">
-          {liveLoading
-            ? 'Fetching Anthropic’s current openings…'
-            : liveResult?.status === 'live'
-              ? `Anthropic refreshed live at ${new Date(liveResult.fetchedAt).toLocaleTimeString()}.`
-              : 'Anthropic’s live fetch failed — showing the last-known snapshot instead.'}
+          {liveLoading ? (
+            'Checking Anthropic (live) and UW (daily snapshot)…'
+          ) : (
+            <SpaceBetween size="xxs" direction="horizontal">
+              {liveResult?.sources.map((source) => (
+                <span key={source.companyId}>
+                  {source.companyId === 'anthropic' ? 'Anthropic' : 'UW'}:{' '}
+                  {source.status === 'live'
+                    ? `live, refreshed ${new Date(source.refreshedAt).toLocaleTimeString()}`
+                    : source.status === 'scheduled'
+                      ? `daily snapshot, last refreshed ${new Date(source.refreshedAt).toLocaleString()}`
+                      : 'fetch failed — showing last-known snapshot'}
+                  {'  '}
+                </span>
+              ))}
+            </SpaceBetween>
+          )}
         </Box>
 
         <Board<JobBoardItemData['data']>

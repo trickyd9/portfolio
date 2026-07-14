@@ -1,0 +1,42 @@
+name: Refresh UW job listings
+
+# UW's Workday API has no CORS headers, so the deployed site can't call it
+# directly (see JobMarketBackend.md §3) — this runs the fetch server-side on
+# a schedule instead, and commits the result as data/uw-jobs.json for the
+# site to read at runtime via raw.githubusercontent.com. `workflow_dispatch`
+# means it can also be triggered manually from the Actions tab or the GitHub
+# API — see JobMarketBackend.md's note on why the site's own Refresh button
+# doesn't call this directly (would need a secret-holding relay to trigger it
+# safely; the button re-fetches the latest commit instead).
+on:
+  schedule:
+    - cron: '0 13 * * *' # ~6am Pacific (7am during PDT) daily
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch current UW listings
+        run: node scripts/refresh-uw-jobs.mjs
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- data/uw-jobs.json; then
+            echo "No changes to UW listings."
+          else
+            git add data/uw-jobs.json
+            git commit -m "Refresh UW job listings [automated]"
+            git push
+          fi

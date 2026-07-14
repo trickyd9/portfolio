@@ -311,95 +311,10 @@ const JOB_LISTINGS: JobListing[] = [
     href: 'https://jobs.boeing.com/job/north-charleston/senior-structural-analysis-engineer-systems-stress/185/96488388912',
   },
 
-  // University of Washington
-  {
-    id: 'uw-swe',
-    companyId: 'uw',
-    title: 'Software Engineer (Applied Physics Laboratory)',
-    location: 'Seattle, WA',
-    regions: ['seattle'],
-    persona: 'sde',
-    experienceLevel: 'mid',
-    qualifications: {
-      required: [
-        'Bachelor’s degree in Computer Science, Electrical Engineering, or related field',
-        'Experience with C/C++ or a similar systems-level programming language',
-      ],
-      preferred: [
-        'Experience developing real-time systems for research or defense applications',
-        "Familiarity with UW Applied Physics Laboratory's Navy-affiliated research programs",
-        'Comfortable working in a research-lab setting alongside scientists and engineers',
-      ],
-    },
-    checkedOn: '2026-07-13',
-    href: 'https://wd5.myworkdaysite.com/en-US/recruiting/uw/UWHires/job/Seattle-Campus/Software-Engineer_REQ-0000123633',
-  },
-  {
-    id: 'uw-product-designer',
-    companyId: 'uw',
-    title: 'Product Designer (Temporary)',
-    location: 'Seattle, WA',
-    regions: ['seattle'],
-    persona: 'ux-designer',
-    experienceLevel: 'mid',
-    qualifications: {
-      required: [
-        'Portfolio showing end-to-end product design process, from formative research through high-fidelity design',
-        'Experience conducting or contributing to usability testing and post-release evaluation',
-      ],
-      preferred: [
-        'Experience designing for a university, research, or public-sector audience',
-        'Comfortable working within a temporary/term appointment scope',
-        'Familiarity with accessibility standards for public institutions',
-      ],
-    },
-    checkedOn: '2026-07-13',
-    href: 'https://wd5.myworkdaysite.com/en-US/recruiting/uw/UWHires/job/Product-Designer--Temporary-_REQ-0000126902',
-  },
-  {
-    id: 'uw-sys-engineer',
-    companyId: 'uw',
-    title: 'Senior Systems Engineer',
-    location: 'Seattle, WA',
-    regions: ['seattle'],
-    persona: 'sde',
-    experienceLevel: 'senior',
-    qualifications: {
-      required: [
-        'Bachelor’s degree in Computer Science, Information Systems, or related field',
-        '5+ years of systems architecture or reliability engineering experience',
-      ],
-      preferred: [
-        'Experience supporting large, multi-campus IT infrastructure',
-        'Familiarity with healthcare or higher-ed compliance requirements',
-        'On-call/incident-response experience for critical infrastructure',
-      ],
-    },
-    checkedOn: '2026-07-13',
-    href: 'https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Senior-Systems-Engineer_REQ-0000129139',
-  },
-  {
-    id: 'uw-lxd',
-    companyId: 'uw',
-    title: 'Learning Experience Designer & Facilitator (Temporary)',
-    location: 'Seattle, WA',
-    regions: ['seattle'],
-    persona: 'ux-designer',
-    experienceLevel: 'mid',
-    qualifications: {
-      required: [
-        'Background in instructional design, UX design, or a related field',
-        'Experience designing and facilitating learning experiences for adult learners',
-      ],
-      preferred: [
-        'Experience designing for university staff/faculty professional development',
-        'Comfortable working within a temporary appointment scope',
-        'Familiarity with common LMS/e-learning tooling',
-      ],
-    },
-    checkedOn: '2026-07-13',
-    href: 'https://uw.wd5.myworkdayjobs.com/en-US/UWHires/job/Learning-Experience-Designer---Facilitator--Temporary-_REQ-0000134006',
-  },
+  // University of Washington is no longer part of the static snapshot —
+  // it's refreshed daily by .github/workflows/refresh-uw-jobs.yml and fetched
+  // at runtime (see uwSource.ts). UW_FALLBACK_LISTINGS below is what's shown
+  // only if that fetch fails.
 
   // Anthropic is no longer part of the static snapshot — it's fetched live
   // from Greenhouse's public API (see greenhouseSource.ts/liveListings.ts).
@@ -563,4 +478,102 @@ const ANTHROPIC_FALLBACK_LISTINGS: JobListing[] = [
 
 export function getAnthropicFallbackListings(): JobListing[] {
   return ANTHROPIC_FALLBACK_LISTINGS;
+}
+
+// Shown only if the daily UW refresh's committed data.json fails to fetch —
+// see uwSource.ts. The same 4 listings this file used to carry as static
+// data before the scheduled GitHub Action existed.
+const UW_FALLBACK_LISTINGS: JobListing[] = [
+  {
+    id: 'uw-swe',
+    companyId: 'uw',
+    title: 'Software Engineer (Applied Physics Laboratory)',
+    location: 'Seattle, WA',
+    regions: ['seattle'],
+    persona: 'sde',
+    experienceLevel: 'mid',
+    qualifications: {
+      required: [
+        'Bachelor’s degree in Computer Science, Electrical Engineering, or related field',
+        'Experience with C/C++ or a similar systems-level programming language',
+      ],
+      preferred: [
+        'Experience developing real-time systems for research or defense applications',
+        "Familiarity with UW Applied Physics Laboratory's Navy-affiliated research programs",
+        'Comfortable working in a research-lab setting alongside scientists and engineers',
+      ],
+    },
+    checkedOn: '2026-07-13',
+    href: 'https://wd5.myworkdaysite.com/en-US/recruiting/uw/UWHires/job/Seattle-Campus/Software-Engineer_REQ-0000123633',
+  },
+  {
+    id: 'uw-product-designer',
+    companyId: 'uw',
+    title: 'Product Designer (Temporary)',
+    location: 'Seattle, WA',
+    regions: ['seattle'],
+    persona: 'ux-designer',
+    experienceLevel: 'mid',
+    qualifications: {
+      required: [
+        'Portfolio showing end-to-end product design process, from formative research through high-fidelity design',
+        'Experience conducting or contributing to usability testing and post-release evaluation',
+      ],
+      preferred: [
+        'Experience designing for a university, research, or public-sector audience',
+        'Comfortable working within a temporary/term appointment scope',
+        'Familiarity with accessibility standards for public institutions',
+      ],
+    },
+    checkedOn: '2026-07-13',
+    href: 'https://wd5.myworkdaysite.com/en-US/recruiting/uw/UWHires/job/Product-Designer--Temporary-_REQ-0000126902',
+  },
+  {
+    id: 'uw-sys-engineer',
+    companyId: 'uw',
+    title: 'Senior Systems Engineer',
+    location: 'Seattle, WA',
+    regions: ['seattle'],
+    persona: 'sde',
+    experienceLevel: 'senior',
+    qualifications: {
+      required: [
+        'Bachelor’s degree in Computer Science, Information Systems, or related field',
+        '5+ years of systems architecture or reliability engineering experience',
+      ],
+      preferred: [
+        'Experience supporting large, multi-campus IT infrastructure',
+        'Familiarity with healthcare or higher-ed compliance requirements',
+        'On-call/incident-response experience for critical infrastructure',
+      ],
+    },
+    checkedOn: '2026-07-13',
+    href: 'https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Senior-Systems-Engineer_REQ-0000129139',
+  },
+  {
+    id: 'uw-lxd',
+    companyId: 'uw',
+    title: 'Learning Experience Designer & Facilitator (Temporary)',
+    location: 'Seattle, WA',
+    regions: ['seattle'],
+    persona: 'ux-designer',
+    experienceLevel: 'mid',
+    qualifications: {
+      required: [
+        'Background in instructional design, UX design, or a related field',
+        'Experience designing and facilitating learning experiences for adult learners',
+      ],
+      preferred: [
+        'Experience designing for university staff/faculty professional development',
+        'Comfortable working within a temporary appointment scope',
+        'Familiarity with common LMS/e-learning tooling',
+      ],
+    },
+    checkedOn: '2026-07-13',
+    href: 'https://uw.wd5.myworkdayjobs.com/en-US/UWHires/job/Learning-Experience-Designer---Facilitator--Temporary-_REQ-0000134006',
+  },
+];
+
+export function getUwFallbackListings(): JobListing[] {
+  return UW_FALLBACK_LISTINGS;
 }
