@@ -33,16 +33,20 @@ export interface JobListing {
   href: string;
 }
 
-// Curated snapshot, checked 2026-07-13 by searching each company's live careers
-// site and verifying every link actually resolves (several initial finds had
+// Curated snapshot for the 5 companies with no public/CORS-enabled API
+// (Microsoft, Google, Boeing, UW, Amazon — see JobMarketBackend.md's Phase 1
+// for why), checked 2026-07-13 by searching each company's live careers site
+// and verifying every link actually resolves (several initial finds had
 // already gone stale within the same research session — real-world evidence for
-// why this is a snapshot, not live data; see WIDGET-TRACKER.md). Qualifications
-// are grouped Required/Preferred to match how these companies actually structure
-// postings (Amazon's "BASIC/PREFERRED QUALIFICATIONS" and Anthropic's "You may be
-// a good fit if / Strong candidates may also have" sections were extracted
-// close to verbatim; Microsoft/Google/Boeing/UW pages are JS-rendered and
-// resisted extraction, so those are reasonable syntheses grounded in the real
-// fragments search results did surface, not verbatim quotes — see WIDGET-TRACKER.md).
+// why this is a snapshot, not live data; see WIDGET-TRACKER.md). Anthropic is
+// fetched live instead (see greenhouseSource.ts) — its 3 entries used to live
+// here and now serve only as ANTHROPIC_FALLBACK_LISTINGS below, for when that
+// live fetch fails. Qualifications are grouped Required/Preferred to match how
+// these companies actually structure postings (Amazon's "BASIC/PREFERRED
+// QUALIFICATIONS" sections were extracted close to verbatim; Microsoft/Google/
+// Boeing/UW pages are JS-rendered and resisted extraction, so those are
+// reasonable syntheses grounded in the real fragments search results did
+// surface, not verbatim quotes — see WIDGET-TRACKER.md).
 // This is Phase 1 of the Job Market Explorer — `getJobListings()` below is the
 // single seam a future live-fetch backend would replace.
 const JOB_LISTINGS: JobListing[] = [
@@ -397,74 +401,10 @@ const JOB_LISTINGS: JobListing[] = [
     href: 'https://uw.wd5.myworkdayjobs.com/en-US/UWHires/job/Learning-Experience-Designer---Facilitator--Temporary-_REQ-0000134006',
   },
 
-  // Anthropic — no Mechanical Engineer roles, so that persona is intentionally absent.
-  {
-    id: 'anthropic-swe-claudeai',
-    companyId: 'anthropic',
-    title: 'Staff Software Engineer, Claude.ai',
-    location: 'San Francisco / NYC / Seattle',
-    regions: ['sf-bay', 'nyc', 'seattle'],
-    persona: 'sde',
-    experienceLevel: 'staff',
-    qualifications: {
-      required: [
-        '5+ years of experience building consumer-facing web products, with a strong emphasis on UI quality',
-        'Proficient in React, Next.js, and TypeScript, with experience in Node.js',
-      ],
-      preferred: [
-        'Experience optimizing performance for consumer web applications at scale',
-        'Background working with real-time or streaming interactions (e.g. chat interfaces)',
-        'Track record thriving in fast-moving environments where priorities shift frequently',
-      ],
-    },
-    compensationRange: '$320,000 – $405,000/yr + equity',
-    checkedOn: '2026-07-13',
-    href: 'https://job-boards.greenhouse.io/anthropic/jobs/5026097008',
-  },
-  {
-    id: 'anthropic-pd-claudecode',
-    companyId: 'anthropic',
-    title: 'Product Designer, Claude Code',
-    location: 'San Francisco, CA',
-    regions: ['sf-bay'],
-    persona: 'ux-designer',
-    experienceLevel: 'senior',
-    qualifications: {
-      required: [
-        '8+ years of product design experience, with a strong portfolio of shipped work',
-        'Demonstrated user-centered design and polished interface craftsmanship',
-      ],
-      preferred: [
-        'Front-end prototyping skills (HTML/CSS/JS) to communicate design ideas as working code',
-        'Technical familiarity with how large language models behave, to design around their limits',
-        'Comfortable defining conventions in a product space with no established design patterns',
-      ],
-    },
-    checkedOn: '2026-07-13',
-    href: 'https://job-boards.greenhouse.io/anthropic/jobs/5104689008',
-  },
-  {
-    id: 'anthropic-pd-enterprise',
-    companyId: 'anthropic',
-    title: 'Product Designer, Enterprise',
-    location: 'San Francisco, CA',
-    regions: ['sf-bay'],
-    persona: 'ux-designer',
-    experienceLevel: 'senior',
-    qualifications: {
-      required: [
-        '8+ years of product design experience, with a strong portfolio of shipped work',
-        'Proven ability to execute end-to-end on complex products in ambiguous settings',
-      ],
-      preferred: [
-        'Front-end prototyping skills (HTML/CSS/JS)',
-        'Technical understanding of large language models',
-        'Experience designing for enterprise/B2B customers and workflows',
-      ],
-    },
-    checkedOn: '2026-07-13',
-    href: 'https://job-boards.greenhouse.io/anthropic/jobs/5055600008',
-  },
+  // Anthropic is no longer part of the static snapshot — it's fetched live
+  // from Greenhouse's public API (see greenhouseSource.ts/liveListings.ts).
+  // ANTHROPIC_FALLBACK_LISTINGS below is what's shown only if that live
+  // fetch fails.
 
   // Amazon — available in the widget catalog but not seeded on the board by
   // default (see companies.ts's `onBoardByDefault`); add it from the drawer.
@@ -539,8 +479,88 @@ const JOB_LISTINGS: JobListing[] = [
   },
 ];
 
-/** The one seam a future live-fetch backend would replace — every call site
- * already treats this as "the source of truth," not the array directly. */
-export function getJobListings(): JobListing[] {
+/** The 5 companies with no public/CORS-enabled API — always static, refreshed
+ * only by periodically re-running the curation process by hand (see
+ * JobMarketBackend.md, Tier 2 §3 option 3), not by any live seam. */
+export function getStaticJobListings(): JobListing[] {
   return JOB_LISTINGS;
+}
+
+// Shown only if the live Greenhouse fetch fails (network error, unexpected
+// response shape, etc.) — the same 3 Anthropic listings this file used to
+// carry as static data before the live source existed. Deliberately not
+// deleted: a broken live fetch should degrade to "last known good," not to
+// an empty Anthropic card.
+const ANTHROPIC_FALLBACK_LISTINGS: JobListing[] = [
+  {
+    id: 'anthropic-swe-claudeai',
+    companyId: 'anthropic',
+    title: 'Staff Software Engineer, Claude.ai',
+    location: 'San Francisco / NYC / Seattle',
+    regions: ['sf-bay', 'nyc', 'seattle'],
+    persona: 'sde',
+    experienceLevel: 'staff',
+    qualifications: {
+      required: [
+        '5+ years of experience building consumer-facing web products, with a strong emphasis on UI quality',
+        'Proficient in React, Next.js, and TypeScript, with experience in Node.js',
+      ],
+      preferred: [
+        'Experience optimizing performance for consumer web applications at scale',
+        'Background working with real-time or streaming interactions (e.g. chat interfaces)',
+        'Track record thriving in fast-moving environments where priorities shift frequently',
+      ],
+    },
+    compensationRange: '$320,000 – $405,000/yr + equity',
+    checkedOn: '2026-07-13',
+    href: 'https://job-boards.greenhouse.io/anthropic/jobs/5026097008',
+  },
+  {
+    id: 'anthropic-pd-claudecode',
+    companyId: 'anthropic',
+    title: 'Product Designer, Claude Code',
+    location: 'San Francisco, CA',
+    regions: ['sf-bay'],
+    persona: 'ux-designer',
+    experienceLevel: 'senior',
+    qualifications: {
+      required: [
+        '8+ years of product design experience, with a strong portfolio of shipped work',
+        'Demonstrated user-centered design and polished interface craftsmanship',
+      ],
+      preferred: [
+        'Front-end prototyping skills (HTML/CSS/JS) to communicate design ideas as working code',
+        'Technical familiarity with how large language models behave, to design around their limits',
+        'Comfortable defining conventions in a product space with no established design patterns',
+      ],
+    },
+    checkedOn: '2026-07-13',
+    href: 'https://job-boards.greenhouse.io/anthropic/jobs/5104689008',
+  },
+  {
+    id: 'anthropic-pd-enterprise',
+    companyId: 'anthropic',
+    title: 'Product Designer, Enterprise',
+    location: 'San Francisco, CA',
+    regions: ['sf-bay'],
+    persona: 'ux-designer',
+    experienceLevel: 'senior',
+    qualifications: {
+      required: [
+        '8+ years of product design experience, with a strong portfolio of shipped work',
+        'Proven ability to execute end-to-end on complex products in ambiguous settings',
+      ],
+      preferred: [
+        'Front-end prototyping skills (HTML/CSS/JS)',
+        'Technical understanding of large language models',
+        'Experience designing for enterprise/B2B customers and workflows',
+      ],
+    },
+    checkedOn: '2026-07-13',
+    href: 'https://job-boards.greenhouse.io/anthropic/jobs/5055600008',
+  },
+];
+
+export function getAnthropicFallbackListings(): JobListing[] {
+  return ANTHROPIC_FALLBACK_LISTINGS;
 }
