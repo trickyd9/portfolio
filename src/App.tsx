@@ -19,11 +19,10 @@ import Button from '@cloudscape-design/components/button';
 import ButtonDropdown from '@cloudscape-design/components/button-dropdown';
 import type { ButtonDropdownProps } from '@cloudscape-design/components/button-dropdown';
 
-import { PERSONAS, type PersonaId } from './content/personas';
-import { WIDGETS, allWidgetIds, widgetsWithFullPages, type WidgetId } from './content/widgets';
-import { defaultLayoutFor, boardItemFor } from './content/layouts';
-import type { BoardItemData } from './content/boardItem';
-import Dashboard from './pages/Dashboard';
+import { WIDGETS, widgetsWithFullPages, type WidgetId } from './content/widgets';
+import { COMPANIES, type CompanyId } from './content/jobMarket/companies';
+import { defaultJobBoardItems, companyBoardItemFor, type JobBoardItemData } from './content/jobMarket/boardItem';
+import JobMarketPage from './pages/JobMarketPage';
 import WidgetFullPage from './pages/WidgetFullPage';
 import AboutPage from './pages/AboutPage';
 import FeaturedProjectsPage from './pages/FeaturedProjectsPage';
@@ -34,7 +33,7 @@ import { applyStoredSettings, useDisplaySettings } from './hooks/useDisplaySetti
 
 applyStoredSettings();
 
-const ADD_WIDGETS_DRAWER_ID = 'add-widgets';
+const ADD_COMPANY_DRAWER_ID = 'add-company';
 const ABOUT_PATH = WIDGETS['about-me'].fullPagePath!;
 const ROLE_TITLE = 'Design Technologist';
 
@@ -54,13 +53,13 @@ const BESPOKE_FULL_PAGES: Partial<Record<WidgetId, ComponentType>> = {
 };
 
 // Phase 0b: the static nav (About Me home, Projects group, visual portfolio)
-// plus the persona-driven widget dashboard re-linked at /dashboard — hand
-// specified rather than derived generically from widgetsWithFullPages(),
-// since the order/grouping here don't match that list's natural shape and
-// /dashboard isn't a widget's full page. See WIDGET-TRACKER.md.
+// plus the Job Market Explorer at /job-market — hand specified rather than
+// derived generically from widgetsWithFullPages(), since the order/grouping
+// here don't match that list's natural shape and /job-market isn't a widget's
+// full page. See WIDGET-TRACKER.md.
 const navItems: SideNavigationProps.Item[] = [
   { type: 'link', text: 'About Me', href: WIDGETS['about-me'].fullPagePath! },
-  { type: 'link', text: 'Dashboard', href: '/dashboard' },
+  { type: 'link', text: 'Job Market Explorer', href: '/job-market' },
   {
     type: 'section',
     text: 'Projects',
@@ -74,9 +73,9 @@ const navItems: SideNavigationProps.Item[] = [
   { type: 'link', text: 'University Visual Portfolio', href: WIDGETS['art-visual-portfolio'].fullPagePath! },
 ];
 
-// Search covers every widget with a dedicated full page, plus the dashboard itself.
+// Search covers every widget with a dedicated full page, plus the Job Market Explorer.
 const searchOptions: AutosuggestProps.Options = [
-  { value: '/dashboard', label: 'Dashboard' },
+  { value: '/job-market', label: 'Job Market Explorer' },
   ...widgetsWithFullPages().map((w) => ({ value: w.fullPagePath, label: w.title })),
 ];
 
@@ -84,24 +83,16 @@ function AppShell() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [personaId, setPersonaId] = useState<PersonaId>('recruiter');
-  const [items, setItems] = useState<BoardItemData[]>(() => defaultLayoutFor('recruiter'));
+  const [jobBoardItems, setJobBoardItems] = useState<JobBoardItemData[]>(() => defaultJobBoardItems());
   const [activeDrawerId, setActiveDrawerId] = useState<string | null>(null);
   const [searchValue, setSearchValue] = useState('');
   const { density, mode, setDensity, setMode } = useDisplaySettings();
 
-  const persona = PERSONAS.find((p) => p.id === personaId)!;
+  const companiesOnBoard = useMemo(() => new Set(jobBoardItems.map((item) => item.data.companyId)), [jobBoardItems]);
+  const availableCompaniesToAdd = COMPANIES.filter((c) => !companiesOnBoard.has(c.id));
 
-  const onBoard = useMemo(() => new Set(items.map((item) => item.data.widgetId)), [items]);
-  const availableToAdd = allWidgetIds().filter((id) => !onBoard.has(id));
-
-  function switchPersona(next: PersonaId) {
-    setPersonaId(next);
-    setItems(defaultLayoutFor(next));
-  }
-
-  function addWidget(id: WidgetId) {
-    setItems((prev) => [...prev, boardItemFor(id)]);
+  function addCompany(id: CompanyId) {
+    setJobBoardItems((prev) => [...prev, companyBoardItemFor(id)]);
   }
 
   function goTo(href: string) {
@@ -110,7 +101,8 @@ function AppShell() {
   }
 
   const currentFullPage = widgetsWithFullPages().find((w) => w.fullPagePath === location.pathname);
-  const currentPageTitle = location.pathname === '/dashboard' ? 'Dashboard' : currentFullPage?.title ?? location.pathname;
+  const currentPageTitle =
+    location.pathname === '/job-market' ? 'Job Market Explorer' : currentFullPage?.title ?? location.pathname;
   const breadcrumbItems: Array<{ text: string; href: string }> =
     location.pathname === '/'
       ? [{ text: 'About Me', href: '/' }]
@@ -141,28 +133,28 @@ function AppShell() {
   }
 
   const drawers: AppLayoutProps.Drawer[] =
-    location.pathname === '/dashboard'
+    location.pathname === '/job-market'
       ? [
           {
-            id: ADD_WIDGETS_DRAWER_ID,
+            id: ADD_COMPANY_DRAWER_ID,
             trigger: { iconName: 'add-plus' },
             ariaLabels: {
-              drawerName: 'Add widgets',
-              triggerButton: 'Add widgets',
-              closeButton: 'Close add widgets drawer',
+              drawerName: 'Add company',
+              triggerButton: 'Add company',
+              closeButton: 'Close add company drawer',
             },
             content: (
-              <Drawer header={<Header variant="h2">More widgets</Header>}>
+              <Drawer header={<Header variant="h2">More companies</Header>}>
                 <SpaceBetween size="s">
                   <Box variant="p" color="text-status-inactive">
-                    Not currently on your dashboard.
+                    Not currently on the board.
                   </Box>
-                  {availableToAdd.length === 0 && (
-                    <Box color="text-status-inactive">Every widget is already on the dashboard.</Box>
+                  {availableCompaniesToAdd.length === 0 && (
+                    <Box color="text-status-inactive">Every company is already on the board.</Box>
                   )}
-                  {availableToAdd.map((id) => (
-                    <Button key={id} fullWidth onClick={() => addWidget(id)}>
-                      + {WIDGETS[id].title}
+                  {availableCompaniesToAdd.map((c) => (
+                    <Button key={c.id} fullWidth onClick={() => addCompany(c.id)}>
+                      + {c.name}
                     </Button>
                   ))}
                 </SpaceBetween>
@@ -229,21 +221,6 @@ function AppShell() {
                 items={preferencesItems}
                 onItemClick={onPreferencesItemClick}
               />
-              {/* Persona switching only affects the dashboard's board layout, so this
-                  stays scoped to the /dashboard route rather than showing site-wide
-                  (see WIDGET-TRACKER.md). */}
-              {location.pathname === '/dashboard' && (
-                <span className="inline-dropdown">
-                  <ButtonDropdown
-                    variant="normal"
-                    ariaLabel="Switch persona"
-                    items={PERSONAS.map((p) => ({ id: p.id, text: p.label, description: p.goal }))}
-                    onItemClick={({ detail }) => switchPersona(detail.id as PersonaId)}
-                  >
-                    {persona.label}
-                  </ButtonDropdown>
-                </span>
-              )}
             </div>
           </div>
         </TopNavigation>
@@ -276,7 +253,7 @@ function AppShell() {
         contentType="dashboard"
         content={
           <Routes>
-            <Route path="/dashboard" element={<Dashboard items={items} onItemsChange={setItems} />} />
+            <Route path="/job-market" element={<JobMarketPage items={jobBoardItems} onItemsChange={setJobBoardItems} />} />
             {widgetsWithFullPages().map((w) => {
               const BespokePage = BESPOKE_FULL_PAGES[w.id];
               return (

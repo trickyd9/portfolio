@@ -1,6 +1,0 @@
-[
-  { "widgetId": "about-me", "col": 1, "row": 1 },
-  { "widgetId": "featured-projects", "col": 3, "row": 1 },
-  { "widgetId": "art-visual-portfolio", "col": 1, "row": 3 },
-  { "widgetId": "contact", "col": 2, "row": 3 }
-]
