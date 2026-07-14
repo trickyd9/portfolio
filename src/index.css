@@ -6,6 +6,16 @@ body {
   min-height: 100svh;
 }
 
+/* AppLayoutToolbar's headerSelector expects the referenced element to pin
+   itself to the viewport — it only reserves layout space for it, it doesn't
+   fix it. The side navigation panel already pins itself (that's why only the
+   top bar was scrolling away before this rule existed). */
+#top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1002;
+}
+
 /* Custom TopNavigation content (App.tsx) — identity slot is title-only text in
    Cloudscape's structured API, so the name/role/divider/resume-dropdown cluster
    is hand-built here instead. See WIDGET-TRACKER.md for why. */
