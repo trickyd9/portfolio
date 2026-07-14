@@ -19,9 +19,12 @@ function companyBoardItem(companyId: CompanyId, columnOffset: number): JobBoardI
   };
 }
 
-/** One card per company, seeded left-to-right/top-to-bottom in registry order. */
+/** One card per default-on-board company, seeded left-to-right/top-to-bottom.
+ * Companies with `onBoardByDefault: false` (e.g. Amazon) are still selectable
+ * from the "add company" drawer, just not seeded. */
 export function defaultJobBoardItems(): JobBoardItemData[] {
-  return COMPANIES.map((company, index) => companyBoardItem(company.id, (index % 2) * 2));
+  const defaultCompanies = COMPANIES.filter((c) => c.onBoardByDefault);
+  return defaultCompanies.map((company, index) => companyBoardItem(company.id, (index % 2) * 2));
 }
 
 /** A company card re-added from the "add company" drawer. */

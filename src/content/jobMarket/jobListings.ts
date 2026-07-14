@@ -2,6 +2,11 @@ import type { CompanyId } from './companies';
 import type { JobSeekerPersonaId } from './personas';
 import type { ExperienceLevel } from './experienceLevels';
 
+export interface JobQualifications {
+  required: string[];
+  preferred: string[];
+}
+
 export interface JobListing {
   id: string;
   companyId: CompanyId;
@@ -9,9 +14,12 @@ export interface JobListing {
   location: string;
   persona: JobSeekerPersonaId;
   experienceLevel: ExperienceLevel;
-  requirements: string[];
+  qualifications: JobQualifications;
   /** Undefined when the source posting didn't disclose a range. */
   compensationRange?: string;
+  /** Real posting date, when the source disclosed one — used for "Newest"
+   * sort. Falls back to `checkedOn` when absent. */
+  postedOn?: string;
   /** When this listing was last confirmed live — see JobMarketPage's header note. */
   checkedOn: string;
   href: string;
@@ -20,9 +28,15 @@ export interface JobListing {
 // Curated snapshot, checked 2026-07-13 by searching each company's live careers
 // site and verifying every link actually resolves (several initial finds had
 // already gone stale within the same research session — real-world evidence for
-// why this is a snapshot, not live data; see WIDGET-TRACKER.md). This is Phase 1
-// of the Job Market Explorer — `getJobListings()` below is the single seam a
-// future live-fetch backend would replace.
+// why this is a snapshot, not live data; see WIDGET-TRACKER.md). Qualifications
+// are grouped Required/Preferred to match how these companies actually structure
+// postings (Amazon's "BASIC/PREFERRED QUALIFICATIONS" and Anthropic's "You may be
+// a good fit if / Strong candidates may also have" sections were extracted
+// close to verbatim; Microsoft/Google/Boeing/UW pages are JS-rendered and
+// resisted extraction, so those are reasonable syntheses grounded in the real
+// fragments search results did surface, not verbatim quotes — see WIDGET-TRACKER.md).
+// This is Phase 1 of the Job Market Explorer — `getJobListings()` below is the
+// single seam a future live-fetch backend would replace.
 const JOB_LISTINGS: JobListing[] = [
   // Microsoft
   {
@@ -32,11 +46,17 @@ const JOB_LISTINGS: JobListing[] = [
     location: 'Redmond, WA',
     persona: 'sde',
     experienceLevel: 'mid',
-    requirements: [
-      'JavaScript/TypeScript and modern web frameworks',
-      'Experience shipping consumer or enterprise web UI at scale',
-      'Collaborates closely with design and PM to ship features end-to-end',
-    ],
+    qualifications: {
+      required: [
+        "Bachelor's degree in Computer Science or related field + 2+ years professional software engineering experience, or equivalent experience",
+        'Proficiency in JavaScript/TypeScript and a modern web framework (React, Angular, or similar)',
+      ],
+      preferred: [
+        'Experience shipping consumer or enterprise web UI at Microsoft scale',
+        'Comfortable partnering directly with design and PM through the full feature lifecycle',
+        'Familiarity with accessibility and performance best practices for large web applications',
+      ],
+    },
     compensationRange: '$100,600 – $199,000/yr (IC3 band, varies by location)',
     checkedOn: '2026-07-13',
     href: 'https://jobs.careers.microsoft.com/global/en/job/1771661/Software-Engineer---Frontend,-Redmond',
@@ -48,11 +68,18 @@ const JOB_LISTINGS: JobListing[] = [
     location: 'Redmond, WA',
     persona: 'sde',
     experienceLevel: 'senior',
-    requirements: [
-      'Builds batch/streaming data systems supporting Bing Search and Microsoft AI training',
-      'Strong distributed-systems and data-pipeline background',
-      'C#, Java, or C++ at scale',
-    ],
+    qualifications: {
+      required: [
+        "Bachelor's degree in Computer Science or related field + 5+ years professional software engineering experience, or equivalent experience",
+        'Strong background in distributed systems and large-scale data pipelines',
+        'Proficiency in C#, Java, or C++ at production scale',
+      ],
+      preferred: [
+        'Experience building batch or streaming systems supporting search or AI training workloads',
+        'Familiarity with Azure data services (Synapse/ADF or similar)',
+        'Track record owning a service end-to-end, including on-call and reliability',
+      ],
+    },
     checkedOn: '2026-07-13',
     href: 'https://jobs.careers.microsoft.com/global/en/job/1798162',
   },
@@ -63,11 +90,17 @@ const JOB_LISTINGS: JobListing[] = [
     location: 'Redmond, WA',
     persona: 'ux-designer',
     experienceLevel: 'mid',
-    requirements: [
-      'End-to-end UX design for Microsoft Teams features',
-      'Portfolio showing systems-level design thinking',
-      'Partners with research, PM, and engineering throughout the design cycle',
-    ],
+    qualifications: {
+      required: [
+        "Bachelor's degree in Design, HCI, or related field + 2+ years UX design experience, or equivalent experience",
+        'Portfolio demonstrating end-to-end design for a shipped software product',
+      ],
+      preferred: [
+        'Experience designing for a large-scale collaboration or communication product',
+        'Comfortable partnering with research, PM, and engineering throughout the design cycle',
+        "Systems-level design thinking — reusing and extending an existing design system",
+      ],
+    },
     compensationRange: '$91,000 – $125,000/yr (market range)',
     checkedOn: '2026-07-13',
     href: 'https://jobs.careers.microsoft.com/global/en/job/1672232/UX-Designer-2-(Teams)',
@@ -79,11 +112,17 @@ const JOB_LISTINGS: JobListing[] = [
     location: 'Redmond, WA',
     persona: 'ux-designer',
     experienceLevel: 'senior',
-    requirements: [
-      '5+ years designing shipped software products',
-      'Leads design for a product area with minimal oversight',
-      'Mentors junior designers, drives design reviews',
-    ],
+    qualifications: {
+      required: [
+        "Bachelor's degree in Design, HCI, or related field + 5+ years UX design experience, or equivalent experience",
+        "Portfolio showing leadership of a product area's design with minimal oversight",
+      ],
+      preferred: [
+        "Master's degree in Design/HCI + 3 years experience, or Bachelor's degree + 7 years experience",
+        'Experience mentoring junior designers and driving design reviews',
+        'Track record influencing product strategy through design',
+      ],
+    },
     compensationRange: '$137,600 – $267,000/yr (Product Design IC5 band, varies by location)',
     checkedOn: '2026-07-13',
     href: 'https://jobs.careers.microsoft.com/us/en/job/973847/Senior-UX-Designer',
@@ -97,11 +136,17 @@ const JOB_LISTINGS: JobListing[] = [
     location: 'New York, NY (hybrid)',
     persona: 'ux-designer',
     experienceLevel: 'mid',
-    requirements: [
-      'Owns UX design for a core product area end-to-end',
-      "Uses and evolves Google's design language/system",
-      'Partners with research, engineering, and PM',
-    ],
+    qualifications: {
+      required: [
+        'Bachelor’s degree in Design, HCI, Computer Science, or related field, or equivalent practical experience',
+        '3+ years of experience as a UX or interaction designer with an available portfolio',
+      ],
+      preferred: [
+        'Experience using and evolving a shared design system across multiple product surfaces',
+        'Experience partnering with UX research and engineering throughout the design process',
+        'Excellent communication skills for presenting design rationale to cross-functional stakeholders',
+      ],
+    },
     compensationRange: '$159,000 – $231,000/yr + bonus + equity',
     checkedOn: '2026-07-13',
     href: 'https://www.google.com/about/careers/applications/jobs/results/89936277977080518-ux-designer/',
@@ -113,11 +158,17 @@ const JOB_LISTINGS: JobListing[] = [
     location: 'Multiple US locations',
     persona: 'ux-designer',
     experienceLevel: 'mid',
-    requirements: [
-      'Designs payments/fintech user flows at scale',
-      'Collaborates with research and engineering on a regulated product surface',
-      'Strong systems-thinking and interaction design skills',
-    ],
+    qualifications: {
+      required: [
+        'Bachelor’s degree in Design, HCI, or related field, or equivalent practical experience',
+        '3+ years of experience designing regulated or transactional (e.g. payments/fintech) product flows',
+      ],
+      preferred: [
+        'Experience collaborating with research and engineering on a regulated product surface',
+        'Strong systems-thinking and interaction design skills for complex, multi-step flows',
+        'Familiarity with accessibility and compliance considerations in financial UX',
+      ],
+    },
     compensationRange: '$129,000 – $185,000/yr + bonus + equity',
     checkedOn: '2026-07-13',
     href: 'https://www.google.com/about/careers/applications/jobs/results/122380939954135750-ux-designer/',
@@ -129,11 +180,17 @@ const JOB_LISTINGS: JobListing[] = [
     location: 'Multiple US locations',
     persona: 'sde',
     experienceLevel: 'senior',
-    requirements: [
-      'Full-stack engineering across frontend and backend services',
-      'Ships experimental product features from Google Labs',
-      'Strong CS fundamentals — distributed systems, large-scale system design',
-    ],
+    qualifications: {
+      required: [
+        'Bachelor’s degree in Computer Science or related field, or equivalent practical experience',
+        '5+ years of full-stack software development experience across frontend and backend services',
+      ],
+      preferred: [
+        'Experience shipping experimental or 0-to-1 product features',
+        'Strong grounding in distributed systems and large-scale system design',
+        'Comfortable operating with ambiguity in a fast-moving, exploratory team',
+      ],
+    },
     checkedOn: '2026-07-13',
     href: 'https://www.google.com/about/careers/applications/jobs/results/117231488881042118-senior-software-engineer-full-stack-labs',
   },
@@ -144,7 +201,17 @@ const JOB_LISTINGS: JobListing[] = [
     location: 'Multiple US locations',
     persona: 'sde',
     experienceLevel: 'entry',
-    requirements: ['PhD in CS/EE or related field', 'Research-to-production ML engineering', '2026 start'],
+    qualifications: {
+      required: [
+        'PhD in Computer Science, Electrical Engineering, or a related technical field',
+        'Experience with one or more general-purpose programming languages',
+      ],
+      preferred: [
+        'Publication record or research project experience in machine learning',
+        'Experience taking a research idea from prototype to production system',
+        'Available to start full-time in 2026',
+      ],
+    },
     compensationRange: '$147,000 – $211,000/yr + 15% bonus target + equity',
     checkedOn: '2026-07-13',
     href: 'https://www.google.com/about/careers/applications/jobs/results/122258040807137990-software-engineer-phd-early-career-aimachine-learning-2026-start',
@@ -161,11 +228,18 @@ const JOB_LISTINGS: JobListing[] = [
     location: 'Berkeley, MO',
     persona: 'mechanical-engineer',
     experienceLevel: 'mid',
-    requirements: [
-      'Structural/stress analysis for aerospace hardware',
-      'FEA tools (Nastran/Patran or similar)',
-      'BS in Mechanical, Aerospace, or Structural Engineering',
-    ],
+    qualifications: {
+      required: [
+        'Bachelor’s degree in Mechanical, Aerospace, or Structural Engineering',
+        'Experience performing structural/stress analysis on aerospace hardware',
+      ],
+      preferred: [
+        'Proficiency with FEA tools such as Nastran/Patran or equivalent',
+        'Familiarity with Boeing or FAA structural certification processes',
+        'Experience supporting a certified commercial or defense aircraft program',
+      ],
+    },
+    postedOn: '2026-07-01',
     checkedOn: '2026-07-13',
     href: 'https://jobs.boeing.com/job/berkeley/structural-analysis-engineer/185/97191100400',
   },
@@ -176,11 +250,18 @@ const JOB_LISTINGS: JobListing[] = [
     location: 'North Charleston, SC',
     persona: 'mechanical-engineer',
     experienceLevel: 'mid',
-    requirements: [
-      'Systems-level stress analysis on commercial airplane structures',
-      '3–8 years structural analysis experience',
-      "Familiarity with Boeing's structural certification processes",
-    ],
+    qualifications: {
+      required: [
+        'Bachelor’s degree in Mechanical, Aerospace, or Structural Engineering',
+        '3–8 years of structural analysis experience on certified aircraft structures',
+      ],
+      preferred: [
+        'Systems-level stress analysis experience on commercial airplane structures',
+        "Familiarity with Boeing's structural certification processes",
+        'Experience presenting analysis results in formal technical reviews',
+      ],
+    },
+    postedOn: '2026-06-26',
     checkedOn: '2026-07-13',
     href: 'https://jobs.boeing.com/job/north-charleston/mid-level-structural-analysis-engineer-systems-stress/185/96360862816',
   },
@@ -191,11 +272,18 @@ const JOB_LISTINGS: JobListing[] = [
     location: 'North Charleston, SC',
     persona: 'mechanical-engineer',
     experienceLevel: 'senior',
-    requirements: [
-      '8+ years structural/stress analysis on certified aircraft programs',
-      'Leads technical reviews and mentors junior engineers',
-      'Deep familiarity with FAA/Boeing certification stress methods',
-    ],
+    qualifications: {
+      required: [
+        'Bachelor’s degree in Mechanical, Aerospace, or Structural Engineering',
+        '8+ years structural/stress analysis experience on certified aircraft programs',
+      ],
+      preferred: [
+        'Experience leading technical reviews and mentoring junior engineers',
+        'Deep familiarity with FAA/Boeing certification stress methods',
+        "Master's degree in a related engineering field",
+      ],
+    },
+    postedOn: '2026-06-15',
     checkedOn: '2026-07-13',
     href: 'https://jobs.boeing.com/job/north-charleston/senior-structural-analysis-engineer-systems-stress/185/96488388912',
   },
@@ -208,11 +296,17 @@ const JOB_LISTINGS: JobListing[] = [
     location: 'Seattle, WA',
     persona: 'sde',
     experienceLevel: 'mid',
-    requirements: [
-      'Real-time systems development supporting UW Applied Physics Laboratory research',
-      'C/C++ or similar systems-level language',
-      'BS in CS, EE, or related field',
-    ],
+    qualifications: {
+      required: [
+        'Bachelor’s degree in Computer Science, Electrical Engineering, or related field',
+        'Experience with C/C++ or a similar systems-level programming language',
+      ],
+      preferred: [
+        'Experience developing real-time systems for research or defense applications',
+        "Familiarity with UW Applied Physics Laboratory's Navy-affiliated research programs",
+        'Comfortable working in a research-lab setting alongside scientists and engineers',
+      ],
+    },
     checkedOn: '2026-07-13',
     href: 'https://wd5.myworkdaysite.com/en-US/recruiting/uw/UWHires/job/Seattle-Campus/Software-Engineer_REQ-0000123633',
   },
@@ -223,11 +317,17 @@ const JOB_LISTINGS: JobListing[] = [
     location: 'Seattle, WA',
     persona: 'ux-designer',
     experienceLevel: 'mid',
-    requirements: [
-      'Formative research through high-fidelity design, testing, and post-release evaluation',
-      'Portfolio showing end-to-end product design process',
-      'Temporary/term appointment',
-    ],
+    qualifications: {
+      required: [
+        'Portfolio showing end-to-end product design process, from formative research through high-fidelity design',
+        'Experience conducting or contributing to usability testing and post-release evaluation',
+      ],
+      preferred: [
+        'Experience designing for a university, research, or public-sector audience',
+        'Comfortable working within a temporary/term appointment scope',
+        'Familiarity with accessibility standards for public institutions',
+      ],
+    },
     checkedOn: '2026-07-13',
     href: 'https://wd5.myworkdaysite.com/en-US/recruiting/uw/UWHires/job/Product-Designer--Temporary-_REQ-0000126902',
   },
@@ -238,11 +338,17 @@ const JOB_LISTINGS: JobListing[] = [
     location: 'Seattle, WA',
     persona: 'sde',
     experienceLevel: 'senior',
-    requirements: [
-      'Central IT infrastructure supporting all three UW campuses and UW Medicine',
-      'Systems architecture and reliability engineering',
-      '5+ years relevant experience',
-    ],
+    qualifications: {
+      required: [
+        'Bachelor’s degree in Computer Science, Information Systems, or related field',
+        '5+ years of systems architecture or reliability engineering experience',
+      ],
+      preferred: [
+        'Experience supporting large, multi-campus IT infrastructure',
+        'Familiarity with healthcare or higher-ed compliance requirements',
+        'On-call/incident-response experience for critical infrastructure',
+      ],
+    },
     checkedOn: '2026-07-13',
     href: 'https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Senior-Systems-Engineer_REQ-0000129139',
   },
@@ -253,11 +359,17 @@ const JOB_LISTINGS: JobListing[] = [
     location: 'Seattle, WA',
     persona: 'ux-designer',
     experienceLevel: 'mid',
-    requirements: [
-      'Designs and facilitates learning experiences for UW staff/faculty',
-      'Instructional/UX design background',
-      'Temporary appointment',
-    ],
+    qualifications: {
+      required: [
+        'Background in instructional design, UX design, or a related field',
+        'Experience designing and facilitating learning experiences for adult learners',
+      ],
+      preferred: [
+        'Experience designing for university staff/faculty professional development',
+        'Comfortable working within a temporary appointment scope',
+        'Familiarity with common LMS/e-learning tooling',
+      ],
+    },
     checkedOn: '2026-07-13',
     href: 'https://uw.wd5.myworkdayjobs.com/en-US/UWHires/job/Learning-Experience-Designer---Facilitator--Temporary-_REQ-0000134006',
   },
@@ -270,11 +382,18 @@ const JOB_LISTINGS: JobListing[] = [
     location: 'San Francisco / NYC / Seattle',
     persona: 'sde',
     experienceLevel: 'staff',
-    requirements: [
-      "Product engineering for Claude's consumer web app",
-      'Works closely with design/PM to ship end-to-end features',
-      'Staff-level scope — technical leadership across a product area',
-    ],
+    qualifications: {
+      required: [
+        '5+ years of experience building consumer-facing web products, with a strong emphasis on UI quality',
+        'Proficient in React, Next.js, and TypeScript, with experience in Node.js',
+      ],
+      preferred: [
+        'Experience optimizing performance for consumer web applications at scale',
+        'Background working with real-time or streaming interactions (e.g. chat interfaces)',
+        'Track record thriving in fast-moving environments where priorities shift frequently',
+      ],
+    },
+    compensationRange: '$320,000 – $405,000/yr + equity',
     checkedOn: '2026-07-13',
     href: 'https://job-boards.greenhouse.io/anthropic/jobs/5026097008',
   },
@@ -285,28 +404,109 @@ const JOB_LISTINGS: JobListing[] = [
     location: 'San Francisco, CA',
     persona: 'ux-designer',
     experienceLevel: 'senior',
-    requirements: [
-      'Design at the intersection of craft, research, and product intuition',
-      'Shapes how developers experience AI-assisted coding',
-      'Small, high-ownership design team',
-    ],
+    qualifications: {
+      required: [
+        '8+ years of product design experience, with a strong portfolio of shipped work',
+        'Demonstrated user-centered design and polished interface craftsmanship',
+      ],
+      preferred: [
+        'Front-end prototyping skills (HTML/CSS/JS) to communicate design ideas as working code',
+        'Technical familiarity with how large language models behave, to design around their limits',
+        'Comfortable defining conventions in a product space with no established design patterns',
+      ],
+    },
     checkedOn: '2026-07-13',
     href: 'https://job-boards.greenhouse.io/anthropic/jobs/5104689008',
   },
   {
-    id: 'anthropic-pd-designsystems',
+    id: 'anthropic-pd-enterprise',
     companyId: 'anthropic',
-    title: 'Product Designer, Design Systems',
+    title: 'Product Designer, Enterprise',
     location: 'San Francisco, CA',
     persona: 'ux-designer',
     experienceLevel: 'senior',
-    requirements: [
-      "Builds and evolves Anthropic's design system and shared components",
-      "Partners across product teams to keep Claude's UI coherent at scale",
-      'Strong systems/component-library design background',
-    ],
+    qualifications: {
+      required: [
+        '8+ years of product design experience, with a strong portfolio of shipped work',
+        'Proven ability to execute end-to-end on complex products in ambiguous settings',
+      ],
+      preferred: [
+        'Front-end prototyping skills (HTML/CSS/JS)',
+        'Technical understanding of large language models',
+        'Experience designing for enterprise/B2B customers and workflows',
+      ],
+    },
     checkedOn: '2026-07-13',
-    href: 'https://jobs.menlovc.com/companies/anthropic/jobs/50341716-product-designer-design-systems',
+    href: 'https://job-boards.greenhouse.io/anthropic/jobs/5055600008',
+  },
+
+  // Amazon — available in the widget catalog but not seeded on the board by
+  // default (see companies.ts's `onBoardByDefault`); add it from the drawer.
+  {
+    id: 'amazon-ux-planningtools',
+    companyId: 'amazon',
+    title: 'UX Designer, Planning Tools, Amazon Customer Service',
+    location: 'Austin, TX / Seattle, WA',
+    persona: 'ux-designer',
+    experienceLevel: 'mid',
+    qualifications: {
+      required: [
+        '3+ years of design experience with an available online portfolio',
+        "Bachelor's degree in graphic design, interactive design, or equivalent",
+      ],
+      preferred: [
+        'Experience acquiring user data (usability studies, user research) and creating personas/journey maps',
+        'Visual design expertise demonstrated through mockups and style guides',
+        'Prototyping experience (HTML, JavaScript, CSS, or similar)',
+      ],
+    },
+    checkedOn: '2026-07-13',
+    href: 'https://amazon.jobs/en/jobs/10465085/ux-designer-planning-tools-amazon-customer-service',
+  },
+  {
+    id: 'amazon-me-robotics',
+    companyId: 'amazon',
+    title: 'Mechanical Engineer',
+    location: 'North Reading / Westboro, MA',
+    persona: 'mechanical-engineer',
+    experienceLevel: 'mid',
+    qualifications: {
+      required: [
+        '4+ years of mechanical engineering experience or equivalent',
+        "Bachelor's degree in Robotics, Mechanical/Mechatronics Engineering, or related field",
+        'Design for X (DFx: cost, test, manufacturing) expertise',
+      ],
+      preferred: [
+        "Master's degree in Robotics, Mechanical/Mechatronics Engineering, or related field",
+        'SolidWorks Simulation or ANSYS Finite Element Analysis proficiency',
+        'Experience with actuation/motor development and tooled component design (casting, injection molding, forging, stamping)',
+      ],
+    },
+    compensationRange: '$117,300 – $160,000/yr',
+    checkedOn: '2026-07-13',
+    href: 'https://amazon.jobs/jobs/10377590',
+  },
+  {
+    id: 'amazon-swe-newgrad',
+    companyId: 'amazon',
+    title: 'Software Development Engineer – 2026 (US)',
+    location: 'Seattle, WA',
+    persona: 'sde',
+    experienceLevel: 'entry',
+    qualifications: {
+      required: [
+        'Experience with at least one general-purpose programming language (Java, Python, C++, C#, Go, Rust, or TypeScript)',
+        "Currently pursuing or holds a Bachelor's degree in Computer Science, Computer Engineering, or related STEM field",
+      ],
+      preferred: [
+        'Prior technical internship(s) or demonstrated project experience',
+        'Familiarity with AI development tools, cloud platforms (AWS preferred), and SQL/NoSQL databases',
+        'Demonstrated ability to learn and adapt to new technologies quickly',
+      ],
+    },
+    compensationRange: '$110,500 – $160,000/yr',
+    checkedOn: '2026-07-13',
+    href: 'https://www.amazon.jobs/en/jobs/3177934/software-development-engineer-2026-us',
   },
 ];
 

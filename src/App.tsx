@@ -21,6 +21,7 @@ import type { ButtonDropdownProps } from '@cloudscape-design/components/button-d
 
 import { WIDGETS, widgetsWithFullPages, type WidgetId } from './content/widgets';
 import { COMPANIES, type CompanyId } from './content/jobMarket/companies';
+import { JOB_SEEKER_PERSONAS, type JobSeekerPersonaId } from './content/jobMarket/personas';
 import { defaultJobBoardItems, companyBoardItemFor, type JobBoardItemData } from './content/jobMarket/boardItem';
 import JobMarketPage from './pages/JobMarketPage';
 import WidgetFullPage from './pages/WidgetFullPage';
@@ -84,9 +85,21 @@ function AppShell() {
   const navigate = useNavigate();
 
   const [jobBoardItems, setJobBoardItems] = useState<JobBoardItemData[]>(() => defaultJobBoardItems());
+  const [selectedJobPersonaIds, setSelectedJobPersonaIds] = useState<Set<JobSeekerPersonaId>>(
+    () => new Set(JOB_SEEKER_PERSONAS.map((p) => p.id)),
+  );
   const [activeDrawerId, setActiveDrawerId] = useState<string | null>(null);
   const [searchValue, setSearchValue] = useState('');
   const { density, mode, setDensity, setMode } = useDisplaySettings();
+
+  function toggleJobPersona(id: JobSeekerPersonaId) {
+    setSelectedJobPersonaIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
 
   const companiesOnBoard = useMemo(() => new Set(jobBoardItems.map((item) => item.data.companyId)), [jobBoardItems]);
   const availableCompaniesToAdd = COMPANIES.filter((c) => !companiesOnBoard.has(c.id));
@@ -221,6 +234,26 @@ function AppShell() {
                 items={preferencesItems}
                 onItemClick={onPreferencesItemClick}
               />
+              {/* The Job Market Explorer's role filter — same header-dropdown treatment
+                  as the old visitor-persona switcher, scoped to /job-market since it
+                  only affects that page's board (see WIDGET-TRACKER.md). */}
+              {location.pathname === '/job-market' && (
+                <span className="inline-dropdown">
+                  <ButtonDropdown
+                    variant="normal"
+                    ariaLabel="Filter by role"
+                    items={JOB_SEEKER_PERSONAS.map((p) => ({
+                      id: p.id,
+                      text: p.label,
+                      itemType: 'checkbox',
+                      checked: selectedJobPersonaIds.has(p.id),
+                    }))}
+                    onItemClick={({ detail }) => toggleJobPersona(detail.id as JobSeekerPersonaId)}
+                  >
+                    Role
+                  </ButtonDropdown>
+                </span>
+              )}
             </div>
           </div>
         </TopNavigation>
@@ -253,7 +286,16 @@ function AppShell() {
         contentType="dashboard"
         content={
           <Routes>
-            <Route path="/job-market" element={<JobMarketPage items={jobBoardItems} onItemsChange={setJobBoardItems} />} />
+            <Route
+              path="/job-market"
+              element={
+                <JobMarketPage
+                  items={jobBoardItems}
+                  onItemsChange={setJobBoardItems}
+                  selectedPersonaIds={selectedJobPersonaIds}
+                />
+              }
+            />
             {widgetsWithFullPages().map((w) => {
               const BespokePage = BESPOKE_FULL_PAGES[w.id];
               return (

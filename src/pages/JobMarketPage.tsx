@@ -4,20 +4,19 @@ import Header from '@cloudscape-design/components/header';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
 import Link from '@cloudscape-design/components/link';
+import Input from '@cloudscape-design/components/input';
 import SpaceBetween from '@cloudscape-design/components/space-between';
-import Multiselect from '@cloudscape-design/components/multiselect';
-import type { MultiselectProps } from '@cloudscape-design/components/multiselect';
 import Select from '@cloudscape-design/components/select';
 import type { SelectProps } from '@cloudscape-design/components/select';
 import { Board, BoardItem } from '@cloudscape-design/board-components';
 import type { BoardProps } from '@cloudscape-design/board-components';
 
 import { COMPANIES, type CompanyId } from '../content/jobMarket/companies';
-import { JOB_SEEKER_PERSONAS, type JobSeekerPersonaId } from '../content/jobMarket/personas';
+import type { JobSeekerPersonaId } from '../content/jobMarket/personas';
 import { EXPERIENCE_LEVELS, type ExperienceLevel } from '../content/jobMarket/experienceLevels';
-import { getJobListings } from '../content/jobMarket/jobListings';
+import { getJobListings, type JobListing } from '../content/jobMarket/jobListings';
 import type { JobBoardItemData } from '../content/jobMarket/boardItem';
-import JobListingCard from '../components/JobListingCard';
+import JobListingCard, { type DetailLevel } from '../components/JobListingCard';
 
 const boardItemI18nStrings = {
   dragHandleAriaLabel: 'Drag handle',
@@ -47,29 +46,79 @@ const LEVEL_OPTIONS: SelectProps.Options = [
   ...EXPERIENCE_LEVELS.map((l) => ({ value: l.id, label: l.label })),
 ];
 
-const PERSONA_OPTIONS: MultiselectProps.Option[] = JOB_SEEKER_PERSONAS.map((p) => ({ value: p.id, label: p.label }));
+const JOBS_PER_WIDGET_OPTIONS: SelectProps.Options = [
+  { value: '2', label: '2 per company' },
+  { value: '3', label: '3 per company' },
+  { value: '5', label: '5 per company' },
+  { value: 'all', label: 'All' },
+];
+
+const DETAIL_LEVEL_OPTIONS: SelectProps.Options = [
+  { value: 'compact', label: 'Compact' },
+  { value: 'detailed', label: 'Detailed' },
+];
+
+type SortBy = 'relevance' | 'newest' | 'compensation';
+const SORT_OPTIONS: SelectProps.Options = [
+  { value: 'relevance', label: 'Sort: Relevance' },
+  { value: 'newest', label: 'Sort: Newest' },
+  { value: 'compensation', label: 'Sort: Compensation' },
+];
+
+/** Extracts a comparable dollar figure from a free-text comp range like
+ * "$100,600 – $199,000/yr" — takes the lower bound. Listings with no
+ * disclosed range sort last regardless of direction. */
+function compFloor(listing: JobListing): number {
+  const match = listing.compensationRange?.match(/\$([\d,]+)/);
+  return match ? Number(match[1].replace(/,/g, '')) : -Infinity;
+}
+
+function postedTime(listing: JobListing): number {
+  return new Date(listing.postedOn ?? listing.checkedOn).getTime();
+}
+
+function sortListings(listings: JobListing[], sortBy: SortBy): JobListing[] {
+  if (sortBy === 'newest') return [...listings].sort((a, b) => postedTime(b) - postedTime(a));
+  if (sortBy === 'compensation') return [...listings].sort((a, b) => compFloor(b) - compFloor(a));
+  return listings;
+}
 
 interface JobMarketPageProps {
   items: JobBoardItemData[];
   onItemsChange: (items: JobBoardItemData[]) => void;
+  selectedPersonaIds: Set<JobSeekerPersonaId>;
 }
 
-export default function JobMarketPage({ items, onItemsChange }: JobMarketPageProps) {
-  const [selectedPersonas, setSelectedPersonas] = useState<MultiselectProps.Option[]>(PERSONA_OPTIONS);
+export default function JobMarketPage({ items, onItemsChange, selectedPersonaIds }: JobMarketPageProps) {
   const [selectedLevel, setSelectedLevel] = useState<SelectProps.Option>(ALL_LEVELS_OPTION);
+  const [jobsPerWidget, setJobsPerWidget] = useState<SelectProps.Option>(JOBS_PER_WIDGET_OPTIONS[1]);
+  const [detailLevel, setDetailLevel] = useState<SelectProps.Option>(DETAIL_LEVEL_OPTIONS[0]);
+  const [sortBy, setSortBy] = useState<SelectProps.Option>(SORT_OPTIONS[0]);
+  const [keyword, setKeyword] = useState('');
 
-  const activePersonaIds = new Set(selectedPersonas.map((o) => o.value as JobSeekerPersonaId));
   const activeLevel = selectedLevel.value as ExperienceLevel | 'all';
+  const activeSort = sortBy.value as SortBy;
+  const activeDetailLevel = detailLevel.value as DetailLevel;
+  const cap = jobsPerWidget.value === 'all' ? Infinity : Number(jobsPerWidget.value);
+  const keywordLower = keyword.trim().toLowerCase();
 
   const allListings = getJobListings();
 
+  function matchesFilters(listing: JobListing) {
+    if (!selectedPersonaIds.has(listing.persona)) return false;
+    if (activeLevel !== 'all' && listing.experienceLevel !== activeLevel) return false;
+    if (keywordLower) {
+      const haystack = [listing.title, listing.location, ...listing.qualifications.required, ...listing.qualifications.preferred]
+        .join(' ')
+        .toLowerCase();
+      if (!haystack.includes(keywordLower)) return false;
+    }
+    return true;
+  }
+
   function listingsFor(companyId: CompanyId) {
-    return allListings.filter(
-      (listing) =>
-        listing.companyId === companyId &&
-        activePersonaIds.has(listing.persona) &&
-        (activeLevel === 'all' || listing.experienceLevel === activeLevel),
-    );
+    const matches = sortListings(allListings.filter((l) => l.companyId === companyId && matchesFilters(l)), activeSort);
+    return { total: matches.length, shown: matches.slice(0, cap) };
   }
 
   return (
@@ -77,7 +126,7 @@ export default function JobMarketPage({ items, onItemsChange }: JobMarketPagePro
       header={
         <Header
           variant="h1"
-          description="A persona-driven dashboard for exploring current tech job openings — built as a live demo of the same persona/filter dashboard UX used throughout this site. Listings are a curated snapshot (checked dates shown per card), not a live feed — see WIDGET-TRACKER.md for the plan to make this fully live."
+          description="A persona-driven dashboard for exploring current tech job openings — built as a live demo of the same persona/filter dashboard UX used throughout this site. Listings are a curated snapshot (checked dates shown per card), not a live feed — see WIDGET-TRACKER.md for the plan to make this fully live. Use the Role dropdown (top right) to filter by job-seeker persona."
         >
           Job Market Explorer
         </Header>
@@ -85,22 +134,45 @@ export default function JobMarketPage({ items, onItemsChange }: JobMarketPagePro
     >
       <SpaceBetween size="l">
         <SpaceBetween size="xs" direction="horizontal">
-          <div style={{ minWidth: '280px' }}>
-            <Multiselect
-              selectedOptions={selectedPersonas}
-              onChange={({ detail }) => setSelectedPersonas([...detail.selectedOptions])}
-              options={PERSONA_OPTIONS}
-              placeholder="Filter by role"
-              ariaLabel="Filter by job-seeker role"
-              enableSelectAll
+          <div style={{ minWidth: '200px' }}>
+            <Input
+              value={keyword}
+              onChange={({ detail }) => setKeyword(detail.value)}
+              placeholder="Keyword search"
+              type="search"
+              ariaLabel="Keyword search"
             />
           </div>
-          <div style={{ minWidth: '220px' }}>
+          <div style={{ minWidth: '200px' }}>
             <Select
               selectedOption={selectedLevel}
               onChange={({ detail }) => setSelectedLevel(detail.selectedOption)}
               options={LEVEL_OPTIONS}
               ariaLabel="Filter by experience level"
+            />
+          </div>
+          <div style={{ minWidth: '160px' }}>
+            <Select
+              selectedOption={sortBy}
+              onChange={({ detail }) => setSortBy(detail.selectedOption)}
+              options={SORT_OPTIONS}
+              ariaLabel="Sort jobs"
+            />
+          </div>
+          <div style={{ minWidth: '170px' }}>
+            <Select
+              selectedOption={jobsPerWidget}
+              onChange={({ detail }) => setJobsPerWidget(detail.selectedOption)}
+              options={JOBS_PER_WIDGET_OPTIONS}
+              ariaLabel="Number of jobs shown per company"
+            />
+          </div>
+          <div style={{ minWidth: '150px' }}>
+            <Select
+              selectedOption={detailLevel}
+              onChange={({ detail }) => setDetailLevel(detail.selectedOption)}
+              options={DETAIL_LEVEL_OPTIONS}
+              ariaLabel="Detail level shown"
             />
           </div>
         </SpaceBetween>
@@ -112,10 +184,14 @@ export default function JobMarketPage({ items, onItemsChange }: JobMarketPagePro
           empty={<Box textAlign="center">No companies on the board — add one from the panel.</Box>}
           renderItem={(item, actions) => {
             const company = COMPANIES.find((c) => c.id === item.data.companyId)!;
-            const listings = listingsFor(company.id);
+            const { total, shown } = listingsFor(company.id);
             return (
               <BoardItem
-                header={<Header>{company.name}</Header>}
+                header={
+                  <Header counter={total > 0 ? `(${Math.min(shown.length, total)} of ${total})` : undefined}>
+                    {company.name}
+                  </Header>
+                }
                 i18nStrings={boardItemI18nStrings}
                 settings={
                   <Button
@@ -126,10 +202,10 @@ export default function JobMarketPage({ items, onItemsChange }: JobMarketPagePro
                   />
                 }
               >
-                {listings.length > 0 ? (
+                {shown.length > 0 ? (
                   <SpaceBetween size="s">
-                    {listings.map((listing) => (
-                      <JobListingCard key={listing.id} listing={listing} />
+                    {shown.map((listing) => (
+                      <JobListingCard key={listing.id} listing={listing} detailLevel={activeDetailLevel} />
                     ))}
                   </SpaceBetween>
                 ) : (
