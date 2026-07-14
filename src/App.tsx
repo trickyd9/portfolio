@@ -226,16 +226,25 @@ function AppShell() {
               {/* The Job Market Explorer's primary role — single-select, same
                   header-dropdown treatment and behavior as the old visitor-persona
                   switcher (picking an item replaces the selection and closes the
-                  menu). Searching additional roles alongside this one is a separate,
-                  additive page-level filter (JobMarketPage's "Add roles" control) —
-                  not the same control, per David's explicit split. Scoped to
-                  /job-market since it only affects that page's board. */}
+                  menu). itemType 'checkbox' is just for the visual check next to
+                  the currently-selected role when reopened — onItemClick always
+                  replaces the whole selection, never toggles, so it still behaves
+                  as single-select. Searching additional roles alongside this one
+                  is a separate, additive page-level filter (JobMarketPage's "Add
+                  roles" control), not the same control, per David's explicit
+                  split. Scoped to /job-market since it only affects that page's
+                  board. */}
               {location.pathname === '/job-market' && (
                 <span className="inline-dropdown">
                   <ButtonDropdown
                     variant="normal"
                     ariaLabel="Primary role"
-                    items={JOB_SEEKER_PERSONAS.map((p) => ({ id: p.id, text: p.label }))}
+                    items={JOB_SEEKER_PERSONAS.map((p) => ({
+                      id: p.id,
+                      text: p.label,
+                      itemType: 'checkbox',
+                      checked: p.id === primaryJobPersonaId,
+                    }))}
                     onItemClick={({ detail }) => setPrimaryJobPersonaId(detail.id as JobSeekerPersonaId)}
                   >
                     {JOB_SEEKER_PERSONAS.find((p) => p.id === primaryJobPersonaId)!.label}

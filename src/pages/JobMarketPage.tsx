@@ -8,17 +8,24 @@ import Input from '@cloudscape-design/components/input';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Select from '@cloudscape-design/components/select';
 import type { SelectProps } from '@cloudscape-design/components/select';
-import Multiselect from '@cloudscape-design/components/multiselect';
-import type { MultiselectProps } from '@cloudscape-design/components/multiselect';
 import { Board, BoardItem } from '@cloudscape-design/board-components';
 import type { BoardProps } from '@cloudscape-design/board-components';
 
 import { COMPANIES, type CompanyId } from '../content/jobMarket/companies';
-import { JOB_SEEKER_PERSONAS, type JobSeekerPersonaId } from '../content/jobMarket/personas';
+import type { JobSeekerPersonaId } from '../content/jobMarket/personas';
 import { EXPERIENCE_LEVELS, type ExperienceLevel } from '../content/jobMarket/experienceLevels';
+import { LOCATION_OPTIONS, DEFAULT_LOCATION_ID, type LocationOptionId } from '../content/jobMarket/locations';
 import { getJobListings, type JobListing } from '../content/jobMarket/jobListings';
 import type { JobBoardItemData } from '../content/jobMarket/boardItem';
 import JobListingCard, { type DetailLevel } from '../components/JobListingCard';
+import SearchSettingsModal from '../components/SearchSettingsModal';
+import {
+  SORT_OPTIONS,
+  JOBS_PER_WIDGET_OPTIONS,
+  DETAIL_LEVEL_OPTIONS,
+  type SortBy,
+  type SearchSettingsValues,
+} from '../content/jobMarket/searchSettings';
 
 const boardItemI18nStrings = {
   dragHandleAriaLabel: 'Drag handle',
@@ -48,24 +55,8 @@ const LEVEL_OPTIONS: SelectProps.Options = [
   ...EXPERIENCE_LEVELS.map((l) => ({ value: l.id, label: l.label })),
 ];
 
-const JOBS_PER_WIDGET_OPTIONS: SelectProps.Options = [
-  { value: '2', label: '2 per company' },
-  { value: '3', label: '3 per company' },
-  { value: '5', label: '5 per company' },
-  { value: 'all', label: 'All' },
-];
-
-const DETAIL_LEVEL_OPTIONS: SelectProps.Options = [
-  { value: 'compact', label: 'Compact' },
-  { value: 'detailed', label: 'Detailed' },
-];
-
-type SortBy = 'relevance' | 'newest' | 'compensation';
-const SORT_OPTIONS: SelectProps.Options = [
-  { value: 'relevance', label: 'Sort: Relevance' },
-  { value: 'newest', label: 'Sort: Newest' },
-  { value: 'compensation', label: 'Sort: Compensation' },
-];
+const LOCATION_SELECT_OPTIONS: SelectProps.Options = LOCATION_OPTIONS.map((l) => ({ value: l.id, label: l.label }));
+const DEFAULT_LOCATION_OPTION = LOCATION_SELECT_OPTIONS.find((o) => o.value === DEFAULT_LOCATION_ID)!;
 
 /** Extracts a comparable dollar figure from a free-text comp range like
  * "$100,600 – $199,000/yr" — takes the lower bound. Listings with no
@@ -92,27 +83,35 @@ interface JobMarketPageProps {
   primaryPersonaId: JobSeekerPersonaId;
 }
 
-const ADD_ROLES_OPTIONS: MultiselectProps.Option[] = JOB_SEEKER_PERSONAS.map((p) => ({ value: p.id, label: p.label }));
-
 export default function JobMarketPage({ items, onItemsChange, primaryPersonaId }: JobMarketPageProps) {
-  const [selectedLevel, setSelectedLevel] = useState<SelectProps.Option>(ALL_LEVELS_OPTION);
-  const [jobsPerWidget, setJobsPerWidget] = useState<SelectProps.Option>(JOBS_PER_WIDGET_OPTIONS[1]);
-  const [detailLevel, setDetailLevel] = useState<SelectProps.Option>(DETAIL_LEVEL_OPTIONS[0]);
-  const [sortBy, setSortBy] = useState<SelectProps.Option>(SORT_OPTIONS[0]);
+  // Applied immediately, per David — these three plus the header's Role
+  // dropdown are the "always visible, always live" filters.
   const [keyword, setKeyword] = useState('');
-  // Additive — broadens the search beyond the header's single primary role,
-  // per David: the header shouldn't be a multiselect, this is the separate
-  // "add another role to the current search" control instead.
-  const [additionalRoles, setAdditionalRoles] = useState<MultiselectProps.Option[]>([]);
+  const [selectedLevel, setSelectedLevel] = useState<SelectProps.Option>(ALL_LEVELS_OPTION);
+  const [selectedLocation, setSelectedLocation] = useState<SelectProps.Option>(DEFAULT_LOCATION_OPTION);
+
+  // Everything else lives behind the settings modal — staged there, only
+  // committed here on Save (see SearchSettingsModal.tsx).
+  const [settings, setSettings] = useState<SearchSettingsValues>({
+    additionalRoles: [],
+    sortBy: SORT_OPTIONS[0],
+    jobsPerWidget: JOBS_PER_WIDGET_OPTIONS[1],
+    detailLevel: DETAIL_LEVEL_OPTIONS[0],
+  });
+  const [settingsModalVisible, setSettingsModalVisible] = useState(false);
+  // Bumped on every open so the modal's draft state remounts fresh from the
+  // last-saved values instead of carrying over a discarded edit.
+  const [settingsModalKey, setSettingsModalKey] = useState(0);
 
   const activeLevel = selectedLevel.value as ExperienceLevel | 'all';
-  const activeSort = sortBy.value as SortBy;
-  const activeDetailLevel = detailLevel.value as DetailLevel;
-  const cap = jobsPerWidget.value === 'all' ? Infinity : Number(jobsPerWidget.value);
+  const activeLocation = selectedLocation.value as LocationOptionId;
+  const activeSort = settings.sortBy.value as SortBy;
+  const activeDetailLevel = settings.detailLevel.value as DetailLevel;
+  const cap = settings.jobsPerWidget.value === 'all' ? Infinity : Number(settings.jobsPerWidget.value);
   const keywordLower = keyword.trim().toLowerCase();
   const activePersonaIds = new Set<JobSeekerPersonaId>([
     primaryPersonaId,
-    ...additionalRoles.map((o) => o.value as JobSeekerPersonaId),
+    ...settings.additionalRoles.map((o) => o.value as JobSeekerPersonaId),
   ]);
 
   const allListings = getJobListings();
@@ -120,6 +119,7 @@ export default function JobMarketPage({ items, onItemsChange, primaryPersonaId }
   function matchesFilters(listing: JobListing) {
     if (!activePersonaIds.has(listing.persona)) return false;
     if (activeLevel !== 'all' && listing.experienceLevel !== activeLevel) return false;
+    if (activeLocation !== 'all' && !listing.regions.includes(activeLocation)) return false;
     if (keywordLower) {
       const haystack = [listing.title, listing.location, ...listing.qualifications.required, ...listing.qualifications.preferred]
         .join(' ')
@@ -139,7 +139,7 @@ export default function JobMarketPage({ items, onItemsChange, primaryPersonaId }
       header={
         <Header
           variant="h1"
-          description="A persona-driven dashboard for exploring current tech job openings — built as a live demo of the same persona/filter dashboard UX used throughout this site. Listings are a curated snapshot (checked dates shown per card), not a live feed — see WIDGET-TRACKER.md for the plan to make this fully live. Use the Role dropdown (top right) to set your primary role, and 'Add roles' below to broaden the search."
+          description="A persona-driven dashboard for exploring current tech job openings — built as a live demo of the same persona/filter dashboard UX used throughout this site. Listings are a curated snapshot (checked dates shown per card), not a live feed — see WIDGET-TRACKER.md for the plan to make this fully live. Use the Role dropdown (top right) to set your primary role."
         >
           Job Market Explorer
         </Header>
@@ -147,16 +147,6 @@ export default function JobMarketPage({ items, onItemsChange, primaryPersonaId }
     >
       <SpaceBetween size="l">
         <SpaceBetween size="xs" direction="horizontal">
-          <div style={{ minWidth: '220px' }}>
-            <Multiselect
-              selectedOptions={additionalRoles}
-              onChange={({ detail }) => setAdditionalRoles([...detail.selectedOptions])}
-              options={ADD_ROLES_OPTIONS}
-              placeholder="Add roles"
-              ariaLabel="Add additional roles to the search"
-              enableSelectAll
-            />
-          </div>
           <div style={{ minWidth: '200px' }}>
             <Input
               value={keyword}
@@ -174,30 +164,24 @@ export default function JobMarketPage({ items, onItemsChange, primaryPersonaId }
               ariaLabel="Filter by experience level"
             />
           </div>
-          <div style={{ minWidth: '160px' }}>
+          <div style={{ minWidth: '200px' }}>
             <Select
-              selectedOption={sortBy}
-              onChange={({ detail }) => setSortBy(detail.selectedOption)}
-              options={SORT_OPTIONS}
-              ariaLabel="Sort jobs"
+              selectedOption={selectedLocation}
+              onChange={({ detail }) => setSelectedLocation(detail.selectedOption)}
+              options={LOCATION_SELECT_OPTIONS}
+              ariaLabel="Filter by location"
             />
           </div>
-          <div style={{ minWidth: '170px' }}>
-            <Select
-              selectedOption={jobsPerWidget}
-              onChange={({ detail }) => setJobsPerWidget(detail.selectedOption)}
-              options={JOBS_PER_WIDGET_OPTIONS}
-              ariaLabel="Number of jobs shown per company"
-            />
-          </div>
-          <div style={{ minWidth: '150px' }}>
-            <Select
-              selectedOption={detailLevel}
-              onChange={({ detail }) => setDetailLevel(detail.selectedOption)}
-              options={DETAIL_LEVEL_OPTIONS}
-              ariaLabel="Detail level shown"
-            />
-          </div>
+          <Button
+            iconName="settings"
+            ariaLabel="Search settings"
+            onClick={() => {
+              setSettingsModalKey((k) => k + 1);
+              setSettingsModalVisible(true);
+            }}
+          >
+            Search settings
+          </Button>
         </SpaceBetween>
 
         <Board<JobBoardItemData['data']>
@@ -249,6 +233,14 @@ export default function JobMarketPage({ items, onItemsChange, primaryPersonaId }
           }}
         />
       </SpaceBetween>
+
+      <SearchSettingsModal
+        key={settingsModalKey}
+        visible={settingsModalVisible}
+        onDismiss={() => setSettingsModalVisible(false)}
+        initialValues={settings}
+        onSave={setSettings}
+      />
     </ContentLayout>
   );
 }

@@ -1,6 +1,7 @@
 import type { CompanyId } from './companies';
 import type { JobSeekerPersonaId } from './personas';
 import type { ExperienceLevel } from './experienceLevels';
+import type { LocationRegion } from './locations';
 
 export interface JobQualifications {
   required: string[];
@@ -12,6 +13,13 @@ export interface JobListing {
   companyId: CompanyId;
   title: string;
   location: string;
+  /** Canonical region tags for the Location filter — separate from the
+   * free-text `location` display string since real postings vary too widely
+   * in specificity ("Redmond, WA" vs "Multiple US locations") to filter
+   * against directly. A listing open to multiple regions lists all of them;
+   * one tied to a region outside the filter's 3 options gets an empty array
+   * (it simply won't match any specific region — see locations.ts). */
+  regions: LocationRegion[];
   persona: JobSeekerPersonaId;
   experienceLevel: ExperienceLevel;
   qualifications: JobQualifications;
@@ -44,6 +52,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'microsoft',
     title: 'Software Engineer II – Frontend',
     location: 'Redmond, WA',
+    regions: ['seattle'],
     persona: 'sde',
     experienceLevel: 'mid',
     qualifications: {
@@ -66,6 +75,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'microsoft',
     title: 'Software Engineer – Web Data Platform',
     location: 'Redmond, WA',
+    regions: ['seattle'],
     persona: 'sde',
     experienceLevel: 'senior',
     qualifications: {
@@ -88,6 +98,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'microsoft',
     title: 'UX Designer 2 (Teams)',
     location: 'Redmond, WA',
+    regions: ['seattle'],
     persona: 'ux-designer',
     experienceLevel: 'mid',
     qualifications: {
@@ -110,6 +121,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'microsoft',
     title: 'Senior UX Designer',
     location: 'Redmond, WA',
+    regions: ['seattle'],
     persona: 'ux-designer',
     experienceLevel: 'senior',
     qualifications: {
@@ -134,6 +146,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'google',
     title: 'UX Designer',
     location: 'New York, NY (hybrid)',
+    regions: ['nyc'],
     persona: 'ux-designer',
     experienceLevel: 'mid',
     qualifications: {
@@ -156,6 +169,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'google',
     title: 'UX Designer, Ready-To-Pay',
     location: 'Multiple US locations',
+    regions: ['seattle', 'nyc', 'sf-bay'],
     persona: 'ux-designer',
     experienceLevel: 'mid',
     qualifications: {
@@ -178,6 +192,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'google',
     title: 'Senior Software Engineer, Full Stack, Labs',
     location: 'Multiple US locations',
+    regions: ['seattle', 'nyc', 'sf-bay'],
     persona: 'sde',
     experienceLevel: 'senior',
     qualifications: {
@@ -199,6 +214,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'google',
     title: 'Software Engineer, PhD, Early Career, AI/Machine Learning',
     location: 'Multiple US locations',
+    regions: ['seattle', 'nyc', 'sf-bay'],
     persona: 'sde',
     experienceLevel: 'entry',
     qualifications: {
@@ -226,6 +242,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'boeing',
     title: 'Structural Analysis Engineer',
     location: 'Berkeley, MO',
+    regions: [],
     persona: 'mechanical-engineer',
     experienceLevel: 'mid',
     qualifications: {
@@ -248,6 +265,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'boeing',
     title: 'Mid-Level Structural Analysis Engineer – Systems Stress',
     location: 'North Charleston, SC',
+    regions: [],
     persona: 'mechanical-engineer',
     experienceLevel: 'mid',
     qualifications: {
@@ -270,6 +288,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'boeing',
     title: 'Senior Structural Analysis Engineer – Systems Stress',
     location: 'North Charleston, SC',
+    regions: [],
     persona: 'mechanical-engineer',
     experienceLevel: 'senior',
     qualifications: {
@@ -294,6 +313,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'uw',
     title: 'Software Engineer (Applied Physics Laboratory)',
     location: 'Seattle, WA',
+    regions: ['seattle'],
     persona: 'sde',
     experienceLevel: 'mid',
     qualifications: {
@@ -315,6 +335,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'uw',
     title: 'Product Designer (Temporary)',
     location: 'Seattle, WA',
+    regions: ['seattle'],
     persona: 'ux-designer',
     experienceLevel: 'mid',
     qualifications: {
@@ -336,6 +357,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'uw',
     title: 'Senior Systems Engineer',
     location: 'Seattle, WA',
+    regions: ['seattle'],
     persona: 'sde',
     experienceLevel: 'senior',
     qualifications: {
@@ -357,6 +379,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'uw',
     title: 'Learning Experience Designer & Facilitator (Temporary)',
     location: 'Seattle, WA',
+    regions: ['seattle'],
     persona: 'ux-designer',
     experienceLevel: 'mid',
     qualifications: {
@@ -380,6 +403,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'anthropic',
     title: 'Staff Software Engineer, Claude.ai',
     location: 'San Francisco / NYC / Seattle',
+    regions: ['sf-bay', 'nyc', 'seattle'],
     persona: 'sde',
     experienceLevel: 'staff',
     qualifications: {
@@ -402,6 +426,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'anthropic',
     title: 'Product Designer, Claude Code',
     location: 'San Francisco, CA',
+    regions: ['sf-bay'],
     persona: 'ux-designer',
     experienceLevel: 'senior',
     qualifications: {
@@ -423,6 +448,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'anthropic',
     title: 'Product Designer, Enterprise',
     location: 'San Francisco, CA',
+    regions: ['sf-bay'],
     persona: 'ux-designer',
     experienceLevel: 'senior',
     qualifications: {
@@ -447,6 +473,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'amazon',
     title: 'UX Designer, Planning Tools, Amazon Customer Service',
     location: 'Austin, TX / Seattle, WA',
+    regions: ['seattle'],
     persona: 'ux-designer',
     experienceLevel: 'mid',
     qualifications: {
@@ -468,6 +495,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'amazon',
     title: 'Mechanical Engineer',
     location: 'North Reading / Westboro, MA',
+    regions: [],
     persona: 'mechanical-engineer',
     experienceLevel: 'mid',
     qualifications: {
@@ -491,6 +519,7 @@ const JOB_LISTINGS: JobListing[] = [
     companyId: 'amazon',
     title: 'Software Development Engineer – 2026 (US)',
     location: 'Seattle, WA',
+    regions: ['seattle'],
     persona: 'sde',
     experienceLevel: 'entry',
     qualifications: {
