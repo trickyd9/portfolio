@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Box from '@cloudscape-design/components/box';
 import Link from '@cloudscape-design/components/link';
 import SpaceBetween from '@cloudscape-design/components/space-between';
+import ExpandableSection from '@cloudscape-design/components/expandable-section';
 
 import type { JobListing } from '../content/jobMarket/jobListings';
 import { EXPERIENCE_LEVELS } from '../content/jobMarket/experienceLevels';
@@ -28,9 +29,18 @@ function QualificationList({ heading, items }: { heading: string; items: string[
   );
 }
 
-export default function JobListingCard({ listing, detailLevel }: { listing: JobListing; detailLevel: DetailLevel }) {
+interface JobListingCardProps {
+  listing: JobListing;
+  detailLevel: DetailLevel;
+  /** The first listing in each company's list defaults open — same standing
+   * "first expandable item defaults open" convention used by EntryList
+   * elsewhere on the site (see WIDGET-TRACKER.md, Tenet 4). */
+  isFirst: boolean;
+}
+
+export default function JobListingCard({ listing, detailLevel, isFirst }: JobListingCardProps) {
   const [expandOverride, setExpandOverride] = useState<boolean | null>(null);
-  const expanded = expandOverride ?? detailLevel === 'detailed';
+  const expanded = expandOverride ?? (isFirst || detailLevel === 'detailed');
 
   return (
     <div style={{ borderTop: '1px solid rgba(128, 128, 128, 0.25)', paddingTop: '10px' }}>
@@ -43,18 +53,17 @@ export default function JobListingCard({ listing, detailLevel }: { listing: JobL
           {listing.compensationRange ? ` · ${listing.compensationRange}` : ''}
         </Box>
 
-        {expanded ? (
+        <ExpandableSection
+          variant="default"
+          headerText="Qualifications"
+          expanded={expanded}
+          onChange={({ detail }) => setExpandOverride(detail.expanded)}
+        >
           <SpaceBetween size="xs">
             <QualificationList heading="Required" items={listing.qualifications.required} />
             <QualificationList heading="Preferred" items={listing.qualifications.preferred} />
           </SpaceBetween>
-        ) : null}
-
-        <div>
-          <Link variant="secondary" fontSize="body-s" onFollow={() => setExpandOverride(!expanded)}>
-            {expanded ? 'Hide details' : 'Show details'}
-          </Link>
-        </div>
+        </ExpandableSection>
 
         <Box variant="small" color="text-status-inactive">
           Checked {listing.checkedOn}

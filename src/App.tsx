@@ -85,21 +85,10 @@ function AppShell() {
   const navigate = useNavigate();
 
   const [jobBoardItems, setJobBoardItems] = useState<JobBoardItemData[]>(() => defaultJobBoardItems());
-  const [selectedJobPersonaIds, setSelectedJobPersonaIds] = useState<Set<JobSeekerPersonaId>>(
-    () => new Set(JOB_SEEKER_PERSONAS.map((p) => p.id)),
-  );
+  const [primaryJobPersonaId, setPrimaryJobPersonaId] = useState<JobSeekerPersonaId>(JOB_SEEKER_PERSONAS[0].id);
   const [activeDrawerId, setActiveDrawerId] = useState<string | null>(null);
   const [searchValue, setSearchValue] = useState('');
   const { density, mode, setDensity, setMode } = useDisplaySettings();
-
-  function toggleJobPersona(id: JobSeekerPersonaId) {
-    setSelectedJobPersonaIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  }
 
   const companiesOnBoard = useMemo(() => new Set(jobBoardItems.map((item) => item.data.companyId)), [jobBoardItems]);
   const availableCompaniesToAdd = COMPANIES.filter((c) => !companiesOnBoard.has(c.id));
@@ -234,23 +223,22 @@ function AppShell() {
                 items={preferencesItems}
                 onItemClick={onPreferencesItemClick}
               />
-              {/* The Job Market Explorer's role filter — same header-dropdown treatment
-                  as the old visitor-persona switcher, scoped to /job-market since it
-                  only affects that page's board (see WIDGET-TRACKER.md). */}
+              {/* The Job Market Explorer's primary role — single-select, same
+                  header-dropdown treatment and behavior as the old visitor-persona
+                  switcher (picking an item replaces the selection and closes the
+                  menu). Searching additional roles alongside this one is a separate,
+                  additive page-level filter (JobMarketPage's "Add roles" control) —
+                  not the same control, per David's explicit split. Scoped to
+                  /job-market since it only affects that page's board. */}
               {location.pathname === '/job-market' && (
                 <span className="inline-dropdown">
                   <ButtonDropdown
                     variant="normal"
-                    ariaLabel="Filter by role"
-                    items={JOB_SEEKER_PERSONAS.map((p) => ({
-                      id: p.id,
-                      text: p.label,
-                      itemType: 'checkbox',
-                      checked: selectedJobPersonaIds.has(p.id),
-                    }))}
-                    onItemClick={({ detail }) => toggleJobPersona(detail.id as JobSeekerPersonaId)}
+                    ariaLabel="Primary role"
+                    items={JOB_SEEKER_PERSONAS.map((p) => ({ id: p.id, text: p.label }))}
+                    onItemClick={({ detail }) => setPrimaryJobPersonaId(detail.id as JobSeekerPersonaId)}
                   >
-                    Role
+                    {JOB_SEEKER_PERSONAS.find((p) => p.id === primaryJobPersonaId)!.label}
                   </ButtonDropdown>
                 </span>
               )}
@@ -292,7 +280,7 @@ function AppShell() {
                 <JobMarketPage
                   items={jobBoardItems}
                   onItemsChange={setJobBoardItems}
-                  selectedPersonaIds={selectedJobPersonaIds}
+                  primaryPersonaId={primaryJobPersonaId}
                 />
               }
             />

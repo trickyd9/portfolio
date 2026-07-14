@@ -8,11 +8,13 @@ import Input from '@cloudscape-design/components/input';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Select from '@cloudscape-design/components/select';
 import type { SelectProps } from '@cloudscape-design/components/select';
+import Multiselect from '@cloudscape-design/components/multiselect';
+import type { MultiselectProps } from '@cloudscape-design/components/multiselect';
 import { Board, BoardItem } from '@cloudscape-design/board-components';
 import type { BoardProps } from '@cloudscape-design/board-components';
 
 import { COMPANIES, type CompanyId } from '../content/jobMarket/companies';
-import type { JobSeekerPersonaId } from '../content/jobMarket/personas';
+import { JOB_SEEKER_PERSONAS, type JobSeekerPersonaId } from '../content/jobMarket/personas';
 import { EXPERIENCE_LEVELS, type ExperienceLevel } from '../content/jobMarket/experienceLevels';
 import { getJobListings, type JobListing } from '../content/jobMarket/jobListings';
 import type { JobBoardItemData } from '../content/jobMarket/boardItem';
@@ -86,26 +88,37 @@ function sortListings(listings: JobListing[], sortBy: SortBy): JobListing[] {
 interface JobMarketPageProps {
   items: JobBoardItemData[];
   onItemsChange: (items: JobBoardItemData[]) => void;
-  selectedPersonaIds: Set<JobSeekerPersonaId>;
+  /** Set from the header's single-select Role dropdown. */
+  primaryPersonaId: JobSeekerPersonaId;
 }
 
-export default function JobMarketPage({ items, onItemsChange, selectedPersonaIds }: JobMarketPageProps) {
+const ADD_ROLES_OPTIONS: MultiselectProps.Option[] = JOB_SEEKER_PERSONAS.map((p) => ({ value: p.id, label: p.label }));
+
+export default function JobMarketPage({ items, onItemsChange, primaryPersonaId }: JobMarketPageProps) {
   const [selectedLevel, setSelectedLevel] = useState<SelectProps.Option>(ALL_LEVELS_OPTION);
   const [jobsPerWidget, setJobsPerWidget] = useState<SelectProps.Option>(JOBS_PER_WIDGET_OPTIONS[1]);
   const [detailLevel, setDetailLevel] = useState<SelectProps.Option>(DETAIL_LEVEL_OPTIONS[0]);
   const [sortBy, setSortBy] = useState<SelectProps.Option>(SORT_OPTIONS[0]);
   const [keyword, setKeyword] = useState('');
+  // Additive — broadens the search beyond the header's single primary role,
+  // per David: the header shouldn't be a multiselect, this is the separate
+  // "add another role to the current search" control instead.
+  const [additionalRoles, setAdditionalRoles] = useState<MultiselectProps.Option[]>([]);
 
   const activeLevel = selectedLevel.value as ExperienceLevel | 'all';
   const activeSort = sortBy.value as SortBy;
   const activeDetailLevel = detailLevel.value as DetailLevel;
   const cap = jobsPerWidget.value === 'all' ? Infinity : Number(jobsPerWidget.value);
   const keywordLower = keyword.trim().toLowerCase();
+  const activePersonaIds = new Set<JobSeekerPersonaId>([
+    primaryPersonaId,
+    ...additionalRoles.map((o) => o.value as JobSeekerPersonaId),
+  ]);
 
   const allListings = getJobListings();
 
   function matchesFilters(listing: JobListing) {
-    if (!selectedPersonaIds.has(listing.persona)) return false;
+    if (!activePersonaIds.has(listing.persona)) return false;
     if (activeLevel !== 'all' && listing.experienceLevel !== activeLevel) return false;
     if (keywordLower) {
       const haystack = [listing.title, listing.location, ...listing.qualifications.required, ...listing.qualifications.preferred]
@@ -126,7 +139,7 @@ export default function JobMarketPage({ items, onItemsChange, selectedPersonaIds
       header={
         <Header
           variant="h1"
-          description="A persona-driven dashboard for exploring current tech job openings — built as a live demo of the same persona/filter dashboard UX used throughout this site. Listings are a curated snapshot (checked dates shown per card), not a live feed — see WIDGET-TRACKER.md for the plan to make this fully live. Use the Role dropdown (top right) to filter by job-seeker persona."
+          description="A persona-driven dashboard for exploring current tech job openings — built as a live demo of the same persona/filter dashboard UX used throughout this site. Listings are a curated snapshot (checked dates shown per card), not a live feed — see WIDGET-TRACKER.md for the plan to make this fully live. Use the Role dropdown (top right) to set your primary role, and 'Add roles' below to broaden the search."
         >
           Job Market Explorer
         </Header>
@@ -134,6 +147,16 @@ export default function JobMarketPage({ items, onItemsChange, selectedPersonaIds
     >
       <SpaceBetween size="l">
         <SpaceBetween size="xs" direction="horizontal">
+          <div style={{ minWidth: '220px' }}>
+            <Multiselect
+              selectedOptions={additionalRoles}
+              onChange={({ detail }) => setAdditionalRoles([...detail.selectedOptions])}
+              options={ADD_ROLES_OPTIONS}
+              placeholder="Add roles"
+              ariaLabel="Add additional roles to the search"
+              enableSelectAll
+            />
+          </div>
           <div style={{ minWidth: '200px' }}>
             <Input
               value={keyword}
@@ -204,8 +227,13 @@ export default function JobMarketPage({ items, onItemsChange, selectedPersonaIds
               >
                 {shown.length > 0 ? (
                   <SpaceBetween size="s">
-                    {shown.map((listing) => (
-                      <JobListingCard key={listing.id} listing={listing} detailLevel={activeDetailLevel} />
+                    {shown.map((listing, index) => (
+                      <JobListingCard
+                        key={listing.id}
+                        listing={listing}
+                        detailLevel={activeDetailLevel}
+                        isFirst={index === 0}
+                      />
                     ))}
                   </SpaceBetween>
                 ) : (
