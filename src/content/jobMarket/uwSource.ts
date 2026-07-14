@@ -9,7 +9,7 @@
 // distinction is surfaced in JobMarketPage's status line, not hidden.
 import type { JobListing } from './jobListings';
 
-const RAW_DATA_URL = 'https://raw.githubusercontent.com/trickyd9/portfolio/main/site/data/uw-jobs.json';
+const RAW_DATA_URL = 'https://raw.githubusercontent.com/trickyd9/portfolio/main/data/uw-jobs.json';
 
 interface UwJobsFile {
   fetchedAt: string;
