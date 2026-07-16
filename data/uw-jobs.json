@@ -1,6 +1,42 @@
 {
-  "fetchedAt": "2026-07-15T14:41:40.534Z",
+  "fetchedAt": "2026-07-16T14:51:59.402Z",
   "listings": [
+    {
+      "id": "uw-REQ-0000134455",
+      "companyId": "uw",
+      "title": "Software Engineer",
+      "location": "Annapolis, MD",
+      "regions": [],
+      "persona": "sde",
+      "experienceLevel": "mid",
+      "qualifications": {
+        "required": [
+          "Bachelor’s degree in Systems, Electrical, Mechanical Aerospace, or related Engineering field AND 5-10 years’ work experience."
+        ],
+        "preferred": []
+      },
+      "compensationRange": "$132,000 – $180,000/yr",
+      "postedOn": "2026-07-15",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Annapolis-MD/Software-Engineer_REQ-0000134455"
+    },
+    {
+      "id": "uw-REQ-0000134242",
+      "companyId": "uw",
+      "title": "Senior Systems Engineer",
+      "location": "Seattle, WA",
+      "regions": [
+        "seattle"
+      ],
+      "persona": "sde",
+      "experienceLevel": "senior",
+      "qualifications": {
+        "required": [],
+        "preferred": []
+      },
+      "compensationRange": "$99,228 – $161,244/yr",
+      "postedOn": "2026-07-15",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Senior-Systems-Engineer_REQ-0000134242-1"
+    },
     {
       "id": "uw-REQ-0000132835",
       "companyId": "uw",
@@ -67,53 +103,6 @@
       "compensationRange": "$99,756 – $162,096/yr",
       "postedOn": "2026-07-13",
       "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Wireless-Network-Engineer_REQ-0000133375"
-    },
-    {
-      "id": "uw-REQ-0000133380",
-      "companyId": "uw",
-      "title": "Network Specialist",
-      "location": "Seattle, WA",
-      "regions": [
-        "seattle"
-      ],
-      "persona": "sde",
-      "experienceLevel": "mid",
-      "qualifications": {
-        "required": [],
-        "preferred": []
-      },
-      "compensationRange": "$76,788 – $124,776/yr",
-      "postedOn": "2026-07-13",
-      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Network-Specialist_REQ-0000133380-1"
-    },
-    {
-      "id": "uw-REQ-0000132848",
-      "companyId": "uw",
-      "title": "Linux Web Infrastructure Engineer",
-      "location": "Seattle, WA",
-      "regions": [
-        "seattle"
-      ],
-      "persona": "sde",
-      "experienceLevel": "mid",
-      "qualifications": {
-        "required": [
-          "Bachelor’s Degree in Computer Science or a related field or equivalent experience.",
-          "Four years’ experience in software systems administration and support: designing, installing, configuring, and troubleshooting.",
-          "Experience supporting a large (more than 10,000 sites) Web Hosting environment",
-          "Experience with SQL Server, PostgreSQL, and/or MySQL and supporting database-backed applications",
-          "Experience with the implementation and configuration of software packages and/or cloud-based applications",
-          "Experience with APIs to understand and support system integrations",
-          "Experience with coding shell scripts, such as PowerShell and JavaScript",
-          "Demonstrated ability to lead service delivery teams, construct and manage projects, and consistently and effectively document status.",
-          "Demonstrated ability to learn quickly and apply new technologies",
-          "Demonstrated ability to deliver outstanding service to customers and peers."
-        ],
-        "preferred": []
-      },
-      "compensationRange": "$97,080 – $157,764/yr",
-      "postedOn": "2026-07-13",
-      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Software-Engineer_REQ-0000132848"
     },
     {
       "id": "uw-REQ-0000130577",
