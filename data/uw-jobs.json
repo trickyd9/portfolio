@@ -1,6 +1,26 @@
 {
-  "fetchedAt": "2026-07-16T14:51:59.402Z",
+  "fetchedAt": "2026-07-17T14:24:25.244Z",
   "listings": [
+    {
+      "id": "uw-REQ-0000133109",
+      "companyId": "uw",
+      "title": "Research Engineer 2 - Hardware and Software Design (Temporary)",
+      "location": "Seattle, WA",
+      "regions": [
+        "seattle"
+      ],
+      "persona": "sde",
+      "experienceLevel": "entry",
+      "qualifications": {
+        "required": [
+          "Applicants who do not meet these qualifications WILL NOT be forwarded to the Hiring Manager.Bachelor’s degree in computer science or related engineering field and two years of designing hardware and software. Experience with robotics, data acquisition, and other engineered devices will be considered relevant."
+        ],
+        "preferred": []
+      },
+      "compensationRange": "$68,736 – $84,000/yr",
+      "postedOn": "2026-07-16",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Research-Engineer-2---Hardware-and-Software-Design--Temporary-_REQ-0000133109"
+    },
     {
       "id": "uw-REQ-0000134455",
       "companyId": "uw",
@@ -85,24 +105,6 @@
       "compensationRange": "$87,624 – $142,392/yr",
       "postedOn": "2026-07-13",
       "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/AI-DevOps-Engineer_REQ-0000130597"
-    },
-    {
-      "id": "uw-REQ-0000133375",
-      "companyId": "uw",
-      "title": "Wireless Network Engineer",
-      "location": "Seattle, WA",
-      "regions": [
-        "seattle"
-      ],
-      "persona": "sde",
-      "experienceLevel": "mid",
-      "qualifications": {
-        "required": [],
-        "preferred": []
-      },
-      "compensationRange": "$99,756 – $162,096/yr",
-      "postedOn": "2026-07-13",
-      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Wireless-Network-Engineer_REQ-0000133375"
     },
     {
       "id": "uw-REQ-0000130577",
