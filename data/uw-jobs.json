@@ -1,6 +1,28 @@
 {
-  "fetchedAt": "2026-07-17T14:24:25.244Z",
+  "fetchedAt": "2026-07-18T14:14:49.818Z",
   "listings": [
+    {
+      "id": "uw-REQ-0000134695",
+      "companyId": "uw",
+      "title": "Events Manager",
+      "location": "Seattle, WA",
+      "regions": [
+        "seattle"
+      ],
+      "persona": "sde",
+      "experienceLevel": "mid",
+      "qualifications": {
+        "required": [
+          "Bachelor’s degree in liberal arts, communications, design and/or related fields. Equivalent experience can substitute for degree requirement.",
+          "At least two years of experience managing events in an academic research and education environment or science, engineering, or technology-focused organization or company, or related field.",
+          "Applicants who do not meet these qualifications WILL NOT be forwarded to the Hiring Manager."
+        ],
+        "preferred": []
+      },
+      "compensationRange": "$70,440 – $80,040/yr",
+      "postedOn": "2026-07-17",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Events-Manager_REQ-0000134695"
+    },
     {
       "id": "uw-REQ-0000133109",
       "companyId": "uw",
@@ -87,24 +109,6 @@
       "compensationRange": "$87,624 – $142,392/yr",
       "postedOn": "2026-07-13",
       "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Software-Engineer_REQ-0000132835"
-    },
-    {
-      "id": "uw-REQ-0000130597",
-      "companyId": "uw",
-      "title": "AI DevOps Engineer",
-      "location": "Seattle, WA",
-      "regions": [
-        "seattle"
-      ],
-      "persona": "sde",
-      "experienceLevel": "mid",
-      "qualifications": {
-        "required": [],
-        "preferred": []
-      },
-      "compensationRange": "$87,624 – $142,392/yr",
-      "postedOn": "2026-07-13",
-      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/AI-DevOps-Engineer_REQ-0000130597"
     },
     {
       "id": "uw-REQ-0000130577",
