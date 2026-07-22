@@ -1,6 +1,34 @@
 {
-  "fetchedAt": "2026-07-21T14:55:03.373Z",
+  "fetchedAt": "2026-07-22T14:54:37.159Z",
   "listings": [
+    {
+      "id": "uw-REQ-0000132798",
+      "companyId": "uw",
+      "title": "AI Agent Builder",
+      "location": "Seattle, WA",
+      "regions": [
+        "seattle"
+      ],
+      "persona": "sde",
+      "experienceLevel": "mid",
+      "qualifications": {
+        "required": [
+          "Bachelor's degree in Computer Science, Data Science, Software Engineering, or a related field or experience.",
+          "3 &#43; years of professional software development experience demonstrating strong computer science fundamentals and API integration expertise, professional experience in software development.•    Demonstrated experience in AI/ML or LLM-based applications.",
+          "Demonstrated portfolio of deployed AI agent solutions or automation tools (GitHub repositories, case studies, or equivalent evidence of hands-on work).",
+          "Demonstrated experience building AI agents, chatbots, or conversational AI systems using modern LLM frameworks.",
+          "Hands-on experience with LLM APIs (e.g., OpenAI, Anthropic, Google, or open-source models) and prompt engineering.",
+          "Strong understanding of retrieval-augmented generation (RAG), embeddings, vector search, and contextual grounding strategies.",
+          "Familiarity with vector databases (e.g., Pinecone, Weaviate, ChromaDB, pgvector) and embedding-based retrieval.",
+          "Experience with REST APIs, cloud platforms (AWS, Azure, or GCP), and containerization (Docker).",
+          "Strong problem-solving skills and ability to work both independently and collaboratively in a cross-functional teams."
+        ],
+        "preferred": []
+      },
+      "compensationRange": "$87,624 – $142,392/yr",
+      "postedOn": "2026-07-21",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/AI-Agent-Builder_REQ-0000132798-1"
+    },
     {
       "id": "uw-REQ-0000134695",
       "companyId": "uw",
@@ -78,37 +106,6 @@
       "compensationRange": "$99,228 – $161,244/yr",
       "postedOn": "2026-07-15",
       "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Senior-Systems-Engineer_REQ-0000134242-1"
-    },
-    {
-      "id": "uw-REQ-0000132835",
-      "companyId": "uw",
-      "title": "Workday Procurement Application Engineer",
-      "location": "Seattle, WA",
-      "regions": [
-        "seattle"
-      ],
-      "persona": "sde",
-      "experienceLevel": "mid",
-      "qualifications": {
-        "required": [
-          "Bachelor’s Degree in computer science, information science, or a related field or experience.",
-          "Minimum three years of experience in the following:",
-          "Experience with SaaS products such as Workday Finance.",
-          "Experience working with enterprise Finance systems and the configuration and maintenance thereof, including working specifically with the Workday Finance (or similar) Procurment, Supply Chain, Accounts Payable, or Supplier Contracts modules.",
-          "Experience analyzing Finance business processes and documenting requirements.",
-          "Experience supporting system testing and/or data validation activities, including developing and maintaining manual and automated test scripts.",
-          "Experience with reporting, data, and security in a SaaS environment.",
-          "Demonstrated ability to understand business and technical design considerations and facilitate problem solving/issue resolution in the context of a customer service frame.",
-          "Ability to communicate clearly, in writing and in verbal presentations, to both technical and non-technical audiences.",
-          "Experience interacting with customers, including resolution of complex inquiries and efficient performance during high-volume timeframes.",
-          "Experience providing production support of mission critical systems.",
-          "Demonstrated written/oral communication, technical documentation, user liaising, and personal interaction abilities."
-        ],
-        "preferred": []
-      },
-      "compensationRange": "$87,624 – $142,392/yr",
-      "postedOn": "2026-07-13",
-      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Software-Engineer_REQ-0000132835"
     },
     {
       "id": "uw-REQ-0000130577",
