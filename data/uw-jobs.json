@@ -1,6 +1,27 @@
 {
-  "fetchedAt": "2026-07-28T15:11:30.802Z",
+  "fetchedAt": "2026-07-29T15:24:34.537Z",
   "listings": [
+    {
+      "id": "uw-REQ-0000134195",
+      "companyId": "uw",
+      "title": "Operations Engineer - Infrastructure, College of Arts and Sciences",
+      "location": "Seattle, WA",
+      "regions": [
+        "seattle"
+      ],
+      "persona": "sde",
+      "experienceLevel": "mid",
+      "qualifications": {
+        "required": [
+          "Bachelor's degree in Computer Science, Information Systems, Engineering, Physics, or a related field.",
+          "Four (4) or more years of progressively responsible experience in systems administration, infrastructure operations, or cloud/platform engineering."
+        ],
+        "preferred": []
+      },
+      "compensationRange": "$102,000 – $112,800/yr",
+      "postedOn": "2026-07-28",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Operations-Engineer---Infrastructure--College-of-Arts-and-Sciences_REQ-0000134195"
+    },
     {
       "id": "uw-REQ-0000132798",
       "companyId": "uw",
@@ -88,24 +109,6 @@
       "compensationRange": "$132,000 – $180,000/yr",
       "postedOn": "2026-07-15",
       "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Annapolis-MD/Software-Engineer_REQ-0000134455"
-    },
-    {
-      "id": "uw-REQ-0000134242",
-      "companyId": "uw",
-      "title": "Senior Systems Engineer",
-      "location": "Seattle, WA",
-      "regions": [
-        "seattle"
-      ],
-      "persona": "sde",
-      "experienceLevel": "senior",
-      "qualifications": {
-        "required": [],
-        "preferred": []
-      },
-      "compensationRange": "$99,228 – $161,244/yr",
-      "postedOn": "2026-07-15",
-      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Senior-Systems-Engineer_REQ-0000134242-1"
     },
     {
       "id": "uw-REQ-0000130577",
