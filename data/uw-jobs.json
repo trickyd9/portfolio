@@ -1,6 +1,24 @@
 {
-  "fetchedAt": "2026-07-29T15:24:34.537Z",
+  "fetchedAt": "2026-07-30T15:00:50.956Z",
   "listings": [
+    {
+      "id": "uw-REQ-0000135489",
+      "companyId": "uw",
+      "title": "Lead Cyber Security Analyst",
+      "location": "Seattle, WA",
+      "regions": [
+        "seattle"
+      ],
+      "persona": "sde",
+      "experienceLevel": "mid",
+      "qualifications": {
+        "required": [],
+        "preferred": []
+      },
+      "compensationRange": "$135,000 – $160,008/yr",
+      "postedOn": "2026-07-29",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Lead-Cyber-Security-Analyst_REQ-0000135489"
+    },
     {
       "id": "uw-REQ-0000134195",
       "companyId": "uw",
@@ -91,24 +109,6 @@
       "compensationRange": "$68,736 – $84,000/yr",
       "postedOn": "2026-07-16",
       "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Research-Engineer-2---Hardware-and-Software-Design--Temporary-_REQ-0000133109"
-    },
-    {
-      "id": "uw-REQ-0000134455",
-      "companyId": "uw",
-      "title": "Software Engineer",
-      "location": "Annapolis, MD",
-      "regions": [],
-      "persona": "sde",
-      "experienceLevel": "mid",
-      "qualifications": {
-        "required": [
-          "Bachelor’s degree in Systems, Electrical, Mechanical Aerospace, or related Engineering field AND 5-10 years’ work experience."
-        ],
-        "preferred": []
-      },
-      "compensationRange": "$132,000 – $180,000/yr",
-      "postedOn": "2026-07-15",
-      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Annapolis-MD/Software-Engineer_REQ-0000134455"
     },
     {
       "id": "uw-REQ-0000130577",
