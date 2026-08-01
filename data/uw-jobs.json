@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-07-31T15:12:37.917Z",
+  "fetchedAt": "2026-08-01T14:21:14.028Z",
   "listings": [
     {
       "id": "uw-REQ-0000131558",
@@ -105,6 +105,24 @@
       "compensationRange": "$68,736 – $84,000/yr",
       "postedOn": "2026-07-16",
       "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Research-Engineer-2---Hardware-and-Software-Design--Temporary-_REQ-0000133109"
+    },
+    {
+      "id": "uw-REQ-0000135122",
+      "companyId": "uw",
+      "title": "Digital Video Producer",
+      "location": "Seattle, WA",
+      "regions": [
+        "seattle"
+      ],
+      "persona": "ux-designer",
+      "experienceLevel": "mid",
+      "qualifications": {
+        "required": [],
+        "preferred": []
+      },
+      "compensationRange": "$75,996 – $85,008/yr",
+      "postedOn": "2026-07-31",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Digital-Video-Producer_REQ-0000135122"
     },
     {
       "id": "uw-REQ-0000130577",
