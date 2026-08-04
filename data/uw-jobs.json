@@ -1,6 +1,28 @@
 {
-  "fetchedAt": "2026-08-03T15:36:42.772Z",
+  "fetchedAt": "2026-08-04T15:15:13.900Z",
   "listings": [
+    {
+      "id": "uw-REQ-0000135249",
+      "companyId": "uw",
+      "title": "Administrative Coordinator",
+      "location": "Seattle, WA",
+      "regions": [
+        "seattle"
+      ],
+      "persona": "sde",
+      "experienceLevel": "mid",
+      "qualifications": {
+        "required": [
+          "High School Diploma/ GED",
+          "Three years of office or administrative support experience.",
+          "Applicants who do not meet these qualifications WILL NOT be forwarded to the Hiring Department."
+        ],
+        "preferred": []
+      },
+      "compensationRange": "$48,396 – $64,740/yr",
+      "postedOn": "2026-08-03",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Administrative-Coordinator_REQ-0000135249"
+    },
     {
       "id": "uw-REQ-0000131558",
       "companyId": "uw",
@@ -85,26 +107,6 @@
       "compensationRange": "$87,624 – $142,392/yr",
       "postedOn": "2026-07-21",
       "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/AI-Agent-Builder_REQ-0000132798-1"
-    },
-    {
-      "id": "uw-REQ-0000133109",
-      "companyId": "uw",
-      "title": "Research Engineer 2 - Hardware and Software Design (Temporary)",
-      "location": "Seattle, WA",
-      "regions": [
-        "seattle"
-      ],
-      "persona": "sde",
-      "experienceLevel": "entry",
-      "qualifications": {
-        "required": [
-          "Applicants who do not meet these qualifications WILL NOT be forwarded to the Hiring Manager.Bachelor’s degree in computer science or related engineering field and two years of designing hardware and software. Experience with robotics, data acquisition, and other engineered devices will be considered relevant."
-        ],
-        "preferred": []
-      },
-      "compensationRange": "$68,736 – $84,000/yr",
-      "postedOn": "2026-07-16",
-      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Research-Engineer-2---Hardware-and-Software-Design--Temporary-_REQ-0000133109"
     },
     {
       "id": "uw-REQ-0000135122",
