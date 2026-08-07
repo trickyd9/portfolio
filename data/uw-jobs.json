@@ -1,6 +1,37 @@
 {
-  "fetchedAt": "2026-08-06T15:05:51.667Z",
+  "fetchedAt": "2026-08-07T14:04:49.723Z",
   "listings": [
+    {
+      "id": "uw-REQ-0000135474",
+      "companyId": "uw",
+      "title": "Senior Workday Payroll Engineer",
+      "location": "Seattle, WA",
+      "regions": [
+        "seattle"
+      ],
+      "persona": "sde",
+      "experienceLevel": "senior",
+      "qualifications": {
+        "required": [
+          "Bachelors degree in Human Resources, Business Administration, Information Science, Computer Science or related experience",
+          "Four years of experience working in the Workday HR/Payroll domains with increasing responsibilities.",
+          "Experience working with enterprise HR/Payroll systems and the configuration and maintenance thereof, including working specifically with the Workday HR/Payroll (or similar) HCM, Compensation, Academic, Talent, Recruiting, Learning, Benefits, Time Tracking, Absence, or Payroll modules.",
+          "Experience analyzing complex HR/Payroll system processes and and implementing Workday configuration changes that support operational, compliance, and business requirements.",
+          "Experience supporting system testing and/or data validation activities.",
+          "Experience with reporting, data, and security in a SaaS environment.",
+          "Demonstrated ability to understand business and technical design considerations and resolve issues through problem solving in the context of a customer service framework.",
+          "Ability to communicate clearly, in writing and in verbal presentations, to both technical and non-technical audiences.",
+          "Experience interacting with customers, including resolution of complex inquiries and efficient performance during high-volume timeframes.",
+          "Experience providing production support of mission critical systems.",
+          "Demonstrated excellent written/oral communication skills, technical documentation skills, user liaising, and personal interaction abilities.",
+          "Applicants who do not meet these qualifications WILL NOT be forwarded to the Hiring Manager."
+        ],
+        "preferred": []
+      },
+      "compensationRange": "$99,228 – $161,244/yr",
+      "postedOn": "2026-08-06",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Senior-Workday-Payroll-Engineer_REQ-0000135474"
+    },
     {
       "id": "uw-REQ-0000135281",
       "companyId": "uw",
@@ -78,27 +109,6 @@
       "compensationRange": "$135,000 – $160,008/yr",
       "postedOn": "2026-07-29",
       "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Lead-Cyber-Security-Analyst_REQ-0000135489"
-    },
-    {
-      "id": "uw-REQ-0000134195",
-      "companyId": "uw",
-      "title": "Operations Engineer - Infrastructure, College of Arts and Sciences",
-      "location": "Seattle, WA",
-      "regions": [
-        "seattle"
-      ],
-      "persona": "sde",
-      "experienceLevel": "mid",
-      "qualifications": {
-        "required": [
-          "Bachelor's degree in Computer Science, Information Systems, Engineering, Physics, or a related field.",
-          "Four (4) or more years of progressively responsible experience in systems administration, infrastructure operations, or cloud/platform engineering."
-        ],
-        "preferred": []
-      },
-      "compensationRange": "$102,000 – $112,800/yr",
-      "postedOn": "2026-07-28",
-      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Operations-Engineer---Infrastructure--College-of-Arts-and-Sciences_REQ-0000134195"
     },
     {
       "id": "uw-REQ-0000135122",
