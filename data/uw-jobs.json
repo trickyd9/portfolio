@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-07T14:04:49.723Z",
+  "fetchedAt": "2026-08-08T13:37:32.956Z",
   "listings": [
     {
       "id": "uw-REQ-0000135474",
@@ -29,8 +29,44 @@
         "preferred": []
       },
       "compensationRange": "$99,228 – $161,244/yr",
-      "postedOn": "2026-08-06",
+      "postedOn": "2026-08-07",
       "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Senior-Workday-Payroll-Engineer_REQ-0000135474"
+    },
+    {
+      "id": "uw-REQ-0000135436",
+      "companyId": "uw",
+      "title": "SOFTWARE ENGINEER, ORIS: System/Application Development",
+      "location": "Seattle, WA",
+      "regions": [
+        "seattle"
+      ],
+      "persona": "sde",
+      "experienceLevel": "mid",
+      "qualifications": {
+        "required": [
+          "Bachelor’s degree in computer science (or related field) with a minimum of 5 years of professional enterprise software engineering experience, OR 8&#43; years of equivalent practical experience.",
+          "Minimum 5 years of experience including:"
+        ],
+        "preferred": [
+          "Experience working with one or more modern additional high level programming languages such as Python, C# (.NET), Java.",
+          "Experience building and deploying application code components following Infrastructure as code approach using CloudFormation templates.",
+          "Experience architecting loosely coupled homo/heterogenous integrated systems following systems design principles and architectural standards.",
+          "Experience modeling objects, data, metadata, process, and/or information.",
+          "Experience with analytics services such as Google Analytics and/or Segment",
+          "Experience with accessibility standards and knowledge of best practices; experience with ARIA.",
+          "Experience with building web applications adhering to OWASP security protocols and SOC compliance standards.",
+          "Experience designing and implementing API integrations across heterogeneous systems and enterprise integration platforms like MuleSoft.",
+          "Experience deploying applications in blue/green mode.",
+          "Experience working with transactional systems generating real-time data to support business intelligence reporting.",
+          "Solid understanding of data structures, web protocols, web application architecture, RESTful API design and data flows.",
+          "Knowledge of Workday suite of applications/modules, data models, security, integrations and data load capabilities.",
+          "Knowledge of common content and data exchange formats, including Markdown, YAML, and JSON.",
+          "Working in higher education and/or research administration."
+        ]
+      },
+      "compensationRange": "$122,400 – $134,400/yr",
+      "postedOn": "2026-08-07",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/SOFTWARE-ENGINEER--ORIS--System-Application-Development_REQ-0000135436"
     },
     {
       "id": "uw-REQ-0000135281",
@@ -93,22 +129,27 @@
       "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Environmental-Engineer_REQ-0000131558-1"
     },
     {
-      "id": "uw-REQ-0000135489",
+      "id": "uw-REQ-0000135766",
       "companyId": "uw",
-      "title": "Lead Cyber Security Analyst",
+      "title": "Instructional Designer",
       "location": "Seattle, WA",
       "regions": [
         "seattle"
       ],
-      "persona": "sde",
+      "persona": "ux-designer",
       "experienceLevel": "mid",
       "qualifications": {
-        "required": [],
+        "required": [
+          "Bachelor’s degree in Education, Instructional Design, Educational Technology, Curriculum & Instruction, or a related field.",
+          "3&#43; years of experience designing and developing online courses in a higher education environment.",
+          "Applied expertise in course conversion with an emphasis on instructional alignment and pedagogical integrity.",
+          "Strong knowledge of learning theory, adult learning principles, and instructional models such as ADDIE or Backward Design."
+        ],
         "preferred": []
       },
-      "compensationRange": "$135,000 – $160,008/yr",
-      "postedOn": "2026-07-29",
-      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Lead-Cyber-Security-Analyst_REQ-0000135489"
+      "compensationRange": "$85,008 – $100,800/yr",
+      "postedOn": "2026-08-07",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Instructional-Designer_REQ-0000135766"
     },
     {
       "id": "uw-REQ-0000135122",
