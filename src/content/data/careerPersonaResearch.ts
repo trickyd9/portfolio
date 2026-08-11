@@ -363,7 +363,8 @@ export const APPLICATIONS: Entry[] = [
           "The plan is for it to open on a default set of widgets chosen for whichever persona is selected, then hand over control: any widget can be added or removed, and the arrangement is yours to rearrange. The defaults come from the findings on these pages rather than from guesswork — each persona's starting layout reflects what the research says that persona reads first.",
       },
       {
-        intro: 'This is currently being built and is not on the site yet. The research behind it is what these pages document.',
+        intro:
+          'A first version is on the site now, under Persona Dashboard — it is still being filled in, so it currently carries only a few of the cards it will end up with.',
       },
     ],
   },

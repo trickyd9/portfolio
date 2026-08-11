@@ -30,6 +30,7 @@ import FeaturedProjectsPage from './pages/FeaturedProjectsPage';
 import PersonaResearchPage from './pages/PersonaResearchPage';
 import CareerPersonaResearchPage from './pages/CareerPersonaResearchPage';
 import PersonaSummaryPage from './pages/PersonaSummaryPage';
+import PersonaDashboardPage from './pages/PersonaDashboardPage';
 import DesignSystemsPage from './pages/DesignSystemsPage';
 import AiAugmentedBuildPage from './pages/AiAugmentedBuildPage';
 import { CAREER_PERSONA_RESEARCH, careerPersonaResearchPath } from './content/data/careerPersonaResearch';
@@ -57,6 +58,7 @@ const BESPOKE_FULL_PAGES: Partial<Record<WidgetId, ComponentType>> = {
 };
 
 const CAREER_PERSONA_RESEARCH_PATH = '/career-persona-research';
+const PERSONA_DASHBOARD_PATH = '/persona-dashboard';
 
 // Non-widget pages (no dashboard card behind them, so not in
 // widgetsWithFullPages()) still need friendly breadcrumb/search titles —
@@ -64,6 +66,7 @@ const CAREER_PERSONA_RESEARCH_PATH = '/career-persona-research';
 const STANDALONE_PAGE_TITLES: Record<string, string> = {
   '/job-market': 'Job Market Explorer',
   [CAREER_PERSONA_RESEARCH_PATH]: 'Career Persona Research',
+  [PERSONA_DASHBOARD_PATH]: 'Persona Dashboard',
   // Just the persona's name: the breadcrumb trail already supplies the context
   // ("About Me › Career Persona Research › Hiring Manager"), and "wrap sheet"
   // is internal research jargon that shouldn't reach a visitor — see the voice
@@ -95,6 +98,7 @@ const navItems: SideNavigationProps.Item[] = [
     type: 'section',
     text: 'Persona',
     items: [
+      { type: 'link', text: 'Persona Dashboard', href: PERSONA_DASHBOARD_PATH },
       { type: 'link', text: 'AWS Persona', href: WIDGETS['persona-research-showcase'].fullPagePath! },
       { type: 'link', text: 'Career Persona Research', href: CAREER_PERSONA_RESEARCH_PATH },
     ],
@@ -335,6 +339,7 @@ function AppShell() {
                 />
               }
             />
+            <Route path={PERSONA_DASHBOARD_PATH} element={<PersonaDashboardPage />} />
             <Route path={CAREER_PERSONA_RESEARCH_PATH} element={<CareerPersonaResearchPage />} />
             <Route path={`${CAREER_PERSONA_RESEARCH_PATH}/:personaId`} element={<PersonaSummaryPage />} />
             {widgetsWithFullPages().map((w) => {
