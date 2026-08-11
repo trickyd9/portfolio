@@ -12,6 +12,8 @@ import { Board, BoardItem } from '@cloudscape-design/board-components';
 import type { BoardProps } from '@cloudscape-design/board-components';
 
 import Widget from '../widgets/Widget';
+import { ArtworkCarousel, AnimationPlayer } from '../components/ArtworkCarousel';
+import { FINE_ART, ANIMATIONS, HUMAN_MADE_NOTE } from '../content/data/creativeWork';
 import { CAREER_PERSONA_RESEARCH, careerPersonaResearchPath, type ResearchPersonaId } from '../content/data/careerPersonaResearch';
 import {
   DASHBOARD_ITEMS,
@@ -52,6 +54,34 @@ const boardI18nStrings: BoardProps.I18nStrings<ItemData> = {
 
 const PERSONA_OPTIONS: SelectProps.Options = CAREER_PERSONA_RESEARCH.map((p) => ({ value: p.id, label: p.label }));
 
+// Card bodies: most items render through the shared Widget component so their
+// content isn't duplicated, but the creative-work cards are genuinely their own
+// thing (an image carousel, an embedded player) rather than block content.
+function renderCardBody(def: DashboardItemDefinition, detail: 'compact' | 'expanded') {
+  if (def.id === 'fine-art') {
+    return (
+      <SpaceBetween size="xs">
+        <ArtworkCarousel pieces={FINE_ART} />
+        <Box variant="small" color="text-body-secondary">
+          {HUMAN_MADE_NOTE}
+        </Box>
+      </SpaceBetween>
+    );
+  }
+  if (def.id === 'animation') {
+    return (
+      <SpaceBetween size="xs">
+        <AnimationPlayer pieces={ANIMATIONS} />
+        <Box variant="small" color="text-body-secondary">
+          {HUMAN_MADE_NOTE}
+        </Box>
+      </SpaceBetween>
+    );
+  }
+  if (def.widgetId) return <Widget widgetId={def.widgetId} mode={detail} />;
+  return <Box>{def.summary}</Box>;
+}
+
 function toBoardItem(def: DashboardItemDefinition): BoardProps.Item<ItemData> {
   return {
     id: def.id,
@@ -72,7 +102,6 @@ export default function PersonaDashboardPage() {
     defaultItemsFor('hiring-manager').map(toBoardItem),
   );
 
-  const persona = CAREER_PERSONA_RESEARCH.find((p) => p.id === personaId)!;
   const detail = defaultDetailFor(personaId);
 
   function switchPersona(next: ResearchPersonaId) {
@@ -110,9 +139,11 @@ export default function PersonaDashboardPage() {
             </div>
             <Box variant="p">{PERSONA_LAYOUT_RATIONALE[personaId]}</Box>
             <Box variant="small" color="text-body-secondary">
-              Based on the research behind{' '}
-              <Link href={`#${careerPersonaResearchPath(personaId)}`}>how a {persona.label.toLowerCase()} reads a portfolio</Link>
-              . Cards open {detail === 'compact' ? 'compact' : 'in full'} for this persona — drag, resize, or remove any of them.
+              {/* Phrased without an indefinite article on purpose — "a artist"
+                  vs "an artist" can't be derived from the label reliably. */}
+              Based on the research into{' '}
+              <Link href={`#${careerPersonaResearchPath(personaId)}`}>how this visitor reads a portfolio</Link>. Cards open{' '}
+              {detail === 'compact' ? 'compact' : 'in full'} for this persona — drag, resize, or remove any of them.
             </Box>
           </SpaceBetween>
         </Container>
@@ -154,7 +185,7 @@ export default function PersonaDashboardPage() {
                   />
                 }
               >
-                {def.widgetId ? <Widget widgetId={def.widgetId} mode={detail} /> : <Box>{def.summary}</Box>}
+                {renderCardBody(def, detail)}
               </BoardItem>
             );
           }}

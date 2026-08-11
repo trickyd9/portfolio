@@ -73,6 +73,45 @@ export const DASHBOARD_ITEMS: DashboardItemDefinition[] = [
     columnSpan: 2,
     rowSpan: 5,
   },
+  {
+    id: 'fine-art',
+    title: 'Fine Art',
+    category: 'Creative work',
+    summary: 'Drawings and paintings — a body of hand-made work, shown one piece at a time.',
+    // The clearest persona split on the board. An artist visitor came for
+    // exactly this and gets it first; a product manager almost certainly
+    // did not, so it stays off their default layout rather than being
+    // shown small. Hiring managers and design peers get it at low weight —
+    // it reads as craft and range without displacing the professional work.
+    weight: {
+      'hiring-manager': 1,
+      recruiter: 1,
+      'ux-professional': 1,
+      'technical-peer': 0,
+      'product-manager': 0,
+      'artist-digital-artist': 3,
+    },
+    columnSpan: 2,
+    rowSpan: 5,
+  },
+  {
+    id: 'animation',
+    title: 'Animation',
+    category: 'Creative work',
+    summary: 'Motion and animation work, including Maya and Flash pieces.',
+    // Weighted slightly for the technical peer as well as the artist: the
+    // Maya and Flash work is as much a tooling artifact as an artistic one.
+    weight: {
+      'hiring-manager': 1,
+      recruiter: 0,
+      'ux-professional': 1,
+      'technical-peer': 1,
+      'product-manager': 0,
+      'artist-digital-artist': 3,
+    },
+    columnSpan: 2,
+    rowSpan: 5,
+  },
 ];
 
 export function dashboardItemById(id: string): DashboardItemDefinition | undefined {
