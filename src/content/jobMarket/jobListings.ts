@@ -237,78 +237,95 @@ const JOB_LISTINGS: JobListing[] = [
     href: 'https://www.google.com/about/careers/applications/jobs/results/122258040807137990-software-engineer-phd-early-career-aimachine-learning-2026-start',
   },
 
-  // Boeing — no currently-live UX listing found (two initial finds had already
-  // gone stale by the time they were re-checked minutes later); the UX Designer
-  // persona stays listed for Boeing since it does hire for it periodically, it
-  // just has zero curated listings right now — see the empty state.
+  // Boeing — re-curated 2026-07-14 (round 8) via a completely different
+  // method after every single previously-curated Boeing link (and every
+  // fresh one WebSearch surfaced that same day) had gone 404 by the time it
+  // was re-verified — Boeing's postings churn faster than any search index
+  // can track. jobs.boeing.com/sitemap.xml lists ~1,357 individual job URLs,
+  // regenerated same-day, completely bypassing the stale-search-index
+  // problem — every listing below was found via the live sitemap and
+  // verified resolving *and* WebFetch-able immediately before being added
+  // (WebFetch had failed on every earlier Boeing link, but that turned out
+  // to be because those links were already dead, not because Boeing's pages
+  // don't render — a fresh sitemap URL rendered full content fine). No
+  // currently-live UX-Designer-titled US role was found even searching all
+  // 1,357 real URLs directly (only a Bengaluru "Software Engineer, UI/UX
+  // Designer" and a São Paulo "Human Factors Manager" matched — both
+  // outside this project's 3 tracked US regions) — the UX Designer persona
+  // stays listed for Boeing since it does hire for it periodically, it just
+  // has zero curated listings right now, a real market gap now confirmed
+  // against Boeing's *entire* live posting index, not just a search miss.
   {
-    id: 'boeing-struct-berkeley',
+    id: 'boeing-struct-exp-nc',
     companyId: 'boeing',
-    title: 'Structural Analysis Engineer',
-    location: 'Berkeley, MO',
-    regions: [],
-    persona: 'mechanical-engineer',
-    experienceLevel: 'mid',
-    qualifications: {
-      required: [
-        'Bachelor’s degree in Mechanical, Aerospace, or Structural Engineering',
-        'Experience performing structural/stress analysis on aerospace hardware',
-      ],
-      preferred: [
-        'Proficiency with FEA tools such as Nastran/Patran or equivalent',
-        'Familiarity with Boeing or FAA structural certification processes',
-        'Experience supporting a certified commercial or defense aircraft program',
-      ],
-    },
-    postedOn: '2026-07-01',
-    checkedOn: '2026-07-13',
-    href: 'https://jobs.boeing.com/job/berkeley/structural-analysis-engineer/185/97191100400',
-  },
-  {
-    id: 'boeing-struct-midlevel-nc',
-    companyId: 'boeing',
-    title: 'Mid-Level Structural Analysis Engineer – Systems Stress',
-    location: 'North Charleston, SC',
-    regions: [],
-    persona: 'mechanical-engineer',
-    experienceLevel: 'mid',
-    qualifications: {
-      required: [
-        'Bachelor’s degree in Mechanical, Aerospace, or Structural Engineering',
-        '3–8 years of structural analysis experience on certified aircraft structures',
-      ],
-      preferred: [
-        'Systems-level stress analysis experience on commercial airplane structures',
-        "Familiarity with Boeing's structural certification processes",
-        'Experience presenting analysis results in formal technical reviews',
-      ],
-    },
-    postedOn: '2026-06-26',
-    checkedOn: '2026-07-13',
-    href: 'https://jobs.boeing.com/job/north-charleston/mid-level-structural-analysis-engineer-systems-stress/185/96360862816',
-  },
-  {
-    id: 'boeing-struct-senior-nc',
-    companyId: 'boeing',
-    title: 'Senior Structural Analysis Engineer – Systems Stress',
+    title: 'Experienced Structural Analysis Engineer',
     location: 'North Charleston, SC',
     regions: [],
     persona: 'mechanical-engineer',
     experienceLevel: 'senior',
     qualifications: {
       required: [
-        'Bachelor’s degree in Mechanical, Aerospace, or Structural Engineering',
-        '8+ years structural/stress analysis experience on certified aircraft programs',
+        'Bachelor of Science in Engineering (Mechanical, Civil, Aerospace, or Materials Sciences)',
+        '9+ years of structural analysis engineering experience, including 5+ years on metallic and composite material systems',
+        'Prior experience with aircraft or heavy structures manufacturing',
       ],
       preferred: [
-        'Experience leading technical reviews and mentoring junior engineers',
-        'Deep familiarity with FAA/Boeing certification stress methods',
-        "Master's degree in a related engineering field",
+        'Prior experience as a Lead Stress Liaison Engineer in production',
+        'Lead Engineer experience with classical hand analysis and FE Models',
+        'Experience collaborating with production/manufacturing teams on technical problem-solving',
       ],
     },
-    postedOn: '2026-06-15',
-    checkedOn: '2026-07-13',
-    href: 'https://jobs.boeing.com/job/north-charleston/senior-structural-analysis-engineer-systems-stress/185/96488388912',
+    compensationRange: '$126,650 – $171,350/yr',
+    checkedOn: '2026-07-14',
+    href: 'https://jobs.boeing.com/job/north-charleston/experienced-structural-analysis-engineer/185/97750201232',
+  },
+  {
+    id: 'boeing-struct-mid-nc',
+    companyId: 'boeing',
+    title: 'Mid-Level Structural Analysis Engineer',
+    location: 'North Charleston, SC',
+    regions: [],
+    persona: 'mechanical-engineer',
+    experienceLevel: 'mid',
+    qualifications: {
+      required: [
+        'Bachelor of Science in Engineering (Mechanical, Civil, Aerospace, or Materials Sciences)',
+        '5+ years of structural analysis engineering experience, including 3+ years on metallic and composite material systems',
+        'Prior experience with production systems in manufacturing or engineering',
+      ],
+      preferred: [
+        'Ability to apply classical hand analysis methods',
+        'Competency performing FEA and validating results',
+        'Prior stress liaison engineer experience in production environments',
+      ],
+    },
+    compensationRange: '$103,700 – $140,300/yr',
+    checkedOn: '2026-07-14',
+    href: 'https://jobs.boeing.com/job/north-charleston/mid-level-structural-analysis-engineer/185/97750201136',
+  },
+  {
+    id: 'boeing-mech-product-design',
+    companyId: 'boeing',
+    title: 'Mechanical Product Design and Analysis Engineer (Associate or Mid-Level)',
+    location: 'El Segundo, CA',
+    regions: [], // El Segundo is greater LA, not the SF Bay Area — doesn't match any of the 3 tracked regions
+    persona: 'mechanical-engineer',
+    experienceLevel: 'mid',
+    qualifications: {
+      required: [
+        'Bachelor of Science in Mechanical Engineering, Aerospace Engineering, or equivalent',
+        'Experience with CAD tools and thermal/structural/dynamics/vibration analysis or PCB design/assembly',
+        '2+ years of related work experience; U.S. citizenship required for security clearance eligibility',
+      ],
+      preferred: [
+        'Active Top Secret/SCI clearance',
+        'Aerospace or space electronics industry experience',
+        'Proficiency with ANSYS, Creo, SolidWorks, Nastran, Patran, or COMSOL',
+      ],
+    },
+    compensationRange: '$98,600 – $162,150/yr (Associate to Mid-Level band)',
+    checkedOn: '2026-07-14',
+    href: 'https://jobs.boeing.com/job/el-segundo/mechanical-product-design-and-analysis-engineer-associate-or-mid-level/185/95646377456',
   },
 
   // University of Washington is no longer part of the static snapshot —

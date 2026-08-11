@@ -15,15 +15,23 @@ const HIGHLIGHTS = [
   { value: '112', label: 'validation questions' },
 ];
 
-// Persona-Driven Research Showcase full page. Overview reuses the dashboard
-// widget's existing pitch plus a real stat row (none of the 3 grouped tabs
-// here are thin enough to fold in, unlike the other 3 specialization pages —
-// see WIDGET-TRACKER.md for why Overview enrichment differs per page). The
-// three grouped tabs are the full project-list detail behind it
-// (content/data/personaResearch.ts).
+// AWS Persona full page (renamed 2026-08-10 from "Persona-Driven Research
+// Showcase," relocated out of the Projects nav group into the top-level
+// Persona section — see WIDGET-TRACKER.md). No content/tab changes from the
+// rename itself. Overview reuses the dashboard widget's existing pitch plus a
+// real stat row (none of the 3 grouped tabs here are thin enough to fold in,
+// unlike the other 3 specialization pages — see WIDGET-TRACKER.md for why
+// Overview enrichment differs per page). The three grouped tabs are the full
+// project-list detail behind it (content/data/personaResearch.ts).
 export default function PersonaResearchPage() {
   return (
-    <ContentLayout header={<Header variant="h1">Persona-Driven Research Showcase</Header>}>
+    <ContentLayout
+      header={
+        <Header variant="h1" description="Amazon Web Services — persona-driven UX research & documentation system">
+          AWS Persona
+        </Header>
+      }
+    >
       <Tabs
         tabs={[
           {
@@ -31,7 +39,7 @@ export default function PersonaResearchPage() {
             label: 'Overview',
             content: (
               <SpaceBetween size="l">
-                <Container header={<Header variant="h2">Persona-Driven Research Showcase</Header>}>
+                <Container header={<Header variant="h2">AWS Persona</Header>}>
                   <Widget widgetId="persona-research-showcase" mode="expanded" />
                 </Container>
                 <Container header={<Header variant="h2">By the numbers</Header>}>

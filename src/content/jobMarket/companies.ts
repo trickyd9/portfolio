@@ -14,8 +14,10 @@ export interface Company {
   /** General live careers search — used as the "view all openings" link and
    * as the empty-state fallback when a persona has zero curated listings. */
   careersUrl: string;
-  /** Whether this company starts on the board by default. Amazon is
-   * available (addable from the drawer) but not seeded — see boardItem.ts. */
+  /** Whether this company starts on the board by default. All 6 do as of
+   * 2026-07-14 (round 8) — this is David's real job-search tool, not just a
+   * scoped demo, so nothing relevant should be hidden by default; still
+   * removable per-session via each card's own close button. */
   onBoardByDefault: boolean;
 }
 
@@ -25,5 +27,5 @@ export const COMPANIES: Company[] = [
   { id: 'boeing', name: 'Boeing', personas: ['mechanical-engineer', 'ux-designer'], careersUrl: 'https://jobs.boeing.com/', onBoardByDefault: true },
   { id: 'uw', name: 'University of Washington', personas: ['sde', 'ux-designer'], careersUrl: 'https://wd5.myworkdaysite.com/recruiting/uw/UWHires', onBoardByDefault: true },
   { id: 'anthropic', name: 'Anthropic', personas: ['sde', 'ux-designer'], careersUrl: 'https://www.anthropic.com/careers/jobs', onBoardByDefault: true },
-  { id: 'amazon', name: 'Amazon', personas: ['sde', 'ux-designer', 'mechanical-engineer'], careersUrl: 'https://amazon.jobs/', onBoardByDefault: false },
+  { id: 'amazon', name: 'Amazon', personas: ['sde', 'ux-designer', 'mechanical-engineer'], careersUrl: 'https://amazon.jobs/', onBoardByDefault: true },
 ];

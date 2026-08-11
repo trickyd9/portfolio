@@ -17,8 +17,10 @@ const jobDetailUrl = (id: number) => `https://boards-api.greenhouse.io/v1/boards
 // The list endpoint alone is ~300KB; with `content=true` on every job it's
 // ~6MB (measured directly) — too heavy to fetch on every page load. Fetch the
 // lightweight list first, classify by title, then fetch full content only for
-// a bounded number of matches per persona.
-const MAX_CANDIDATES_PER_PERSONA = 8;
+// a bounded number of matches per persona. Raised from 8 (2026-07-14, round 8)
+// — David's actual use case is comparing across every team for a given
+// persona, and 8 was cutting off real results once the classifier broadened.
+const MAX_CANDIDATES_PER_PERSONA = 20;
 
 interface GreenhouseListJob {
   id: number;
@@ -32,12 +34,22 @@ interface GreenhouseJobDetail extends GreenhouseListJob {
   content: string;
 }
 
+/** Broadened 2026-07-14 (round 8) — the original version only matched
+ * "product designer"/"ux designer" literally, which missed real Anthropic
+ * roles like "Design Engineer, Education Labs," "Creative Technologist,
+ * Editorial," and "Staff Software Engineer, Claude Design" that are
+ * genuinely design-adjacent (found via direct WebSearch verification against
+ * Anthropic's own board — see WIDGET-TRACKER.md round 8). Precedence matters:
+ * check design-flavored patterns before the generic "software engineer"
+ * check, since a title can contain both. Anthropic has no Mechanical
+ * Engineer roles — that persona intentionally never matches here, same as
+ * the curated fallback data. */
 function classifyPersona(title: string): JobSeekerPersonaId | null {
   const t = title.toLowerCase();
-  // Anthropic has no Mechanical Engineer roles — that persona intentionally
-  // never matches here, same as the curated fallback data.
+  if (/\bdesigner\b/.test(t) || t.includes('creative technologist') || t.includes('design engineer')) {
+    return 'ux-designer';
+  }
   if (t.includes('software engineer')) return 'sde';
-  if (t.includes('product designer') || t.includes('ux designer')) return 'ux-designer';
   return null;
 }
 

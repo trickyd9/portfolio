@@ -37,7 +37,7 @@ export default function FeaturedProjectsPage() {
                       Design Systems, Persona Research, and AI-Augmented Build projects each have their own full page:
                     </Box>
                     <Link href="#/design-systems">Design Systems & Standards</Link>
-                    <Link href="#/persona-research">Persona-Driven Research Showcase</Link>
+                    <Link href="#/persona-research">AWS Persona</Link>
                     <Link href="#/ai-augmented-build">AI-Augmented Build</Link>
                   </SpaceBetween>
                 </Container>

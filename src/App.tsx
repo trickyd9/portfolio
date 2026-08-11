@@ -28,8 +28,11 @@ import WidgetFullPage from './pages/WidgetFullPage';
 import AboutPage from './pages/AboutPage';
 import FeaturedProjectsPage from './pages/FeaturedProjectsPage';
 import PersonaResearchPage from './pages/PersonaResearchPage';
+import CareerPersonaResearchPage from './pages/CareerPersonaResearchPage';
+import PersonaSummaryPage from './pages/PersonaSummaryPage';
 import DesignSystemsPage from './pages/DesignSystemsPage';
 import AiAugmentedBuildPage from './pages/AiAugmentedBuildPage';
+import { CAREER_PERSONA_RESEARCH, careerPersonaResearchPath } from './content/data/careerPersonaResearch';
 import { applyStoredSettings, useDisplaySettings } from './hooks/useDisplaySettings';
 
 applyStoredSettings();
@@ -53,11 +56,27 @@ const BESPOKE_FULL_PAGES: Partial<Record<WidgetId, ComponentType>> = {
   'ai-augmented-build': AiAugmentedBuildPage,
 };
 
+const CAREER_PERSONA_RESEARCH_PATH = '/career-persona-research';
+
+// Non-widget pages (no dashboard card behind them, so not in
+// widgetsWithFullPages()) still need friendly breadcrumb/search titles —
+// one map instead of a growing chain of pathname special-cases.
+const STANDALONE_PAGE_TITLES: Record<string, string> = {
+  '/job-market': 'Job Market Explorer',
+  [CAREER_PERSONA_RESEARCH_PATH]: 'Career Persona Research',
+  ...Object.fromEntries(
+    CAREER_PERSONA_RESEARCH.map((p) => [careerPersonaResearchPath(p.id), `${p.label} — wrap sheet`]),
+  ),
+};
+
 // Phase 0b: the static nav (About Me home, Projects group, visual portfolio)
 // plus the Job Market Explorer at /job-market — hand specified rather than
 // derived generically from widgetsWithFullPages(), since the order/grouping
 // here don't match that list's natural shape and /job-market isn't a widget's
-// full page. See WIDGET-TRACKER.md.
+// full page. The Persona section (added 2026-08-10) sits after Projects: it
+// holds the two persona-research pages, which are related bodies of work but
+// not "projects" in the same portfolio-piece sense as the Projects group.
+// See WIDGET-TRACKER.md.
 const navItems: SideNavigationProps.Item[] = [
   { type: 'link', text: 'About Me', href: WIDGETS['about-me'].fullPagePath! },
   { type: 'link', text: 'Job Market Explorer', href: '/job-market' },
@@ -66,17 +85,25 @@ const navItems: SideNavigationProps.Item[] = [
     text: 'Projects',
     items: [
       { type: 'link', text: 'Featured Projects', href: WIDGETS['featured-projects'].fullPagePath! },
-      { type: 'link', text: 'Persona-Driven Research', href: WIDGETS['persona-research-showcase'].fullPagePath! },
       { type: 'link', text: 'Design Systems & Standards', href: WIDGETS['design-systems-standards'].fullPagePath! },
       { type: 'link', text: 'AI-Augmented Build', href: WIDGETS['ai-augmented-build'].fullPagePath! },
+    ],
+  },
+  {
+    type: 'section',
+    text: 'Persona',
+    items: [
+      { type: 'link', text: 'AWS Persona', href: WIDGETS['persona-research-showcase'].fullPagePath! },
+      { type: 'link', text: 'Career Persona Research', href: CAREER_PERSONA_RESEARCH_PATH },
     ],
   },
   { type: 'link', text: 'University Visual Portfolio', href: WIDGETS['art-visual-portfolio'].fullPagePath! },
 ];
 
-// Search covers every widget with a dedicated full page, plus the Job Market Explorer.
+// Search covers every widget with a dedicated full page, plus every standalone
+// page (Job Market Explorer, Career Persona Research, and the 6 wrap sheets).
 const searchOptions: AutosuggestProps.Options = [
-  { value: '/job-market', label: 'Job Market Explorer' },
+  ...Object.entries(STANDALONE_PAGE_TITLES).map(([value, label]) => ({ value, label })),
   ...widgetsWithFullPages().map((w) => ({ value: w.fullPagePath, label: w.title })),
 ];
 
@@ -85,7 +112,10 @@ function AppShell() {
   const navigate = useNavigate();
 
   const [jobBoardItems, setJobBoardItems] = useState<JobBoardItemData[]>(() => defaultJobBoardItems());
-  const [primaryJobPersonaId, setPrimaryJobPersonaId] = useState<JobSeekerPersonaId>(JOB_SEEKER_PERSONAS[0].id);
+  // Defaults to ux-designer, not JOB_SEEKER_PERSONAS[0] — this is David's own
+  // actual use case for the tool (comparing UX/Design Technologist roles
+  // across companies), not an arbitrary first-in-list pick (2026-07-14, round 8).
+  const [primaryJobPersonaId, setPrimaryJobPersonaId] = useState<JobSeekerPersonaId>('ux-designer');
   const [activeDrawerId, setActiveDrawerId] = useState<string | null>(null);
   const [searchValue, setSearchValue] = useState('');
   const { density, mode, setDensity, setMode } = useDisplaySettings();
@@ -104,11 +134,21 @@ function AppShell() {
 
   const currentFullPage = widgetsWithFullPages().find((w) => w.fullPagePath === location.pathname);
   const currentPageTitle =
-    location.pathname === '/job-market' ? 'Job Market Explorer' : currentFullPage?.title ?? location.pathname;
+    STANDALONE_PAGE_TITLES[location.pathname] ?? currentFullPage?.title ?? location.pathname;
+  // Wrap sheets are the site's only two-level-deep pages — they get the
+  // Career Persona Research page as an intermediate crumb rather than
+  // appearing to hang directly off home.
+  const isWrapSheet = location.pathname.startsWith(`${CAREER_PERSONA_RESEARCH_PATH}/`);
   const breadcrumbItems: Array<{ text: string; href: string }> =
     location.pathname === '/'
       ? [{ text: 'About Me', href: '/' }]
-      : [{ text: 'About Me', href: '/' }, { text: currentPageTitle, href: location.pathname }];
+      : [
+          { text: 'About Me', href: '/' },
+          ...(isWrapSheet
+            ? [{ text: 'Career Persona Research', href: CAREER_PERSONA_RESEARCH_PATH }]
+            : []),
+          { text: currentPageTitle, href: location.pathname },
+        ];
 
   const preferencesItems: ButtonDropdownProps.Items = [
     {
@@ -293,6 +333,8 @@ function AppShell() {
                 />
               }
             />
+            <Route path={CAREER_PERSONA_RESEARCH_PATH} element={<CareerPersonaResearchPage />} />
+            <Route path={`${CAREER_PERSONA_RESEARCH_PATH}/:personaId`} element={<PersonaSummaryPage />} />
             {widgetsWithFullPages().map((w) => {
               const BespokePage = BESPOKE_FULL_PAGES[w.id];
               return (

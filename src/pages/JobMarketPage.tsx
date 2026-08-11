@@ -96,7 +96,10 @@ export default function JobMarketPage({ items, onItemsChange, primaryPersonaId }
   const [settings, setSettings] = useState<SearchSettingsValues>({
     additionalRoles: [],
     sortBy: SORT_OPTIONS[0],
-    jobsPerWidget: JOBS_PER_WIDGET_OPTIONS[1],
+    // Defaults to "All" (was "3 per company") — David's stated use for this
+    // tool is comparing everything available before narrowing down, so
+    // capping the default view worked against that (2026-07-14, round 8).
+    jobsPerWidget: JOBS_PER_WIDGET_OPTIONS[JOBS_PER_WIDGET_OPTIONS.length - 1],
     detailLevel: DETAIL_LEVEL_OPTIONS[0],
   });
   const [settingsModalVisible, setSettingsModalVisible] = useState(false);
@@ -162,7 +165,7 @@ export default function JobMarketPage({ items, onItemsChange, primaryPersonaId }
       header={
         <Header
           variant="h1"
-          description="A persona-driven dashboard for exploring current tech job openings — built as a live demo of the same persona/filter dashboard UX used throughout this site. Anthropic is fetched live; UW is refreshed daily by an automated job; Microsoft/Google/Boeing/Amazon are a curated snapshot (checked dates shown per card) — see JobMarketBackend.md. Use the Role dropdown (top right) to set your primary role."
+          description="A working dashboard for exploring current tech job openings, filtered by the role you care about. Anthropic's listings are fetched live, the University of Washington's refresh daily, and the rest are a curated snapshot with the date each was last checked shown on every card. Set your primary role with the dropdown at the top right."
         >
           Job Market Explorer
         </Header>

@@ -72,7 +72,7 @@ export const WIDGETS: Record<WidgetId, WidgetDefinition> = {
   },
   'persona-research-showcase': {
     id: 'persona-research-showcase',
-    title: 'Persona-Driven Research Showcase',
+    title: 'AWS Persona',
     fullPagePath: '/persona-research',
     personas: ['ux-professional', 'hiring-manager'],
     columnSpan: 2,

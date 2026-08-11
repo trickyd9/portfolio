@@ -23,10 +23,16 @@ const SEARCH_URL = `https://${TENANT}.wd5.myworkdayjobs.com/wday/cxs/${TENANT}/$
 const detailUrl = (externalPath) => `https://${TENANT}.wd5.myworkdayjobs.com/wday/cxs/${TENANT}/${SITE}${externalPath}`;
 const OUTPUT_PATH = new URL('../data/uw-jobs.json', import.meta.url);
 
-const MAX_PER_PERSONA = 5;
+// Raised from 5, and from one query per persona to several (2026-07-14, round
+// 8) — UW's search is a fuzzy full-text match keyed to the exact phrase sent,
+// so a single query ("product designer") misses real roles like "Design
+// Technologist" or "UX Researcher" entirely. Multiple queries per persona,
+// merged and deduped by req ID, get closer to "everything relevant" instead
+// of one narrow slice.
+const MAX_PER_PERSONA = 15;
 const PERSONA_QUERIES = {
-  sde: 'software engineer',
-  'ux-designer': 'product designer',
+  sde: ['software engineer', 'systems engineer'],
+  'ux-designer': ['product designer', 'ux designer', 'design technologist', 'user experience'],
 };
 
 async function searchJobs(searchText, limit) {
@@ -109,36 +115,58 @@ function classifyRegions(location) {
   return location.toLowerCase().includes('seattle') ? ['seattle'] : [];
 }
 
+/** UW's search endpoint does fuzzy full-text matching against the whole
+ * posting, not the title — broadening the query terms (2026-07-14, round 8)
+ * pulled in real noise as a result: "Anatomic Pathology Technologist" and
+ * "Nuclear Medicine Tech" matched a "user experience" query (probably
+ * "patient experience" somewhere in the body text), "HR Analyst" and
+ * "Grounds Supervisor" matched "systems engineer". A title-level filter on
+ * top of the search results is what actually keeps this useful instead of
+ * just noisier. */
+function titleMatchesPersona(title, persona) {
+  const t = title.toLowerCase();
+  if (persona === 'sde') return /engineer/.test(t);
+  if (persona === 'ux-designer') return /designer|\bux\b|user experience|design technologist/.test(t);
+  return true;
+}
+
 async function main() {
   const listings = [];
   const seenReqIds = new Set();
 
-  for (const [persona, query] of Object.entries(PERSONA_QUERIES)) {
-    const results = await searchJobs(query, MAX_PER_PERSONA);
-    for (const job of results.slice(0, MAX_PER_PERSONA)) {
-      const reqIdMatch = job.externalPath.match(/REQ-\d+/);
-      const reqId = reqIdMatch ? reqIdMatch[0] : job.externalPath;
-      if (seenReqIds.has(reqId)) continue;
-      seenReqIds.add(reqId);
+  for (const [persona, queries] of Object.entries(PERSONA_QUERIES)) {
+    let countForPersona = 0;
+    for (const query of queries) {
+      if (countForPersona >= MAX_PER_PERSONA) break;
+      const results = await searchJobs(query, MAX_PER_PERSONA);
+      for (const job of results) {
+        if (countForPersona >= MAX_PER_PERSONA) break;
+        if (!titleMatchesPersona(job.title, persona)) continue;
+        const reqIdMatch = job.externalPath.match(/REQ-\d+/);
+        const reqId = reqIdMatch ? reqIdMatch[0] : job.externalPath;
+        if (seenReqIds.has(reqId)) continue;
+        seenReqIds.add(reqId);
 
-      const detail = await fetchDetail(job.externalPath);
-      const html = detail.jobDescription ?? '';
-      const required = extractBullets(html, ['Requirements:', 'Minimum Qualifications:?', 'Position Qualifications:']);
-      const preferred = extractBullets(html, ['Desired Qualifications?:', 'Preferred Qualifications:']);
+        const detail = await fetchDetail(job.externalPath);
+        const html = detail.jobDescription ?? '';
+        const required = extractBullets(html, ['Requirements:', 'Minimum Qualifications:?', 'Position Qualifications:']);
+        const preferred = extractBullets(html, ['Desired Qualifications?:', 'Preferred Qualifications:']);
 
-      listings.push({
-        id: `uw-${reqId}`,
-        companyId: 'uw',
-        title: detail.title,
-        location: detail.location,
-        regions: classifyRegions(detail.location),
-        persona,
-        experienceLevel: classifyExperienceLevel(detail.title),
-        qualifications: { required, preferred },
-        compensationRange: extractCompensationRange(html),
-        postedOn: detail.startDate,
-        href: detail.externalUrl,
-      });
+        listings.push({
+          id: `uw-${reqId}`,
+          companyId: 'uw',
+          title: detail.title,
+          location: detail.location,
+          regions: classifyRegions(detail.location),
+          persona,
+          experienceLevel: classifyExperienceLevel(detail.title),
+          qualifications: { required, preferred },
+          compensationRange: extractCompensationRange(html),
+          postedOn: detail.startDate,
+          href: detail.externalUrl,
+        });
+        countForPersona++;
+      }
     }
   }
 

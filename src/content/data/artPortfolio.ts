@@ -37,7 +37,7 @@ export const ART_CATEGORIES: ArtCategory[] = [
   {
     title: 'Logos',
     href: 'https://trickyddesign.wordpress.com/2013/06/27/logos/',
-    description: 'Logos created and retouched, both for himself and for clients.',
+    description: 'Logos created and retouched, both personal and for clients.',
   },
   {
     title: 'Landscape Architecture Classwork',

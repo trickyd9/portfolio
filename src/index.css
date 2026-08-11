@@ -34,6 +34,7 @@ body {
   align-items: center;
   gap: 12px;
   flex-shrink: 0;
+  min-width: 0;
 }
 
 .top-nav-identity-link {
@@ -42,6 +43,7 @@ body {
   gap: 8px;
   color: inherit;
   text-decoration: none;
+  min-width: 0;
 }
 
 .top-nav-role {
@@ -56,6 +58,7 @@ body {
 .top-nav-search {
   flex: 1 1 auto;
   max-width: 480px;
+  min-width: 0;
 }
 
 .top-nav-utilities {
@@ -63,6 +66,37 @@ body {
   align-items: center;
   gap: 4px;
   flex-shrink: 0;
+}
+
+/* Narrow viewports: this bar is hand-built (see above), so it doesn't inherit
+   TopNavigation's own responsive collapsing and has to handle small screens
+   itself — without this every page overflowed horizontally on a phone, since
+   the identity cluster and utilities are both flex-shrink:0 and together
+   exceed a 390px viewport. Two rows rather than hiding the search box: search
+   is the only way to reach a page without opening the side nav, so it keeps
+   its full width on its own line instead of being squeezed to unusable or
+   dropped. The role and divider go — they're decorative next to the name. */
+@media (max-width: 688px) {
+  .top-nav-bar {
+    flex-wrap: wrap;
+    padding: 4px 12px;
+    gap: 8px;
+  }
+
+  .top-nav-role,
+  .top-nav-divider {
+    display: none;
+  }
+
+  .top-nav-identity {
+    flex: 1 1 auto;
+  }
+
+  .top-nav-search {
+    order: 3;
+    flex: 1 1 100%;
+    max-width: none;
+  }
 }
 
 /* Strips the bordered-button chrome from a ButtonDropdown trigger, leaving plain
