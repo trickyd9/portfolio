@@ -64,9 +64,11 @@ const CAREER_PERSONA_RESEARCH_PATH = '/career-persona-research';
 const STANDALONE_PAGE_TITLES: Record<string, string> = {
   '/job-market': 'Job Market Explorer',
   [CAREER_PERSONA_RESEARCH_PATH]: 'Career Persona Research',
-  ...Object.fromEntries(
-    CAREER_PERSONA_RESEARCH.map((p) => [careerPersonaResearchPath(p.id), `${p.label} — wrap sheet`]),
-  ),
+  // Just the persona's name: the breadcrumb trail already supplies the context
+  // ("About Me › Career Persona Research › Hiring Manager"), and "wrap sheet"
+  // is internal research jargon that shouldn't reach a visitor — see the voice
+  // rule at the top of content/data/careerPersonaResearch.ts.
+  ...Object.fromEntries(CAREER_PERSONA_RESEARCH.map((p) => [careerPersonaResearchPath(p.id), p.label])),
 };
 
 // Phase 0b: the static nav (About Me home, Projects group, visual portfolio)
