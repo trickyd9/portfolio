@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-10T14:12:00.363Z",
+  "fetchedAt": "2026-08-11T14:11:38.416Z",
   "listings": [
     {
       "id": "uw-REQ-0000135474",
@@ -89,28 +89,6 @@
       "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/AI-Security-Engineer_REQ-0000135281"
     },
     {
-      "id": "uw-REQ-0000135249",
-      "companyId": "uw",
-      "title": "Administrative Coordinator",
-      "location": "Seattle, WA",
-      "regions": [
-        "seattle"
-      ],
-      "persona": "sde",
-      "experienceLevel": "mid",
-      "qualifications": {
-        "required": [
-          "High School Diploma/ GED",
-          "Three years of office or administrative support experience.",
-          "Applicants who do not meet these qualifications WILL NOT be forwarded to the Hiring Department."
-        ],
-        "preferred": []
-      },
-      "compensationRange": "$48,396 – $64,740/yr",
-      "postedOn": "2026-08-03",
-      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Administrative-Coordinator_REQ-0000135249"
-    },
-    {
       "id": "uw-REQ-0000131558",
       "companyId": "uw",
       "title": "Environmental Engineer",
@@ -127,6 +105,170 @@
       "compensationRange": "$90,576 – $135,864/yr",
       "postedOn": "2026-07-30",
       "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Environmental-Engineer_REQ-0000131558-1"
+    },
+    {
+      "id": "uw-REQ-0000133109",
+      "companyId": "uw",
+      "title": "Research Engineer 2 - Hardware and Software Design (Temporary)",
+      "location": "Seattle, WA",
+      "regions": [
+        "seattle"
+      ],
+      "persona": "sde",
+      "experienceLevel": "entry",
+      "qualifications": {
+        "required": [
+          "Applicants who do not meet these qualifications WILL NOT be forwarded to the Hiring Manager.Bachelor’s degree in computer science or related engineering field and two years of designing hardware and software. Experience with robotics, data acquisition, and other engineered devices will be considered relevant."
+        ],
+        "preferred": []
+      },
+      "compensationRange": "$68,736 – $84,000/yr",
+      "postedOn": "2026-07-16",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Research-Engineer-2---Hardware-and-Software-Design--Temporary-_REQ-0000133109"
+    },
+    {
+      "id": "uw-REQ-0000134455",
+      "companyId": "uw",
+      "title": "Software Engineer",
+      "location": "Annapolis, MD",
+      "regions": [],
+      "persona": "sde",
+      "experienceLevel": "mid",
+      "qualifications": {
+        "required": [
+          "Bachelor’s degree in Systems, Electrical, Mechanical Aerospace, or related Engineering field AND 5-10 years’ work experience."
+        ],
+        "preferred": []
+      },
+      "compensationRange": "$132,000 – $180,000/yr",
+      "postedOn": "2026-07-15",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Annapolis-MD/Software-Engineer_REQ-0000134455"
+    },
+    {
+      "id": "uw-REQ-0000134242",
+      "companyId": "uw",
+      "title": "Senior Systems Engineer",
+      "location": "Seattle, WA",
+      "regions": [
+        "seattle"
+      ],
+      "persona": "sde",
+      "experienceLevel": "senior",
+      "qualifications": {
+        "required": [],
+        "preferred": []
+      },
+      "compensationRange": "$99,228 – $161,244/yr",
+      "postedOn": "2026-07-15",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Senior-Systems-Engineer_REQ-0000134242-1"
+    },
+    {
+      "id": "uw-REQ-0000130597",
+      "companyId": "uw",
+      "title": "AI DevOps Engineer",
+      "location": "Seattle, WA",
+      "regions": [
+        "seattle"
+      ],
+      "persona": "sde",
+      "experienceLevel": "mid",
+      "qualifications": {
+        "required": [],
+        "preferred": []
+      },
+      "compensationRange": "$87,624 – $142,392/yr",
+      "postedOn": "2026-07-13",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/AI-DevOps-Engineer_REQ-0000130597"
+    },
+    {
+      "id": "uw-REQ-0000133375",
+      "companyId": "uw",
+      "title": "Wireless Network Engineer",
+      "location": "Seattle, WA",
+      "regions": [
+        "seattle"
+      ],
+      "persona": "sde",
+      "experienceLevel": "mid",
+      "qualifications": {
+        "required": [],
+        "preferred": []
+      },
+      "compensationRange": "$99,756 – $162,096/yr",
+      "postedOn": "2026-07-13",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Wireless-Network-Engineer_REQ-0000133375"
+    },
+    {
+      "id": "uw-REQ-0000129735",
+      "companyId": "uw",
+      "title": "Workday Finance Engineer",
+      "location": "Seattle, WA",
+      "regions": [
+        "seattle"
+      ],
+      "persona": "sde",
+      "experienceLevel": "mid",
+      "qualifications": {
+        "required": [
+          "Bachelor’s Degree in finance, computer science, information science, or a related field or experience.",
+          "Minimum three years of experience in the following: Experience working in the Workday Finance domain.",
+          "Experience working with enterprise Finance systems and the configuration and maintenance thereof, including working specifically with the Workday Finance (or similar) Financial Accounting, Business Assets, Capital Projects, and Planning modules."
+        ],
+        "preferred": [
+          "Experience performing configuration working in an Agile environment such as Scrum or Kanban.",
+          "Experience playing an individual contributor role within a shared services environment.",
+          "Working experience executing relevant business processes at the University of Washington or in a comparable higher education environment.",
+          "Experience in the use of customer support infrastructure tools, including a case management system, knowledge base and associated reporting tool."
+        ]
+      },
+      "compensationRange": "$87,624 – $142,392/yr",
+      "postedOn": "2026-07-13",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Workday-Finance-Engineer_REQ-0000129735"
+    },
+    {
+      "id": "uw-REQ-0000129139",
+      "companyId": "uw",
+      "title": "Senior Systems Engineer",
+      "location": "Seattle, WA",
+      "regions": [
+        "seattle"
+      ],
+      "persona": "sde",
+      "experienceLevel": "senior",
+      "qualifications": {
+        "required": [
+          "Five years of experience as an engineer supporting enterprise IT infrastructure, including cloud-based systems.",
+          "Expertise in Microsoft Azure, including VM management, networking, storage, indentity, and governance.",
+          "Strong understanding of automation tools and infrastructure as code (PowerShell, Terraform)."
+        ],
+        "preferred": [
+          "Hands-on experience migrating, configuring, and tuning Azure SQL Database or Managed Instances.",
+          "Familiarity with FinOps principles including the ability to utilize Azure Cost Management to drive right-sizing and reserved instance (RI) strategies."
+        ]
+      },
+      "compensationRange": "$110,328 – $156,000/yr",
+      "postedOn": "2026-07-13",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Senior-Systems-Engineer_REQ-0000129139"
+    },
+    {
+      "id": "uw-REQ-0000129073",
+      "companyId": "uw",
+      "title": "Research Scientist/Engineer 3",
+      "location": "Seattle, WA",
+      "regions": [
+        "seattle"
+      ],
+      "persona": "sde",
+      "experienceLevel": "mid",
+      "qualifications": {
+        "required": [
+          "Bachelor’s degree in Bioinformatics, Computational Biology, Biostatistics, Data Science or a related field and four years of relevant experience."
+        ],
+        "preferred": []
+      },
+      "compensationRange": "$80,244 – $132,612/yr",
+      "postedOn": "2026-07-16",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Research-Scientist-Engineer-3_REQ-0000129073"
     },
     {
       "id": "uw-REQ-0000135766",
@@ -150,52 +292,6 @@
       "compensationRange": "$85,008 – $100,800/yr",
       "postedOn": "2026-08-07",
       "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Instructional-Designer_REQ-0000135766"
-    },
-    {
-      "id": "uw-REQ-0000135122",
-      "companyId": "uw",
-      "title": "Digital Video Producer",
-      "location": "Seattle, WA",
-      "regions": [
-        "seattle"
-      ],
-      "persona": "ux-designer",
-      "experienceLevel": "mid",
-      "qualifications": {
-        "required": [],
-        "preferred": []
-      },
-      "compensationRange": "$75,996 – $85,008/yr",
-      "postedOn": "2026-07-31",
-      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Digital-Video-Producer_REQ-0000135122"
-    },
-    {
-      "id": "uw-REQ-0000130577",
-      "companyId": "uw",
-      "title": "System Administrator",
-      "location": "Seattle, WA",
-      "regions": [
-        "seattle"
-      ],
-      "persona": "ux-designer",
-      "experienceLevel": "mid",
-      "qualifications": {
-        "required": [
-          "Bachelor's Degree in Information Technology, Business Information Systems, or related field, or equivalent combination of education and experience.",
-          "3 years minimum experience required.",
-          "3&#43; years of hands-on experience administering or configuring the ITSM Platform (i.e. ServiceNow)",
-          "3&#43; years hands-on experience administering or configuing SDLC applications (i.e. Jira)",
-          "Demonstrated experience with ITSM modules (Incident, Problem, Change, Service Catalog).",
-          "Experience using Jira for release management, backlog tracking, sprint coordination, and change documentation.",
-          "Strong understanding of platform governance, update sets, and release management practices.",
-          "Experience with identity and access management concepts and role-based access control.",
-          "Strong troubleshooting and problem-solving skills."
-        ],
-        "preferred": []
-      },
-      "compensationRange": "$86,376 – $140,364/yr",
-      "postedOn": "2026-07-13",
-      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/System-Administrator_REQ-0000130577"
     }
   ]
 }
