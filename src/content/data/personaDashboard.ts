@@ -377,6 +377,25 @@ export const DASHBOARD_ITEMS: DashboardItemDefinition[] = [
     rowSpan: 7,
   },
   {
+    id: 'home-projects',
+    title: 'Home Projects',
+    category: 'Creative work',
+    summary: 'Personal making — a laser-cut memorial plate, a greenhouse, ambigrams, and student proposals.',
+    // Artist-only, by explicit direction. This is personal rather than
+    // professional making, and the pieces carry stories rather than outcomes —
+    // which is the read this persona came for and none of the others did.
+    weight: {
+      'hiring-manager': 0,
+      recruiter: 0,
+      'ux-professional': 0,
+      'technical-peer': 0,
+      'product-manager': 0,
+      'artist-digital-artist': 2,
+    },
+    columnSpan: 2,
+    rowSpan: 7,
+  },
+  {
     id: 'ecocar3',
     title: 'EcoCAR3 — Machining',
     category: 'Engineering roots',

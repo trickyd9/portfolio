@@ -130,6 +130,75 @@ export const GRAPHIC_DESIGN: ArtworkPiece[] = [
   { src: 'art/graphic-design/fchandout.jpg', title: 'FC Handout' },
 ];
 
+// Personal work, shown only to the artist persona. Three sources folded into
+// one card as mini-stories rather than three thin cards: the home projects
+// (which carry real written stories), the "other work" miscellany, and the
+// landscape-architecture coursework. Ordered strongest story first.
+//
+// The home-project captions are drawn from the artist's own write-ups. The
+// other-work titles are filename-derived and still want real ones — the
+// landscape and other-work galleries carry no per-piece metadata.
+export const HOME_PROJECTS: ArtworkPiece[] = [
+  {
+    src: 'art/home-projects/greatest-name.jpg',
+    title: 'Greatest Name — coffin plate',
+    caption:
+      'Made in 2016 after my grandmother passed away. As a Bahá’í she wished to be buried in a wooden casket with no metal parts. I could not find a CAD drawing of the Greatest Name anywhere, so I modelled it in SolidWorks from photographs. It sat above her heart, fixed to the coffin with a dowel and epoxy.',
+  },
+  {
+    src: 'art/home-projects/greatestnameprinted.jpg',
+    title: 'Greatest Name — the two cuts',
+    caption:
+      'It was meant to be 3D-printed, but a failed print and a hard deadline meant switching to laser cutting — both of these were cut in about 45 minutes. Plywood on the left, acrylic on the right with its backing still attached. The family chose the plywood.',
+  },
+  {
+    src: 'art/home-projects/greatestnamecad.jpg',
+    title: 'Greatest Name — SolidWorks model',
+    caption: 'The design model, with the material set as maple.',
+  },
+  {
+    src: 'art/home-projects/modulargreenhouse2.jpg',
+    title: 'Modular greenhouse',
+    caption:
+      'Built in 2011 as a gift for my wife — to save very limited space and give the more tropical plants somewhere more humid. Two stacking modules on a 15in square base, pine, stained and sealed, opened by a door or a velcro flap on top. A rough and blocky first iteration, made with basic tools.',
+  },
+  {
+    src: 'art/home-projects/shrimpsmall.jpg',
+    title: 'Self-sustaining aquatic ecosystem',
+    caption:
+      'Cherry shrimp in a self-sustaining tank, built up in layers of soil and rock, with java moss and larger rocks giving the shrimp places to hide.',
+  },
+  { src: 'art/home-projects/mysteryambigram.jpg', title: 'Ambigram — “Mystery”' },
+  { src: 'art/home-projects/davidambigram.jpg', title: 'Ambigram — “David”' },
+  { src: 'art/home-projects/cdcover.jpg', title: 'CD cover' },
+  { src: 'art/home-projects/lleheartlady.jpg', title: 'Lucy Loves Ethel — illustration' },
+  { src: 'art/home-projects/hlvisor.jpg', title: 'Heart Blossom — visor' },
+  { src: 'art/home-projects/sdblogweb.jpg', title: 'Syncopated Design — blog' },
+  { src: 'art/home-projects/oweb.jpg', title: 'Web design' },
+  { src: 'art/home-projects/apocweb.jpg', title: 'Web design' },
+  {
+    src: 'art/home-projects/uvill.jpg',
+    title: 'University Village — proposal',
+    caption:
+      'From an Introduction to Landscape Architecture class at the University of Washington — a theoretical proposal for redesigning part of University Village.',
+  },
+  {
+    src: 'art/home-projects/uvilpersps.jpg',
+    title: 'University Village — perspectives',
+    caption: 'Perspective studies for the same proposal.',
+  },
+  {
+    src: 'art/home-projects/uvilsects.jpg',
+    title: 'University Village — sections',
+    caption: 'Sections through the proposed scheme.',
+  },
+  {
+    src: 'art/home-projects/ubna.jpg',
+    title: 'Union Bay Natural Area — proposal',
+    caption: 'A theoretical redesign proposal for the Union Bay Natural Area in Seattle, from the same class.',
+  },
+];
+
 /** Stated plainly because the research found artists read this as meaningful
  * rather than assumed — and this work sits alongside AI-assisted professional
  * work elsewhere on the site, which makes the distinction worth making. */

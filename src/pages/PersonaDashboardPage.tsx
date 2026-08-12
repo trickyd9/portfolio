@@ -13,7 +13,7 @@ import type { BoardProps } from '@cloudscape-design/board-components';
 
 import Widget from '../widgets/Widget';
 import { ArtworkCarousel, AnimationPlayer } from '../components/ArtworkCarousel';
-import { FINE_ART, ANIMATIONS, POSTERS, GRAPHIC_DESIGN, HUMAN_MADE_NOTE } from '../content/data/creativeWork';
+import { FINE_ART, ANIMATIONS, POSTERS, GRAPHIC_DESIGN, HOME_PROJECTS, HUMAN_MADE_NOTE } from '../content/data/creativeWork';
 import type { AnimationPiece } from '../content/data/creativeWork';
 import {
   HOVERCRAFT,
@@ -77,6 +77,7 @@ const CAROUSELS: Record<string, { pieces: typeof FINE_ART; note: string }> = {
   'graphic-design': { pieces: GRAPHIC_DESIGN, note: HUMAN_MADE_NOTE },
   hovercraft: { pieces: HOVERCRAFT, note: `${HOVERCRAFT_SUMMARY} ${HOVERCRAFT_ROLE}` },
   ecocar3: { pieces: ECOCAR, note: ECOCAR_SUMMARY },
+  'home-projects': { pieces: HOME_PROJECTS, note: HUMAN_MADE_NOTE },
 };
 
 // Video-first cards: the piece itself is the footage, and a still would be a
