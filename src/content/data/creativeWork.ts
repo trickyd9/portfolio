@@ -176,11 +176,16 @@ export const HOME_PROJECTS: ArtworkPiece[] = [
   { src: 'art/home-projects/sdblogweb.jpg', title: 'Syncopated Design — blog' },
   { src: 'art/home-projects/oweb.jpg', title: 'Web design' },
   { src: 'art/home-projects/apocweb.jpg', title: 'Web design' },
+];
+
+// Split out of HOME_PROJECTS on David's direction — this is coursework in a
+// distinct discipline rather than personal making, and folding it in with the
+// ambigrams and the greenhouse blurred both.
+export const LANDSCAPE_ARCHITECTURE: ArtworkPiece[] = [
   {
     src: 'art/home-projects/uvill.jpg',
     title: 'University Village — proposal',
-    caption:
-      'From an Introduction to Landscape Architecture class at the University of Washington — a theoretical proposal for redesigning part of University Village.',
+    caption: 'A theoretical proposal for redesigning part of University Village.',
   },
   {
     src: 'art/home-projects/uvilpersps.jpg',
@@ -195,9 +200,12 @@ export const HOME_PROJECTS: ArtworkPiece[] = [
   {
     src: 'art/home-projects/ubna.jpg',
     title: 'Union Bay Natural Area — proposal',
-    caption: 'A theoretical redesign proposal for the Union Bay Natural Area in Seattle, from the same class.',
+    caption: 'A theoretical redesign proposal for the Union Bay Natural Area in Seattle.',
   },
 ];
+
+export const LANDSCAPE_NOTE =
+  'Coursework from an Introduction to Landscape Architecture class at the University of Washington — theoretical proposals rather than built work.';
 
 /** Stated plainly because the research found artists read this as meaningful
  * rather than assumed — and this work sits alongside AI-assisted professional

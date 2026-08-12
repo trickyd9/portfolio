@@ -396,6 +396,26 @@ export const DASHBOARD_ITEMS: DashboardItemDefinition[] = [
     rowSpan: 7,
   },
   {
+    id: 'landscape-architecture',
+    title: 'Landscape Architecture',
+    category: 'Creative work',
+    summary: 'Theoretical site proposals from a University of Washington landscape architecture class.',
+    // Spatial design coursework rather than personal making, so it reaches the
+    // design peer as well as the artist — plans, sections and perspectives are
+    // a design language that audience reads fluently. Off by default for the
+    // hiring-adjacent personas, who came for professional work.
+    weight: {
+      'hiring-manager': 0,
+      recruiter: 0,
+      'ux-professional': 1,
+      'technical-peer': 0,
+      'product-manager': 0,
+      'artist-digital-artist': 2,
+    },
+    columnSpan: 2,
+    rowSpan: 6,
+  },
+  {
     id: 'ecocar3',
     title: 'EcoCAR3 — Machining',
     category: 'Engineering roots',
