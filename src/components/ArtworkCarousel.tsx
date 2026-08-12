@@ -46,6 +46,13 @@ export function ArtworkCarousel({ pieces }: { pieces: ArtworkPiece[] }) {
         </Box>
         <Button variant="icon" iconName="angle-right" ariaLabel="Next piece" onClick={() => go(1)} />
       </div>
+      {/* The artist's own words about the piece, where the original portfolio
+          recorded them. Reserves a fixed two-line slot whether or not this
+          piece has one, so stepping through a set doesn't make the image
+          jump as captions appear and disappear. */}
+      <Box variant="small" color="text-body-secondary" textAlign="center">
+        <span style={{ display: 'block', minHeight: '2.4em' }}>{piece.caption ?? ''}</span>
+      </Box>
     </div>
   );
 }

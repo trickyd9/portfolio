@@ -13,6 +13,9 @@ export interface ArtworkPiece {
   /** Path under public/, e.g. "art/fine-art/exit.jpg". */
   src: string;
   title: string;
+  /** The artist's own description, taken from the original portfolio's caption
+   * where one exists. Absent means no caption was recorded for that piece. */
+  caption?: string;
 }
 
 export interface AnimationPiece {
@@ -20,13 +23,39 @@ export interface AnimationPiece {
   title: string;
 }
 
+// Titles and captions below are the artist's own, taken from the original
+// portfolio rather than derived from filenames.
 export const FINE_ART: ArtworkPiece[] = [
-  { src: 'art/fine-art/glacial-bench.jpg', title: 'Glacial Bench' },
-  { src: 'art/fine-art/exit.jpg', title: 'Exit' },
-  { src: 'art/fine-art/enfoldment.jpg', title: 'Enfoldment' },
-  { src: 'art/fine-art/swingers.jpg', title: 'Swingers' },
-  { src: 'art/fine-art/spearmansmall.jpg', title: 'Spearman' },
-  { src: 'art/fine-art/the-typist-small.jpg', title: 'The Typist' },
+  {
+    src: 'art/fine-art/glacial-bench.jpg',
+    title: 'Glacial Bench',
+    caption: 'A drawing of a bench at the Mendenhall Glacier in Juneau, Alaska.',
+  },
+  {
+    src: 'art/fine-art/exit.jpg',
+    title: 'The Exit',
+    caption: 'A perspective drawing of a hallway at the University of Arizona in Tucson.',
+  },
+  {
+    src: 'art/fine-art/enfoldment.jpg',
+    title: 'Enfoldment',
+    caption: 'An acrylic painting of a still life.',
+  },
+  {
+    src: 'art/fine-art/swingers.jpg',
+    title: 'Swing Cats',
+    caption: 'A painting using the club logo of a WSU swing dance club, to practice colour tone.',
+  },
+  {
+    src: 'art/fine-art/spearmansmall.jpg',
+    title: 'Spearman',
+    caption: 'A figure sketch in charcoal, worked with the use of an eraser.',
+  },
+  {
+    src: 'art/fine-art/the-typist-small.jpg',
+    title: 'The Typist',
+    caption: 'A quick two-minute character sketch in graphite.',
+  },
 ];
 
 // Order matters: the first entry is what a visitor sees before touching
@@ -40,18 +69,27 @@ export const ANIMATIONS: AnimationPiece[] = [
   { youtubeId: 'vvByZ4KeF3g', title: 'Beat Buildup' },
 ];
 
-// Titles below are derived from the source filenames where the gallery didn't
-// carry one — worth correcting any that are wrong.
+// Only the first image in each of these galleries carried recoverable
+// metadata; the rest of the titles are still filename-derived and are waiting
+// on the artist's own titles/captions.
 export const POSTERS: ArtworkPiece[] = [
   { src: 'art/posters/cochin.jpg', title: 'Cochin' },
-  { src: 'art/posters/consumption.jpg', title: 'Consumption' },
+  {
+    src: 'art/posters/consumption.jpg',
+    title: 'Consumption',
+    caption: 'A poster on the concept of planned obsolescence, using video gaming systems.',
+  },
   { src: 'art/posters/stonesans.jpg', title: 'Stone Sans' },
   { src: 'art/posters/bstower.jpg', title: 'B&S Tower' },
   { src: 'art/posters/scposter.jpg', title: 'SC Poster' },
 ];
 
 export const GRAPHIC_DESIGN: ArtworkPiece[] = [
-  { src: 'art/graphic-design/logo.jpg', title: 'The Elegant Eclair' },
+  {
+    src: 'art/graphic-design/logo.jpg',
+    title: 'The Elegant Eclair',
+    caption: 'A logo created for a bakery in Mountlake Terrace.',
+  },
   { src: 'art/graphic-design/ecoveidman.jpg', title: 'Eco Verdance' },
   { src: 'art/graphic-design/hllogo.jpg', title: 'Heart Blossom — Logo' },
   { src: 'art/graphic-design/hlpamphlet.jpg', title: 'Heart Blossom — Pamphlet' },
@@ -63,7 +101,11 @@ export const GRAPHIC_DESIGN: ArtworkPiece[] = [
   { src: 'art/graphic-design/relogo.jpg', title: 'RE Logo' },
   { src: 'art/graphic-design/cologo.jpg', title: 'CO Logo' },
   { src: 'art/graphic-design/itazlogo.jpg', title: 'ITAZ Logo' },
-  { src: 'art/graphic-design/lqnplanning.jpg', title: 'LQN Planning' },
+  {
+    src: 'art/graphic-design/lqnplanning.jpg',
+    title: 'LQN — Planning',
+    caption: 'Layout of content for the Lower Quilceda Neighborhood planning project proposal.',
+  },
   { src: 'art/graphic-design/paperworks.jpg', title: 'Paperworks' },
   { src: 'art/graphic-design/atoz.jpg', title: 'A to Z' },
   { src: 'art/graphic-design/breakout.jpg', title: 'Breakout' },

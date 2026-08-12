@@ -49,6 +49,14 @@ export interface DashboardItemDefinition {
   detailPath?: string;
   /** Label for that link — says what's actually on the other end. */
   detailLabel?: string;
+  /**
+   * Always render this item's widget in compact mode on the board, regardless
+   * of the persona's overall depth preference. Set on items whose `expanded`
+   * content (widgetContent.ts) was sized for a full page rather than a board
+   * card — forcing it open here overflows the card's fixed `rowSpan` instead
+   * of showing more. Same rule widgets.ts already applies via `defaultMode`.
+   */
+  forceCompact?: boolean;
   weight: Record<ResearchPersonaId, PersonaWeight>;
   /** Columns out of 4 when this item is in a default layout. */
   columnSpan: 1 | 2 | 3 | 4;
@@ -153,6 +161,9 @@ export const DASHBOARD_ITEMS: DashboardItemDefinition[] = [
     widgetId: 'featured-projects',
     detailPath: '/projects',
     detailLabel: 'See all projects',
+    // Expanded content is an 8-item filterable list sized for the full
+    // /projects page, not this card's rowSpan — see forceCompact doc above.
+    forceCompact: true,
     // Leads for the recruiter: this is the only persona the research found
     // wants breadth over depth, and this card is breadth in one place.
     weight: {
@@ -193,6 +204,9 @@ export const DASHBOARD_ITEMS: DashboardItemDefinition[] = [
     category: 'Orientation',
     summary: 'Roles and dates, most recent first.',
     widgetId: 'career-timeline',
+    // Expanded content appends the pre-AWS roles on top of the AWS timeline —
+    // roughly double length, sized for a full page — see forceCompact doc above.
+    forceCompact: true,
     weight: {
       'hiring-manager': 2,
       recruiter: 3,
@@ -229,6 +243,9 @@ export const DASHBOARD_ITEMS: DashboardItemDefinition[] = [
     category: 'Orientation',
     summary: 'The kind of role and team this is aimed at.',
     widgetId: 'looking-for',
+    // Expanded content is a 4-item list with a secondary line each — far
+    // longer than this card's small rowSpan — see forceCompact doc above.
+    forceCompact: true,
     weight: {
       'hiring-manager': 2,
       recruiter: 3,
@@ -273,7 +290,9 @@ export const DASHBOARD_ITEMS: DashboardItemDefinition[] = [
       'product-manager': 1,
       'artist-digital-artist': 0,
     },
-    columnSpan: 1,
+    // 2, not 1: "Recommendations" is a single word with no natural break
+    // point, and at 1 column it force-wraps mid-word ("Recommend"/"ations").
+    columnSpan: 2,
     rowSpan: 3,
   },
 

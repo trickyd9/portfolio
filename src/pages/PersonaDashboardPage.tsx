@@ -89,9 +89,10 @@ function renderCardBody(def: DashboardItemDefinition, detail: 'compact' | 'expan
       </SpaceBetween>
     );
   }
+  const mode = def.forceCompact ? 'compact' : detail;
   return (
     <SpaceBetween size="s">
-      {def.widgetId ? <Widget widgetId={def.widgetId} mode={detail} /> : <Box>{def.summary}</Box>}
+      {def.widgetId ? <Widget widgetId={def.widgetId} mode={mode} /> : <Box>{def.summary}</Box>}
       {def.detailPath && (
         <Link href={`#${def.detailPath}`}>{def.detailLabel ?? 'Read more'}</Link>
       )}
