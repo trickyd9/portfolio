@@ -377,6 +377,41 @@ export const DASHBOARD_ITEMS: DashboardItemDefinition[] = [
     rowSpan: 7,
   },
   {
+    id: 'ecocar3',
+    title: 'EcoCAR3 — Machining',
+    category: 'Engineering roots',
+    summary: 'CAD-to-CNC work for an intercollegiate powertrain competition: toolpaths, milling, finished parts.',
+    weight: {
+      'hiring-manager': 1,
+      recruiter: 1,
+      'ux-professional': 0,
+      'technical-peer': 3,
+      'product-manager': 1,
+      'artist-digital-artist': 0,
+    },
+    columnSpan: 2,
+    rowSpan: 7,
+  },
+  {
+    id: 'gyrotonic',
+    title: 'Gyrotonic Bench Lift',
+    category: 'Engineering roots',
+    summary: 'A pre-capstone design/build project — the only working prototype on the course.',
+    // Earns the product manager as well as the engineer: hard constraints,
+    // a cost target beaten, and something that actually shipped — which is
+    // the "what got delivered, and what was traded to deliver it" read.
+    weight: {
+      'hiring-manager': 1,
+      recruiter: 1,
+      'ux-professional': 0,
+      'technical-peer': 2,
+      'product-manager': 2,
+      'artist-digital-artist': 0,
+    },
+    columnSpan: 2,
+    rowSpan: 6,
+  },
+  {
     id: 'animation',
     title: 'Animation',
     category: 'Creative work',

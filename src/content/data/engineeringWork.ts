@@ -72,5 +72,73 @@ export const HOVERCRAFT: ArtworkPiece[] = [
 export const HOVERCRAFT_SUMMARY =
   'A hovercraft designed to run quieter than usual, built across two classes — modelled in SolidWorks for one, 3D-printed for the other. The quieter design worked. Lift mostly did not: the blade was modelled after a compressor, and the printed version was too heavy for the motor to spin fast enough to generate much of it. The electronics all functioned and air moved through the craft, but it barely rose. As a first encounter with 3D printing the structure also came out far thicker and sturdier than it needed to be, and there was only time for one full modification and production cycle.';
 
+// Ordered design-first, then machining, then result — the logo is dropped
+// (it's a club mark, not the work).
+export const ECOCAR: ArtworkPiece[] = [
+  {
+    src: 'art/ecocar3/processfile1-drawing.jpg',
+    title: 'Drawing for the 2-axis mill',
+    caption: 'A SolidWorks drawing using distances calculated to program a 2-axis mill.',
+  },
+  {
+    src: 'art/ecocar3/processfile2-2axis.jpg',
+    title: 'Process — from block to bracket',
+    caption: 'The steps taking this bracket from an initial block of aluminium to the finished part.',
+  },
+  {
+    src: 'art/ecocar3/processfile3-2axis.jpg',
+    title: 'Process — continued',
+    caption: 'The remaining machining steps for the same bracket.',
+  },
+  {
+    src: 'art/ecocar3/hsmworks.jpg',
+    title: 'Toolpathing in HSMExpress',
+    caption: 'Using the SolidWorks add-on HSMExpress to generate toolpaths.',
+  },
+  {
+    src: 'art/ecocar3/solidworkssetup.jpg',
+    title: 'Gear mounting brackets — setup',
+    caption: 'Gear mounting brackets being set up for 3-axis milling.',
+  },
+  {
+    src: 'art/ecocar3/wp_20160113_001.jpg',
+    title: 'On the machine',
+    caption: 'The same brackets set up for 3-axis milling, using HSMWorks.',
+  },
+  {
+    src: 'art/ecocar3/bracket.jpg',
+    title: 'Finished bracket',
+    caption: 'One of the brackets I made, showing the surface finish.',
+  },
+  {
+    src: 'art/ecocar3/assembly.jpg',
+    title: 'Cradle assembly — one side',
+    caption: 'Part of the cradle assembly.',
+  },
+  {
+    src: 'art/ecocar3/assembly2.jpg',
+    title: 'Cradle assembly — other side',
+    caption: 'The other part of the cradle assembly.',
+  },
+];
+
+export const ECOCAR_SUMMARY =
+  'Part work on EcoCAR3, a four-year intercollegiate competition to re-engineer a production car’s powertrain. My contribution was the manufacturing end: modelling gear mounting brackets and a cradle assembly in SolidWorks, generating toolpaths with HSMExpress, and machining the parts on 2- and 3-axis mills — through to the surface finish on the delivered brackets.';
+
+/** Video is on the source portfolio and verified still playable. */
+export const ECOCAR_VIDEO = { youtubeId: '_FOyEBtyZ-c', title: '2-Axis Milling of a Bracket' };
+
+export const GYROTONIC_VIDEO = {
+  youtubeId: 'y9cnIXjKwP0',
+  title: 'Linear actuator prototype lifting the bench',
+  caption: 'The working prototype raising the bench, from the ME 395 final project.',
+};
+
+export const GYROTONIC_SUMMARY =
+  'The final project for Introduction to Engineering Design (ME 395), a pre-capstone design/build course — a mechanism to raise a Gyrotonic exercise bench. Ours was the only team on the course to build a complete working prototype of its concept. It had to cost under $500 (this came in around $250), lift the bench six inches, fit the existing aesthetics, make no permanent modification to it, and sit no more than half an inch off the ground when retracted. The finished prototype gave an infinitely adjustable six-inch lift and sat at exactly that half inch.';
+
+export const GYROTONIC_ROLE =
+  'My role: researched a possible hydraulic approach, contributed to the final design, and did all the wiring and testing of the actuators and the two up/off/down switches driving them. I also helped with the carpentry and assembly, co-wrote the final report, and presented with the team.';
+
 export const HOVERCRAFT_ROLE =
   'My role: designed and redesigned most of the craft in SolidWorks, and did most of the pre-processing of files into gcode for the printers. My partner designed the motor mounts and got the electronics working.';

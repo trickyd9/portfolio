@@ -14,7 +14,17 @@ import type { BoardProps } from '@cloudscape-design/board-components';
 import Widget from '../widgets/Widget';
 import { ArtworkCarousel, AnimationPlayer } from '../components/ArtworkCarousel';
 import { FINE_ART, ANIMATIONS, POSTERS, GRAPHIC_DESIGN, HUMAN_MADE_NOTE } from '../content/data/creativeWork';
-import { HOVERCRAFT, HOVERCRAFT_SUMMARY, HOVERCRAFT_ROLE } from '../content/data/engineeringWork';
+import type { AnimationPiece } from '../content/data/creativeWork';
+import {
+  HOVERCRAFT,
+  HOVERCRAFT_SUMMARY,
+  HOVERCRAFT_ROLE,
+  ECOCAR,
+  ECOCAR_SUMMARY,
+  GYROTONIC_VIDEO,
+  GYROTONIC_SUMMARY,
+  GYROTONIC_ROLE,
+} from '../content/data/engineeringWork';
 import { CAREER_PERSONA_RESEARCH, careerPersonaResearchPath, type ResearchPersonaId } from '../content/data/careerPersonaResearch';
 import {
   DASHBOARD_ITEMS,
@@ -66,6 +76,13 @@ const CAROUSELS: Record<string, { pieces: typeof FINE_ART; note: string }> = {
   posters: { pieces: POSTERS, note: HUMAN_MADE_NOTE },
   'graphic-design': { pieces: GRAPHIC_DESIGN, note: HUMAN_MADE_NOTE },
   hovercraft: { pieces: HOVERCRAFT, note: `${HOVERCRAFT_SUMMARY} ${HOVERCRAFT_ROLE}` },
+  ecocar3: { pieces: ECOCAR, note: ECOCAR_SUMMARY },
+};
+
+// Video-first cards: the piece itself is the footage, and a still would be a
+// worse version of the same thing.
+const VIDEO_CARDS: Record<string, { video: AnimationPiece; note: string }> = {
+  gyrotonic: { video: GYROTONIC_VIDEO, note: `${GYROTONIC_SUMMARY} ${GYROTONIC_ROLE}` },
 };
 
 function renderCardBody(def: DashboardItemDefinition, detail: 'compact' | 'expanded') {
@@ -90,6 +107,17 @@ function renderCardBody(def: DashboardItemDefinition, detail: 'compact' | 'expan
         <AnimationPlayer pieces={ANIMATIONS} />
         <Box variant="small" color="text-body-secondary">
           {HUMAN_MADE_NOTE}
+        </Box>
+      </SpaceBetween>
+    );
+  }
+  const videoCard = VIDEO_CARDS[def.id];
+  if (videoCard) {
+    return (
+      <SpaceBetween size="xs">
+        <AnimationPlayer pieces={[videoCard.video]} />
+        <Box variant="small" color="text-body-secondary">
+          {videoCard.note}
         </Box>
       </SpaceBetween>
     );
