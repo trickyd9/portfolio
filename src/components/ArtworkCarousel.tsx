@@ -16,15 +16,19 @@ export function ArtworkCarousel({ pieces }: { pieces: ArtworkPiece[] }) {
   const piece = pieces[index];
   const go = (delta: number) => setIndex((i) => (i + delta + pieces.length) % pieces.length);
 
+  // Fills the height the card actually has rather than a fixed pixel cap:
+  // a taller card should mean a bigger picture, not the same picture with
+  // dead space under it. `minHeight: 0` is what lets the flex child shrink
+  // instead of overflowing.
   return (
-    <SpaceBetween size="xs">
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: 260, gap: 8 }}>
       <div
         style={{
+          flex: '1 1 auto',
+          minHeight: 0,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          minHeight: 240,
-          maxHeight: 460,
           overflow: 'hidden',
         }}
       >
@@ -32,7 +36,7 @@ export function ArtworkCarousel({ pieces }: { pieces: ArtworkPiece[] }) {
           src={`${import.meta.env.BASE_URL}${piece.src}`}
           alt={piece.title}
           loading="lazy"
-          style={{ maxWidth: '100%', maxHeight: 460, objectFit: 'contain' }}
+          style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
         />
       </div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
@@ -42,7 +46,7 @@ export function ArtworkCarousel({ pieces }: { pieces: ArtworkPiece[] }) {
         </Box>
         <Button variant="icon" iconName="angle-right" ariaLabel="Next piece" onClick={() => go(1)} />
       </div>
-    </SpaceBetween>
+    </div>
   );
 }
 

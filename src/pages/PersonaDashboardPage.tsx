@@ -13,7 +13,7 @@ import type { BoardProps } from '@cloudscape-design/board-components';
 
 import Widget from '../widgets/Widget';
 import { ArtworkCarousel, AnimationPlayer } from '../components/ArtworkCarousel';
-import { FINE_ART, ANIMATIONS, HUMAN_MADE_NOTE } from '../content/data/creativeWork';
+import { FINE_ART, ANIMATIONS, POSTERS, GRAPHIC_DESIGN, HUMAN_MADE_NOTE } from '../content/data/creativeWork';
 import { CAREER_PERSONA_RESEARCH, careerPersonaResearchPath, type ResearchPersonaId } from '../content/data/careerPersonaResearch';
 import {
   DASHBOARD_ITEMS,
@@ -57,15 +57,26 @@ const PERSONA_OPTIONS: SelectProps.Options = CAREER_PERSONA_RESEARCH.map((p) => 
 // Card bodies: most items render through the shared Widget component so their
 // content isn't duplicated, but the creative-work cards are genuinely their own
 // thing (an image carousel, an embedded player) rather than block content.
+const CAROUSELS: Record<string, typeof FINE_ART> = {
+  'fine-art': FINE_ART,
+  posters: POSTERS,
+  'graphic-design': GRAPHIC_DESIGN,
+};
+
 function renderCardBody(def: DashboardItemDefinition, detail: 'compact' | 'expanded') {
-  if (def.id === 'fine-art') {
+  const pieces = CAROUSELS[def.id];
+  if (pieces) {
+    // Plain flex column rather than SpaceBetween so the carousel can claim the
+    // card's leftover height — SpaceBetween sizes children to their content.
     return (
-      <SpaceBetween size="xs">
-        <ArtworkCarousel pieces={FINE_ART} />
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 4 }}>
+        <div style={{ flex: '1 1 auto', minHeight: 0 }}>
+          <ArtworkCarousel pieces={pieces} />
+        </div>
         <Box variant="small" color="text-body-secondary">
           {HUMAN_MADE_NOTE}
         </Box>
-      </SpaceBetween>
+      </div>
     );
   }
   if (def.id === 'animation') {
@@ -78,8 +89,14 @@ function renderCardBody(def: DashboardItemDefinition, detail: 'compact' | 'expan
       </SpaceBetween>
     );
   }
-  if (def.widgetId) return <Widget widgetId={def.widgetId} mode={detail} />;
-  return <Box>{def.summary}</Box>;
+  return (
+    <SpaceBetween size="s">
+      {def.widgetId ? <Widget widgetId={def.widgetId} mode={detail} /> : <Box>{def.summary}</Box>}
+      {def.detailPath && (
+        <Link href={`#${def.detailPath}`}>{def.detailLabel ?? 'Read more'}</Link>
+      )}
+    </SpaceBetween>
+  );
 }
 
 function toBoardItem(def: DashboardItemDefinition): BoardProps.Item<ItemData> {
