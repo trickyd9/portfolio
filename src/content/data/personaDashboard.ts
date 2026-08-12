@@ -357,6 +357,26 @@ export const DASHBOARD_ITEMS: DashboardItemDefinition[] = [
     rowSpan: 6,
   },
   {
+    id: 'hovercraft',
+    title: 'Hovercraft',
+    category: 'Engineering roots',
+    summary: 'A quieter hovercraft, modelled in SolidWorks and 3D-printed — including what it got wrong.',
+    // The engineer's card. It leads for them and nobody else: CAD, real
+    // constraints, and an outcome that's openly partial — which the research
+    // found this audience trusts far more than an unblemished result. The
+    // product manager gets it too for the trade-off narrative.
+    weight: {
+      'hiring-manager': 1,
+      recruiter: 1,
+      'ux-professional': 1,
+      'technical-peer': 3,
+      'product-manager': 2,
+      'artist-digital-artist': 0,
+    },
+    columnSpan: 2,
+    rowSpan: 7,
+  },
+  {
     id: 'animation',
     title: 'Animation',
     category: 'Creative work',

@@ -14,6 +14,7 @@ import type { BoardProps } from '@cloudscape-design/board-components';
 import Widget from '../widgets/Widget';
 import { ArtworkCarousel, AnimationPlayer } from '../components/ArtworkCarousel';
 import { FINE_ART, ANIMATIONS, POSTERS, GRAPHIC_DESIGN, HUMAN_MADE_NOTE } from '../content/data/creativeWork';
+import { HOVERCRAFT, HOVERCRAFT_SUMMARY, HOVERCRAFT_ROLE } from '../content/data/engineeringWork';
 import { CAREER_PERSONA_RESEARCH, careerPersonaResearchPath, type ResearchPersonaId } from '../content/data/careerPersonaResearch';
 import {
   DASHBOARD_ITEMS,
@@ -57,24 +58,28 @@ const PERSONA_OPTIONS: SelectProps.Options = CAREER_PERSONA_RESEARCH.map((p) => 
 // Card bodies: most items render through the shared Widget component so their
 // content isn't duplicated, but the creative-work cards are genuinely their own
 // thing (an image carousel, an embedded player) rather than block content.
-const CAROUSELS: Record<string, typeof FINE_ART> = {
-  'fine-art': FINE_ART,
-  posters: POSTERS,
-  'graphic-design': GRAPHIC_DESIGN,
+// Carousel-backed cards, with the line that sits under each set. The creative
+// work carries the human-made note; the hovercraft carries its own account of
+// what happened instead.
+const CAROUSELS: Record<string, { pieces: typeof FINE_ART; note: string }> = {
+  'fine-art': { pieces: FINE_ART, note: HUMAN_MADE_NOTE },
+  posters: { pieces: POSTERS, note: HUMAN_MADE_NOTE },
+  'graphic-design': { pieces: GRAPHIC_DESIGN, note: HUMAN_MADE_NOTE },
+  hovercraft: { pieces: HOVERCRAFT, note: `${HOVERCRAFT_SUMMARY} ${HOVERCRAFT_ROLE}` },
 };
 
 function renderCardBody(def: DashboardItemDefinition, detail: 'compact' | 'expanded') {
-  const pieces = CAROUSELS[def.id];
-  if (pieces) {
+  const entry = CAROUSELS[def.id];
+  if (entry) {
     // Plain flex column rather than SpaceBetween so the carousel can claim the
     // card's leftover height — SpaceBetween sizes children to their content.
     return (
       <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 4 }}>
         <div style={{ flex: '1 1 auto', minHeight: 0 }}>
-          <ArtworkCarousel pieces={pieces} />
+          <ArtworkCarousel pieces={entry.pieces} />
         </div>
         <Box variant="small" color="text-body-secondary">
-          {HUMAN_MADE_NOTE}
+          {entry.note}
         </Box>
       </div>
     );
