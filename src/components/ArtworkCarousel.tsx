@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
 import SpaceBetween from '@cloudscape-design/components/space-between';
-import type { ArtworkPiece } from '../content/data/creativeWork';
+import type { ArtworkPiece, AnimationPiece } from '../content/data/creativeWork';
 
 // One piece at a time with prev/next, rather than a scrolling strip of
 // thumbnails: the research behind the Persona Dashboard found presentation
@@ -59,7 +59,7 @@ export function ArtworkCarousel({ pieces }: { pieces: ArtworkPiece[] }) {
 
 // Animations stay on YouTube (see creativeWork.ts). youtube-nocookie keeps the
 // embed from setting tracking cookies for visitors who only ever look at it.
-export function AnimationPlayer({ pieces }: { pieces: Array<{ youtubeId: string; title: string }> }) {
+export function AnimationPlayer({ pieces }: { pieces: AnimationPiece[] }) {
   const [index, setIndex] = useState(0);
   if (pieces.length === 0) return <Box color="text-status-inactive">No animations to show.</Box>;
 
@@ -88,6 +88,10 @@ export function AnimationPlayer({ pieces }: { pieces: Array<{ youtubeId: string;
         </Box>
         <Button variant="icon" iconName="angle-right" ariaLabel="Next animation" onClick={() => go(1)} />
       </div>
+      {/* Fixed slot, same reasoning as the artwork carousel above. */}
+      <Box variant="small" color="text-body-secondary" textAlign="center">
+        <span style={{ display: 'block', minHeight: '2.4em' }}>{piece.caption ?? ''}</span>
+      </Box>
     </SpaceBetween>
   );
 }

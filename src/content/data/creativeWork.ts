@@ -21,6 +21,7 @@ export interface ArtworkPiece {
 export interface AnimationPiece {
   youtubeId: string;
   title: string;
+  caption?: string;
 }
 
 // Titles and captions below are the artist's own, taken from the original
@@ -62,11 +63,24 @@ export const FINE_ART: ArtworkPiece[] = [
 // anything. Beat Buildup is last deliberately — its audio isn't what should
 // greet someone opening the card cold.
 export const ANIMATIONS: AnimationPiece[] = [
-  { youtubeId: '2jynTzqyCX0', title: 'Checkers' },
-  { youtubeId: 'AdPwlfof138', title: 'Haiku' },
-  { youtubeId: 'l6kXVjkpeyA', title: 'Flash Syncopation' },
-  { youtubeId: 'Go19RoG__9c', title: 'Showing Differences in Maya' },
-  { youtubeId: 'vvByZ4KeF3g', title: 'Beat Buildup' },
+  {
+    youtubeId: '2jynTzqyCX0',
+    title: 'Checkers',
+    caption:
+      'The final animation for the class — a short with sound, bringing some character into ordinary checker pieces.',
+  },
+  {
+    youtubeId: 'Go19RoG__9c',
+    title: '3 Bouncing Balls',
+    caption: 'A class project showing three different materials through animation technique alone. No sound.',
+  },
+  { youtubeId: 'AdPwlfof138', title: 'Haiku', caption: 'A Flash animation.' },
+  {
+    youtubeId: 'l6kXVjkpeyA',
+    title: 'Syncopated Design',
+    caption: 'A logo animation for Syncopated Design, built in Flash.',
+  },
+  { youtubeId: 'vvByZ4KeF3g', title: 'Beat Buildup', caption: 'Using common sounds to build up a beat.' },
 ];
 
 // Only the first image in each of these galleries carried recoverable
