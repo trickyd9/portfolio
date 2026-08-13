@@ -9,12 +9,13 @@ export interface Launch {
   title: string;
   period: string;
   description: string;
-  stats: Array<{ value: string; label: string }>;
 }
 
-// Rendered as a StatGrid per launch (FeaturedProjectsPage.tsx) instead of a
-// bullet list — same numbers, laid out as key-value pairs rather than
-// buried mid-sentence.
+// Title, period, and description only. Each launch used to carry a `stats`
+// array rendered as a StatGrid row (85ms p50 latency, 72% adoption, 10× query
+// performance, and so on) — removed 2026-08-13 on David's direction, along
+// with the same figures in experience.ts and in the downloadable resume and
+// project list. The launches themselves stay; the numbers don't.
 export const LAUNCHES: Launch[] = [
   {
     id: 'full-text-search-ga',
@@ -24,12 +25,6 @@ export const LAUNCHES: Launch[] = [
     // stated on the About page's Overview tab, not a new claim.
     description:
       'Search across devices, sites, alarms, and docs — general availability for the data center monitoring platform used by 20+ teams across 200+ AWS data center sites globally.',
-    stats: [
-      { value: '85ms', label: 'p50 latency' },
-      { value: '72%', label: 'adoption' },
-      { value: '94%', label: 'accuracy' },
-      { value: '4.2%', label: 'zero-result rate' },
-    ],
   },
   {
     id: 'v2-platform-migration',
@@ -37,12 +32,6 @@ export const LAUNCHES: Launch[] = [
     period: 'Jun 2025',
     description:
       'Zero-downtime migration of the platform’s backend over a 6-month phased rollout, with no disruption to the teams relying on it day to day.',
-    stats: [
-      { value: '10×', label: 'query performance (500ms → 50ms)' },
-      { value: '35%', label: 'infra cost reduction' },
-      { value: '99.99%', label: 'availability (up from 99.95%)' },
-      { value: 'Zero', label: 'data loss' },
-    ],
   },
   {
     id: 'mobile-beta',
@@ -50,11 +39,6 @@ export const LAUNCHES: Launch[] = [
     period: 'Nov 2025',
     description:
       'iOS/Android via React Native, giving AWS field technicians mobile access to the data center monitoring platform.',
-    stats: [
-      { value: '78', label: 'beta users (target 50)' },
-      { value: '0.3%', label: 'crash rate' },
-      { value: '4.2★', label: 'rating' },
-    ],
   },
 ];
 

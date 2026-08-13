@@ -7,7 +7,6 @@ import Box from '@cloudscape-design/components/box';
 import Link from '@cloudscape-design/components/link';
 import { LAUNCHES, EARLIER_CONTROLS_PROJECTS } from '../content/data/featuredProjectsFull';
 import { PROJECTS, type ProjectCategory } from '../content/data/projects';
-import { StatGrid } from '../components/StatGrid';
 import { ProjectLine } from '../components/EntrySection';
 
 // Design Systems / Persona Research / AI-Augmented Build each have their own
@@ -94,9 +93,6 @@ export default function FeaturedProjectsPage() {
                       </Box>
                       <Box variant="small" color="text-body-secondary" display="block" padding={{ bottom: 's' }}>
                         {launch.period}
-                      </Box>
-                      <Box padding={{ bottom: 's' }}>
-                        <StatGrid stats={launch.stats} size="small" />
                       </Box>
                       <Box variant="p">{launch.description}</Box>
                     </div>

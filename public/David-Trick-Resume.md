@@ -49,7 +49,7 @@ End-to-end persona lifecycle for the platform — generation of new persona cand
 **Cross-Team Enablement**
 
 - Authored 3 formal training modules and delivered an in-person 2.5-hour Figma training to a partner graphics engineering team to distribute basic design capability
-- Contributed to 2025 platform launches as team member: full-text search GA (85ms p50 latency, 72% adoption, 94% accuracy), v2 platform migration (10× query performance, 35% infra cost reduction, zero downtime), mobile beta (78 users, 0.3% crash rate, 4.2★)
+- Contributed to 2025 platform launches as team member: full-text search GA, v2 platform migration, and mobile beta
 
 ---
 

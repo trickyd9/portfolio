@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "shot": "node scripts/screenshot.mjs"
+    "shot": "node scripts/screenshot.mjs",
+    "pdf": "node scripts/md-to-pdf.mjs"
   },
   "dependencies": {
     "@cloudscape-design/board-components": "^3.0.201",

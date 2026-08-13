@@ -170,7 +170,7 @@ export const PROJECTS: Project[] = [
     role: 'Team member',
     period: '2025',
     description:
-      'Full-text search GA (85ms p50, 72% adoption), v2 platform migration (10× query performance, zero downtime), and mobile beta (78 users, 4.2★).',
+      'Full-text search GA, v2 platform migration, and mobile beta — contributed as a team member on all three.',
   },
   {
     title: 'Global Automation Controls Graphics Deployment Program',

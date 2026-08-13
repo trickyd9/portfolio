@@ -122,9 +122,9 @@ Authored 3 formal training modules covering platform graphics navigation, standa
 
 Contributed as a team member to three 2025 launches:
 
-- **Full-text search GA** _(Sep 2025)_ — search across devices, sites, alarms, and docs. 85ms p50 latency, 72% adoption, 94% accuracy, 4.2% zero-result rate.
-- **v2 platform migration** _(Jun 2025)_ — zero downtime over a 6-month phased rollout. 10× query performance (500ms → 50ms), 35% infrastructure cost reduction, 99.99% availability (up from 99.95%), zero data loss.
-- **Mobile beta** _(Nov 2025)_ — iOS/Android via React Native for AWS field technicians. 78 beta users (target 50), 0.3% crash rate, 4.2★ rating.
+- **Full-text search GA** _(Sep 2025)_ — search across devices, sites, alarms, and docs.
+- **v2 platform migration** _(Jun 2025)_ — zero downtime over a 6-month phased rollout.
+- **Mobile beta** _(Nov 2025)_ — iOS/Android via React Native for AWS field technicians.
 
 ### Reusable Notification Component _(Owner, shipped 2025)_
 
