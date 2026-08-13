@@ -4,7 +4,7 @@
 // account rather than the one-line project-list blurb.
 import type { Entry } from './entry';
 import { PROJECTS } from './projects';
-import { HOVERCRAFT_SUMMARY, HOVERCRAFT_ROLE, ECOCAR_SUMMARY, HYPERLOOP_THUMBNAIL } from './engineeringWork';
+import { ECOCAR_SUMMARY, HYPERLOOP_THUMBNAIL } from './engineeringWork';
 import { POSTERS, GRAPHIC_DESIGN, type ArtworkPiece } from './creativeWork';
 
 function projectByTitle(title: string) {
@@ -69,7 +69,16 @@ export const DEGREES: Degree[] = [
         id: 'hovercraft-prototype',
         title: projectByTitle('3D-Printed Hovercraft Prototype').title,
         period: projectByTitle('3D-Printed Hovercraft Prototype').period,
-        sections: [{ intro: `${HOVERCRAFT_SUMMARY} ${HOVERCRAFT_ROLE}` }],
+        // Shortened from the fuller account on the Persona Dashboard's
+        // Hovercraft card (engineeringWork.ts's HOVERCRAFT_SUMMARY/_ROLE,
+        // deliberately kept long there for the technical-peer audience) —
+        // same facts, tightened for a resume-adjacent section.
+        sections: [
+          {
+            intro:
+              "A hovercraft built across two classes to run quieter than usual — modelled in SolidWorks, then 3D-printed. The quieter design worked; lift mostly didn't, since the compressor-style blade couldn't spin fast enough on a heavier, overbuilt print. I designed and redesigned the craft in SolidWorks and prepped the files for printing; my partner built the motor mounts and got the electronics working.",
+          },
+        ],
         href: 'https://trickyddesign.wordpress.com/2016/02/08/hovercraft/',
         // Confirmed the post's real featured_image — it's the exploded-view
         // drawing (array index 2), not the first SolidWorks screenshot.

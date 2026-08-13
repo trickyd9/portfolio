@@ -56,9 +56,11 @@ export function EntrySectionItem({ entry, defaultExpanded }: { entry: Entry; def
     entry.title
   );
   const content = entry.thumbnailSrc ? (
-    // `flexWrap: 'wrap'` with a min basis on the text column, rather than a
-    // media query, is what drops the thumbnail below the text on narrow
-    // viewports — no separate mobile-width CSS needed.
+    // `flexWrap: 'wrap'` with a min basis on the text column is what drops the
+    // thumbnail below the text on narrow viewports, no media query needed for
+    // that part — but capping the text to ~half width (`.entry-thumbnail-text`
+    // in index.css) only makes sense once the row hasn't wrapped, which does
+    // need one; see that rule's comment.
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, alignItems: 'flex-start' }}>
       <img
         src={`${import.meta.env.BASE_URL}${entry.thumbnailSrc}`}
@@ -74,7 +76,7 @@ export function EntrySectionItem({ entry, defaultExpanded }: { entry: Entry; def
           border: '1px solid rgba(128, 128, 128, 0.3)',
         }}
       />
-      <div style={{ flex: '1 1 260px', minWidth: 0 }}>
+      <div className="entry-thumbnail-text" style={{ flex: '1 1 260px', minWidth: 0 }}>
         <EntryContent sections={entry.sections} />
       </div>
     </div>

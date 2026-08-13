@@ -123,3 +123,14 @@ body {
 .awsui-dark-mode .about-header {
   background: #1a1d22;
 }
+
+/* EntrySection.tsx's thumbnail + text row (Schooling's Featured Projects):
+   text is capped to about half the row's width for readability, but only once
+   there's room for the thumbnail beside it — below the same breakpoint used
+   above, the row has already wrapped to a single column, and capping width
+   there would just force needless extra line-wraps on a narrow screen. */
+@media (min-width: 689px) {
+  .entry-thumbnail-text {
+    max-width: 50%;
+  }
+}
