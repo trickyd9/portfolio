@@ -8,6 +8,7 @@ import Button from '@cloudscape-design/components/button';
 import Select from '@cloudscape-design/components/select';
 import type { SelectProps } from '@cloudscape-design/components/select';
 import Link from '@cloudscape-design/components/link';
+import Alert from '@cloudscape-design/components/alert';
 import { Board, BoardItem } from '@cloudscape-design/board-components';
 import type { BoardProps } from '@cloudscape-design/board-components';
 
@@ -182,7 +183,7 @@ export default function PersonaDashboardPage() {
       header={
         <Header
           variant="h1"
-          description="A working example of what the persona research is for. Tell it who you are and the layout changes to match how that kind of visitor actually reads a portfolio — then rearrange it however you like."
+          description="Personas give you a basis for understanding what someone is looking for, how they want it presented, and — just as usefully — what they don't need or want to see. That's a foundation to build on rather than a finished answer. This page demonstrates it: each widget is a cohesive piece of the work, and different personas want to interact with those pieces in different ways. Tell it who you are and the layout changes to match, then rearrange it however you like."
           // The back-step of the flow, mirroring the "See it applied" action on
           // the research page. Someone who arrives here first should be able to
           // find out why the layouts differ without hunting through the nav.
@@ -197,6 +198,15 @@ export default function PersonaDashboardPage() {
       }
     >
       <SpaceBetween size="l">
+        {/* Sets expectations before a visitor forms the wrong impression of a
+            cut-off card — the research behind this site found the portfolio's
+            own execution gets read as a work sample, so an unexplained clipped
+            card costs more than the plain admission does. */}
+        <Alert type="info" header="This dashboard is a work in progress">
+          Every widget is text-based for now, so longer content can be clipped inside a card. Resizing a card with the
+          handle in its bottom-right corner will show more, and the cards that link to a full write-up have everything
+          there.
+        </Alert>
         <Container header={<Header variant="h2">I'm visiting as…</Header>}>
           <SpaceBetween size="m">
             <div style={{ maxWidth: 340 }}>
