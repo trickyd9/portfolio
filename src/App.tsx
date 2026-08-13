@@ -90,10 +90,22 @@ const navItems: SideNavigationProps.Item[] = [
     type: 'section',
     text: 'Projects',
     items: [
-      { type: 'link', text: 'Featured Projects', href: WIDGETS['featured-projects'].fullPagePath! },
-      { type: 'link', text: 'AWS Persona', href: WIDGETS['persona-research-showcase'].fullPagePath! },
-      { type: 'link', text: 'Design Systems & Standards', href: WIDGETS['design-systems-standards'].fullPagePath! },
-      { type: 'link', text: 'AI-Augmented Build', href: WIDGETS['ai-augmented-build'].fullPagePath! },
+      // `link-group` rather than four sibling links (David, 2026-08-13): the
+      // three project pages are the detail behind Featured Projects, not peers
+      // of it, so they're indented under it. A link-group's header is itself a
+      // link — /projects stays reachable and still highlights via activeHref —
+      // and unlike `expandable-link-group` it adds no collapse toggle, so this
+      // is purely the indentation, no new interaction to discover.
+      {
+        type: 'link-group',
+        text: 'Featured Projects',
+        href: WIDGETS['featured-projects'].fullPagePath!,
+        items: [
+          { type: 'link', text: 'AWS Persona', href: WIDGETS['persona-research-showcase'].fullPagePath! },
+          { type: 'link', text: 'Design Systems & Standards', href: WIDGETS['design-systems-standards'].fullPagePath! },
+          { type: 'link', text: 'AI-Augmented Build', href: WIDGETS['ai-augmented-build'].fullPagePath! },
+        ],
+      },
     ],
   },
   {
