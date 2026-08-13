@@ -1,6 +1,26 @@
 {
-  "fetchedAt": "2026-08-12T14:12:26.364Z",
+  "fetchedAt": "2026-08-13T14:14:43.342Z",
   "listings": [
+    {
+      "id": "uw-REQ-0000135213",
+      "companyId": "uw",
+      "title": "Research Scientist/Engineer  3",
+      "location": "Seattle, WA",
+      "regions": [
+        "seattle"
+      ],
+      "persona": "sde",
+      "experienceLevel": "mid",
+      "qualifications": {
+        "required": [
+          "Applicants who do not meet these qualifications WILL NOT be forwarded to the Hiring Department.Bachelor's Degree in Biochemistry, Biology, Physics or related field and 4 years of relevant experience with electron microscopy-based sample characterization."
+        ],
+        "preferred": []
+      },
+      "compensationRange": "$81,600 – $108,000/yr",
+      "postedOn": "2026-08-12",
+      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Research-Scientist-Engineer--3_REQ-0000135213-1"
+    },
     {
       "id": "uw-REQ-0000135474",
       "companyId": "uw",
@@ -224,31 +244,6 @@
       "compensationRange": "$87,624 – $142,392/yr",
       "postedOn": "2026-07-13",
       "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Workday-Finance-Engineer_REQ-0000129735"
-    },
-    {
-      "id": "uw-REQ-0000129139",
-      "companyId": "uw",
-      "title": "Senior Systems Engineer",
-      "location": "Seattle, WA",
-      "regions": [
-        "seattle"
-      ],
-      "persona": "sde",
-      "experienceLevel": "senior",
-      "qualifications": {
-        "required": [
-          "Five years of experience as an engineer supporting enterprise IT infrastructure, including cloud-based systems.",
-          "Expertise in Microsoft Azure, including VM management, networking, storage, indentity, and governance.",
-          "Strong understanding of automation tools and infrastructure as code (PowerShell, Terraform)."
-        ],
-        "preferred": [
-          "Hands-on experience migrating, configuring, and tuning Azure SQL Database or Managed Instances.",
-          "Familiarity with FinOps principles including the ability to utilize Azure Cost Management to drive right-sizing and reserved instance (RI) strategies."
-        ]
-      },
-      "compensationRange": "$110,328 – $156,000/yr",
-      "postedOn": "2026-07-13",
-      "href": "https://wd5.myworkdaysite.com/recruiting/uw/UWHires/job/Seattle-WA/Senior-Systems-Engineer_REQ-0000129139"
     },
     {
       "id": "uw-REQ-0000129073",
