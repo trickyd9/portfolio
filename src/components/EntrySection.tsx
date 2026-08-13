@@ -1,5 +1,6 @@
 import ExpandableSection from '@cloudscape-design/components/expandable-section';
 import Container from '@cloudscape-design/components/container';
+import Header from '@cloudscape-design/components/header';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Box from '@cloudscape-design/components/box';
 import Link from '@cloudscape-design/components/link';
@@ -111,9 +112,15 @@ export function EntryList({ entries }: { entries: Entry[] }) {
 // The common "one tab = a Container of Entries" shape used by every full page
 // built on this pattern (Persona Research, Design Systems, AI-Augmented Build,
 // Featured Projects) — avoids redefining the same wrapper in each page file.
-export function EntryGroupTab({ entries }: { entries: Entry[] }) {
+//
+// `header` is optional only so this stays a drop-in for any call site that
+// hasn't been given one yet; every current caller passes it. A tab whose
+// container has no header leaves the panel opening straight into content with
+// nothing naming it, which is the gap the project pages were standardized to
+// close (2026-08-13).
+export function EntryGroupTab({ entries, header }: { entries: Entry[]; header?: string }) {
   return (
-    <Container>
+    <Container header={header ? <Header variant="h2">{header}</Header> : undefined}>
       <EntryList entries={entries} />
     </Container>
   );

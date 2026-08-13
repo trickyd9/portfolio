@@ -16,13 +16,11 @@ const HIGHLIGHTS = [
 ];
 
 // AWS Persona full page (renamed 2026-08-10 from "Persona-Driven Research
-// Showcase," relocated out of the Projects nav group into the top-level
-// Persona section — see WIDGET-TRACKER.md). No content/tab changes from the
-// rename itself. Overview reuses the dashboard widget's existing pitch plus a
-// real stat row (none of the 3 grouped tabs here are thin enough to fold in,
-// unlike the other 3 specialization pages — see WIDGET-TRACKER.md for why
-// Overview enrichment differs per page). The three grouped tabs are the full
-// project-list detail behind it (content/data/personaResearch.ts).
+// Showcase" — see WIDGET-TRACKER.md), on the shared project-page standard
+// (2026-08-13, matching Featured Projects): the lead tab is named for its
+// content rather than "Overview", and every tab's container carries an h2
+// header. The three grouped tabs are the full project-list detail behind the
+// pitch (content/data/personaResearch.ts).
 export default function PersonaResearchPage() {
   return (
     <ContentLayout
@@ -35,22 +33,41 @@ export default function PersonaResearchPage() {
       <Tabs
         tabs={[
           {
-            id: 'overview',
-            label: 'Overview',
+            id: 'aws-persona',
+            label: 'AWS Persona',
             content: (
               <SpaceBetween size="l">
                 <Container header={<Header variant="h2">AWS Persona</Header>}>
                   <Widget widgetId="persona-research-showcase" mode="expanded" />
                 </Container>
+                {/* The one place this page still stacks two containers in a
+                    single tab, which the standard otherwise avoids. Left as-is
+                    deliberately: this stat row is the intended content of the
+                    status card that will sit above the tabs on all three
+                    project pages, so it moves up rather than sideways once
+                    David settles the hero metrics. Removing it first would
+                    just drop real content in the meantime. */}
                 <Container header={<Header variant="h2">By the numbers</Header>}>
                   <StatGrid stats={HIGHLIGHTS} />
                 </Container>
               </SpaceBetween>
             ),
           },
-          { id: 'framework', label: 'Persona Framework', content: <EntryGroupTab entries={PERSONA_FRAMEWORK} /> },
-          { id: 'validation', label: 'Validation & Feedback', content: <EntryGroupTab entries={VALIDATION_FEEDBACK} /> },
-          { id: 'dashboards', label: 'Dashboards & Vision', content: <EntryGroupTab entries={DASHBOARDS_VISION} /> },
+          {
+            id: 'framework',
+            label: 'Persona Framework',
+            content: <EntryGroupTab entries={PERSONA_FRAMEWORK} header="Persona Framework" />,
+          },
+          {
+            id: 'validation',
+            label: 'Validation & Feedback',
+            content: <EntryGroupTab entries={VALIDATION_FEEDBACK} header="Validation & Feedback" />,
+          },
+          {
+            id: 'dashboards',
+            label: 'Dashboards & Vision',
+            content: <EntryGroupTab entries={DASHBOARDS_VISION} header="Dashboards & Vision" />,
+          },
         ]}
       />
     </ContentLayout>
