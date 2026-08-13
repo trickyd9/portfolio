@@ -4,7 +4,7 @@
 // account rather than the one-line project-list blurb.
 import type { Entry } from './entry';
 import { PROJECTS } from './projects';
-import { HOVERCRAFT_SUMMARY, HOVERCRAFT_ROLE, ECOCAR_SUMMARY } from './engineeringWork';
+import { HOVERCRAFT_SUMMARY, HOVERCRAFT_ROLE, ECOCAR_SUMMARY, HYPERLOOP_THUMBNAIL } from './engineeringWork';
 
 function projectByTitle(title: string) {
   const project = PROJECTS.find((p) => p.title === title);
@@ -38,6 +38,9 @@ export const DEGREES: Degree[] = [
         period: projectByTitle('EcoCar Capstone').period,
         sections: [{ intro: ECOCAR_SUMMARY }],
         href: 'https://trickyddesign.wordpress.com/2016/02/15/ecocar3/',
+        // Confirmed against the post's own featured_image via the WordPress
+        // REST API, not assumed from array order.
+        thumbnailSrc: 'art/ecocar3/processfile1-drawing.jpg',
       },
       {
         id: 'uw-hyperloop-test-cell',
@@ -45,6 +48,8 @@ export const DEGREES: Degree[] = [
         period: projectByTitle('UW Hyperloop Test Cell').period,
         sections: [{ intro: projectByTitle('UW Hyperloop Test Cell').description }],
         href: 'https://trickyddesign.wordpress.com/2016/03/30/hyperloop/',
+        thumbnailSrc: HYPERLOOP_THUMBNAIL.src,
+        thumbnailAlt: HYPERLOOP_THUMBNAIL.title,
       },
       {
         // Originally built across two classes here, not a personal project —
@@ -54,6 +59,9 @@ export const DEGREES: Degree[] = [
         period: projectByTitle('3D-Printed Hovercraft Prototype').period,
         sections: [{ intro: `${HOVERCRAFT_SUMMARY} ${HOVERCRAFT_ROLE}` }],
         href: 'https://trickyddesign.wordpress.com/2016/02/08/hovercraft/',
+        // Confirmed the post's real featured_image — it's the exploded-view
+        // drawing (array index 2), not the first SolidWorks screenshot.
+        thumbnailSrc: 'art/hovercraft/hovercraft-drawing.jpg',
       },
     ],
     recommendation: {

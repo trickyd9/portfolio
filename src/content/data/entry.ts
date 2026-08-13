@@ -15,8 +15,13 @@ export interface Entry {
   title: string;
   period: string;
   sections: EntrySection[];
-  /** External link to a fuller write-up, rendered as `hrefLabel` (natural-
-   * language text, not the raw URL) at the end of the entry's content. */
+  /** External link to a fuller write-up, rendered next to the period as
+   * `hrefLabel` (natural-language text, not the raw URL). */
   href?: string;
   hrefLabel?: string;
+  /** Path under public/, e.g. "art/hovercraft/hovercraft-drawing.jpg" — the
+   * same image used at the top of the linked post, not an invented one.
+   * Rendered to the right of the expanded content when present. */
+  thumbnailSrc?: string;
+  thumbnailAlt?: string;
 }
