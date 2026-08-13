@@ -172,11 +172,6 @@ function SchoolingTab() {
         >
           <SpaceBetween size="m">
             {degree.note && <Box variant="p">{degree.note}</Box>}
-            {degree.portfolioHref && (
-              <Link href={degree.portfolioHref} external>
-                Portfolio of work from this time
-              </Link>
-            )}
             {degree.projects && (
               <div>
                 <Box variant="h4" padding="n">
@@ -196,9 +191,16 @@ function SchoolingTab() {
               </div>
             )}
             <Divider />
-            <Link href={degree.homepage} external>
-              {degree.university} homepage
-            </Link>
+            <SpaceBetween size="l" direction="horizontal">
+              {degree.portfolioHref && (
+                <Link href={degree.portfolioHref} external>
+                  Portfolio of work from this time
+                </Link>
+              )}
+              <Link href={degree.homepage} external>
+                {degree.university} homepage
+              </Link>
+            </SpaceBetween>
           </SpaceBetween>
         </ExpandableSection>
       ))}

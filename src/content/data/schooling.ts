@@ -76,7 +76,7 @@ export const DEGREES: Degree[] = [
         sections: [
           {
             intro:
-              "A hovercraft built across two classes to run quieter than usual — modelled in SolidWorks, then 3D-printed. The quieter design worked; lift mostly didn't, since the compressor-style blade couldn't spin fast enough on a heavier, overbuilt print. I designed and redesigned the craft in SolidWorks and prepped the files for printing; my partner built the motor mounts and got the electronics working.",
+              "A hovercraft built across two classes to run quieter than usual — modelled in SolidWorks, then 3D-printed. The quieter design worked; lift mostly didn't, since the compressor-style blade couldn't spin fast enough on a heavier, overbuilt print. I designed and redesigned the craft in SolidWorks and prepped the files for printing; my partner built the motor mounts and got the electronics working. This was iteratively developed and was on the 3rd iteration of design when the class ended.",
           },
         ],
         href: 'https://trickyddesign.wordpress.com/2016/02/08/hovercraft/',
