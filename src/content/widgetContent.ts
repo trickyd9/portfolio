@@ -9,8 +9,9 @@ import { PROJECTS, type ProjectCategory } from './data/projects';
 import { ART_CATEGORIES } from './data/artPortfolio';
 
 // Categories with their own dedicated full page — a project's title links
-// there. Launches/Earlier (Controls)/Personal have no page of their own (see
-// FeaturedProjectsPage.tsx), so those titles render as plain text.
+// there. Launches and Earlier (Controls) have no page of their own (see
+// FeaturedProjectsPage.tsx), so those titles render as plain text. Personal
+// is excluded from this list entirely — see FEATURED_LIST_PROJECTS below.
 const CATEGORY_PAGE: Partial<Record<ProjectCategory, string>> = {
   'Design Systems': '#/design-systems',
   'Persona Research': '#/persona-research',
@@ -26,7 +27,11 @@ function projectToListItem(project: (typeof PROJECTS)[number]) {
   };
 }
 
-const PROJECT_CATEGORIES = Array.from(new Set(PROJECTS.map((p) => p.category)));
+// Personal-category projects (Hovercraft/Hyperloop/EcoCar) now have their own
+// real write-ups and thumbnails on the About page's Schooling tab — excluded
+// here so this list doesn't show a third, thinner copy of the same three.
+const FEATURED_LIST_PROJECTS = PROJECTS.filter((p) => p.category !== 'Personal');
+const PROJECT_CATEGORIES = Array.from(new Set(FEATURED_LIST_PROJECTS.map((p) => p.category)));
 
 export const WIDGET_CONTENT: Record<WidgetId, { compact: Block[]; expanded: Block[] }> = {
   'about-me': {
@@ -75,10 +80,10 @@ export const WIDGET_CONTENT: Record<WidgetId, { compact: Block[]; expanded: Bloc
 
   'featured-projects': {
     compact: [
-      { type: 'filterableList', categories: PROJECT_CATEGORIES, defaultCount: 4, items: PROJECTS.map(projectToListItem) },
+      { type: 'filterableList', categories: PROJECT_CATEGORIES, defaultCount: 4, items: FEATURED_LIST_PROJECTS.map(projectToListItem) },
     ],
     expanded: [
-      { type: 'filterableList', categories: PROJECT_CATEGORIES, defaultCount: 8, items: PROJECTS.map(projectToListItem) },
+      { type: 'filterableList', categories: PROJECT_CATEGORIES, defaultCount: 8, items: FEATURED_LIST_PROJECTS.map(projectToListItem) },
     ],
   },
 

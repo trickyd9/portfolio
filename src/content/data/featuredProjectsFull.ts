@@ -5,20 +5,51 @@
 // descriptions sourced verbatim from References/David Trick - Project List.md.
 import type { Entry } from './entry';
 
-export const LAUNCHES_PROJECTS: Entry[] = [
+export interface Launch {
+  id: string;
+  title: string;
+  period: string;
+  description: string;
+  stats: Array<{ value: string; label: string }>;
+}
+
+// Rendered as a StatGrid per launch (FeaturedProjectsPage.tsx) instead of a
+// bullet list — same numbers, laid out as key-value pairs rather than
+// buried mid-sentence.
+export const LAUNCHES: Launch[] = [
   {
-    id: '2025-platform-launches',
-    title: '2025 Platform Launches',
-    period: 'Team member, 2025',
-    sections: [
-      {
-        intro: 'Contributed as a team member to three 2025 launches:',
-        bullets: [
-          'Full-text search GA (Sep 2025) — search across devices, sites, alarms, and docs. 85ms p50 latency, 72% adoption, 94% accuracy, 4.2% zero-result rate.',
-          'v2 platform migration (Jun 2025) — zero downtime over a 6-month phased rollout. 10× query performance (500ms → 50ms), 35% infrastructure cost reduction, 99.99% availability (up from 99.95%), zero data loss.',
-          'Mobile beta (Nov 2025) — iOS/Android via React Native for AWS field technicians. 78 beta users (target 50), 0.3% crash rate, 4.2★ rating.',
-        ],
-      },
+    id: 'full-text-search-ga',
+    title: 'Full-Text Search GA',
+    period: 'Sep 2025',
+    description: 'Search across devices, sites, alarms, and docs.',
+    stats: [
+      { value: '85ms', label: 'p50 latency' },
+      { value: '72%', label: 'adoption' },
+      { value: '94%', label: 'accuracy' },
+      { value: '4.2%', label: 'zero-result rate' },
+    ],
+  },
+  {
+    id: 'v2-platform-migration',
+    title: 'V2 Platform Migration',
+    period: 'Jun 2025',
+    description: 'Zero-downtime migration over a 6-month phased rollout.',
+    stats: [
+      { value: '10×', label: 'query performance (500ms → 50ms)' },
+      { value: '35%', label: 'infra cost reduction' },
+      { value: '99.99%', label: 'availability (up from 99.95%)' },
+      { value: 'Zero', label: 'data loss' },
+    ],
+  },
+  {
+    id: 'mobile-beta',
+    title: 'Mobile Beta',
+    period: 'Nov 2025',
+    description: 'iOS/Android via React Native for AWS field technicians.',
+    stats: [
+      { value: '78', label: 'beta users (target 50)' },
+      { value: '0.3%', label: 'crash rate' },
+      { value: '4.2★', label: 'rating' },
     ],
   },
 ];
@@ -59,38 +90,7 @@ export const EARLIER_CONTROLS_PROJECTS: Entry[] = [
   },
 ];
 
-export const PERSONAL_PROJECTS_FULL: Entry[] = [
-  {
-    id: 'hovercraft-prototype',
-    title: '3D-Printed Hovercraft Prototype',
-    period: 'Personal, 2015 – 2017',
-    sections: [
-      {
-        intro:
-          'Personal additive-manufacturing project iterated through V1, V2, and V2.5. Iteration approach: prove viability with a deliberately rough V1, capture lessons, redesign smaller and lighter for V2, refine clip-fit tolerances and add directional motors with safety cages for V2.5. Demonstrates rapid prototyping methodology and an iterate-from-evidence design approach.',
-      },
-    ],
-  },
-  {
-    id: 'uw-hyperloop-test-cell',
-    title: 'UW Hyperloop Test Cell',
-    period: 'University Research, 2016',
-    sections: [
-      {
-        intro:
-          'Designed test cell apparatus for magnetic-levitation thrust vector measurement using strain gauges; one of two members on the project. Created CAD models and engineering drawings; collaborated on conceptual design for the Hyperloop transportation system.',
-      },
-    ],
-  },
-  {
-    id: 'ecocar-capstone',
-    title: 'EcoCar Capstone',
-    period: 'University, 2015 – 2016',
-    sections: [
-      {
-        intro:
-          'University of Washington capstone — machined connective components used throughout the EcoCar (brackets, mounts, gears, cradles, crossbars, frames). SolidWorks drawings, NX programming. Brief membership on the engine-frame coupling team.',
-      },
-    ],
-  },
-];
+// A "Personal" export used to live here too (Hovercraft/Hyperloop/EcoCar) —
+// removed, not renamed: those three now have their own real write-ups and
+// thumbnails on the About page's Schooling tab, and this was a thinner,
+// duplicate copy of the same three projects.
