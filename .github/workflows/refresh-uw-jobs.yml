@@ -1,16 +1,21 @@
 name: Refresh UW job listings
 
 # UW's Workday API has no CORS headers, so the deployed site can't call it
-# directly (see JobMarketBackend.md §3) — this runs the fetch server-side on
-# a schedule instead, and commits the result as data/uw-jobs.json for the
-# site to read at runtime via raw.githubusercontent.com. `workflow_dispatch`
-# means it can also be triggered manually from the Actions tab or the GitHub
-# API — see JobMarketBackend.md's note on why the site's own Refresh button
-# doesn't call this directly (would need a secret-holding relay to trigger it
-# safely; the button re-fetches the latest commit instead).
+# directly (see JobMarketBackend.md §3) — this runs the fetch server-side
+# instead, and commits the result as data/uw-jobs.json for the site to read at
+# runtime via raw.githubusercontent.com.
+#
+# MANUAL ONLY as of 2026-08-13 (David). The daily 6am Pacific schedule was
+# removed: the Job Market Explorer board it feeds is currently unlinked from the
+# site, so the job was refreshing data nothing reads and putting an automated
+# commit on main for it. The workflow itself is kept, and `workflow_dispatch`
+# still runs it on demand from the Actions tab or the GitHub API, so the data
+# can be brought current whenever the board comes back — restore the schedule
+# then, alongside whatever wider refresh story it ends up part of.
+#
+#  schedule:
+#    - cron: '0 13 * * *' # ~6am Pacific (7am during PDT) daily
 on:
-  schedule:
-    - cron: '0 13 * * *' # ~6am Pacific (7am during PDT) daily
   workflow_dispatch: {}
 
 permissions:
