@@ -88,8 +88,10 @@ const OTHER_WORK_SRC = new Set([
   'art/home-projects/cdcover.jpg',
   'art/home-projects/hlvisor.jpg',
 ]);
-const OTHER_WORK = HOME_PROJECTS.filter((p) => OTHER_WORK_SRC.has(p.src));
-const HOME_PROJECTS_ONLY = HOME_PROJECTS.filter((p) => !OTHER_WORK_SRC.has(p.src));
+// Reversed per David's request — the filtered order otherwise just followed
+// HOME_PROJECTS' own array order, which wasn't a deliberate sequence for this
+// subset.
+const OTHER_WORK = HOME_PROJECTS.filter((p) => OTHER_WORK_SRC.has(p.src)).reverse();
 
 function DownloadLinks() {
   return (
@@ -178,7 +180,7 @@ function SchoolingTab() {
             {degree.projects && (
               <div>
                 <Box variant="h4" padding="n">
-                  Projects from this time
+                  <em>Projects from this time</em>
                 </Box>
                 <EntryList entries={degree.projects} />
               </div>
@@ -287,9 +289,9 @@ function GraphicDesignTab() {
   );
 }
 
-function ArtworkOtherTab() {
+function ArtworkTab() {
   return (
-    <Container header={<Header variant="h2">Artwork &amp; Other</Header>}>
+    <Container header={<Header variant="h2">Artwork</Header>}>
       <SpaceBetween size="xs">
         <ArtCategorySection category={categoryByTitle('Drawings / Paintings')} thumbnails={artworkThumbnails(FINE_ART)} defaultExpanded />
         <ArtCategorySection category={categoryByTitle('Moving Imagery')} thumbnails={animationThumbnails(ANIMATIONS)} />
@@ -297,7 +299,6 @@ function ArtworkOtherTab() {
           category={categoryByTitle('Landscape Architecture Classwork')}
           thumbnails={artworkThumbnails(LANDSCAPE_ARCHITECTURE)}
         />
-        <ArtCategorySection category={categoryByTitle('Home Projects')} thumbnails={artworkThumbnails(HOME_PROJECTS_ONLY)} />
       </SpaceBetween>
       <Box variant="small" color="text-body-secondary" padding={{ top: 's' }}>
         Archive from a pre-AWS freelance/creative era (Syncopated Design, 2010–2017). Thumbnails link out to each
@@ -308,7 +309,7 @@ function ArtworkOtherTab() {
 }
 
 // About Me's dedicated full page — tabbed layout (Overview/Schooling/Work
-// Experience/Skills/Graphic Design/Artwork & Other) matching David's reference
+// Experience/Skills/Graphic Design/Artwork) matching David's reference
 // design. All tabs beyond
 // Overview are bespoke, full-length content (content/data/*.ts) — richer than
 // the dashboard widgets they're loosely related to, so none of them reuse
@@ -346,7 +347,7 @@ export default function AboutPage() {
           { id: 'work-experience', label: 'Work Experience', content: <WorkExperienceTab /> },
           { id: 'skills', label: 'Skills', content: <SkillsTab /> },
           { id: 'graphic-design', label: 'Graphic Design', content: <GraphicDesignTab /> },
-          { id: 'artwork-other', label: 'Artwork & Other', content: <ArtworkOtherTab /> },
+          { id: 'artwork', label: 'Artwork', content: <ArtworkTab /> },
         ]}
       />
     </ContentLayout>

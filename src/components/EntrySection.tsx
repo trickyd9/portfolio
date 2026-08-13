@@ -38,13 +38,31 @@ export function EntryContent({ sections }: { sections: EntrySection[] }) {
 // `variant="default"` renders with no border/box of its own — this is only ever
 // used nested inside a parent Container, so we never get a container nested
 // inside another container (see WIDGET-TRACKER.md).
+//
+// `headerDescription` is a plain string (Cloudscape's ExpandableSection API
+// doesn't accept a ReactNode there), so an entry with an `href` builds its own
+// period + link row inside `headerText` instead — `headerText` does accept a
+// ReactNode — to put the link next to the period rather than at the bottom of
+// the expanded content.
 export function EntrySectionItem({ entry, defaultExpanded }: { entry: Entry; defaultExpanded?: boolean }) {
+  const headerText = entry.href ? (
+    <>
+      {entry.title}
+      <Box variant="small" color="text-body-secondary" display="block">
+        {entry.period} · <Link href={entry.href} external>{entry.hrefLabel ?? 'See full project'}</Link>
+      </Box>
+    </>
+  ) : (
+    entry.title
+  );
   return (
-    <ExpandableSection variant="default" headerText={entry.title} headerDescription={entry.period} defaultExpanded={defaultExpanded}>
-      <SpaceBetween size="m">
-        <EntryContent sections={entry.sections} />
-        {entry.href && <Link href={entry.href} external>{entry.hrefLabel ?? 'See full project'}</Link>}
-      </SpaceBetween>
+    <ExpandableSection
+      variant="default"
+      headerText={headerText}
+      headerDescription={entry.href ? undefined : entry.period}
+      defaultExpanded={defaultExpanded}
+    >
+      <EntryContent sections={entry.sections} />
     </ExpandableSection>
   );
 }
