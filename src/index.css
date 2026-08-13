@@ -124,22 +124,11 @@ body {
   background: #1a1d22;
 }
 
-/* Custom style for a page's lead-paragraph Container (Cloudscape's Container
-   `style` prop takes plain CSS values, so the light/dark switch has to come
-   from CSS rather than the prop). Defined as variables here and toggled by the
-   `awsui-dark-mode` class Cloudscape's own applyMode() sets — the same hook
-   .about-header uses. Deliberately not Cloudscape's own CSS custom properties:
-   those carry hashed, version-specific suffixes, and this project already
-   avoids depending on those (see the navbar note in WIDGET-TRACKER.md). */
-:root {
-  --lead-callout-bg: #f8f9fa;
-  --lead-callout-border: #d5dbdb;
-}
-
-.awsui-dark-mode {
-  --lead-callout-bg: #1a1d22;
-  --lead-callout-border: #414750;
-}
+/* Note: hand-picked colours like .about-header's above are the exception here,
+   not the pattern. Prefer @cloudscape-design/design-tokens — imported as JS
+   constants and passed to a component's `style` prop — so values carry their
+   own light/dark pairs and move with Cloudscape when it updates. See the lead
+   Container in pages/PersonaDashboardPage.tsx for the shape of that. */
 
 /* EntrySection.tsx's thumbnail + text row (Schooling's Featured Projects):
    text is capped to about half the row's width for readability, but only once

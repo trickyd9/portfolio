@@ -15,6 +15,7 @@
   "dependencies": {
     "@cloudscape-design/board-components": "^3.0.201",
     "@cloudscape-design/components": "^3.0.1325",
+    "@cloudscape-design/design-tokens": "3.0.105",
     "@cloudscape-design/global-styles": "^1.0.62",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",

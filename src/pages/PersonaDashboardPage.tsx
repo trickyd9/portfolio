@@ -9,6 +9,11 @@ import Select from '@cloudscape-design/components/select';
 import type { SelectProps } from '@cloudscape-design/components/select';
 import Link from '@cloudscape-design/components/link';
 import Alert from '@cloudscape-design/components/alert';
+import {
+  colorBackgroundCellShaded,
+  colorBorderDividerDefault,
+  borderRadiusContainer,
+} from '@cloudscape-design/design-tokens';
 import { Board, BoardItem } from '@cloudscape-design/board-components';
 import type { BoardProps } from '@cloudscape-design/board-components';
 
@@ -222,18 +227,18 @@ export default function PersonaDashboardPage() {
       <SpaceBetween size="l">
         {/* Lead paragraph, in the content rather than the header: page
             descriptions here are a single line, and this is the explanation a
-            one-liner can't carry. Given a custom-styled Container so it reads
-            as a lead-in rather than as another content panel — softer
-            background, lighter border, no header. Colours come from CSS
-            variables in index.css so they follow the dark-mode toggle; the
-            `style` prop itself takes plain CSS values and can't switch theme
-            on its own. */}
+            one-liner can't carry. Custom-styled so it reads as a lead-in
+            rather than as another content panel — shaded rather than white,
+            no shadow, no header.
+            Values are Cloudscape design tokens, never hand-picked colours:
+            they carry their own light/dark values and move with the design
+            system when it updates. */}
         <Container
           style={{
             root: {
-              background: 'var(--lead-callout-bg)',
-              borderColor: 'var(--lead-callout-border)',
-              borderRadius: '12px',
+              background: colorBackgroundCellShaded,
+              borderColor: colorBorderDividerDefault,
+              borderRadius: borderRadiusContainer,
               borderWidth: '1px',
               boxShadow: 'none',
             },
