@@ -4,17 +4,30 @@ import Container from '@cloudscape-design/components/container';
 import Tabs from '@cloudscape-design/components/tabs';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Box from '@cloudscape-design/components/box';
+import Link from '@cloudscape-design/components/link';
 import { LAUNCHES, EARLIER_CONTROLS_PROJECTS } from '../content/data/featuredProjectsFull';
+import { PROJECTS, type ProjectCategory } from '../content/data/projects';
 import { EntryGroupTab } from '../components/EntrySection';
 import { StatGrid } from '../components/StatGrid';
-import Widget from '../widgets/Widget';
+
+// Design Systems / Persona Research / AI-Augmented Build each have their own
+// dedicated full page — declared here rather than reusing widgetContent.ts's
+// CATEGORY_PAGE (private to that file, and this page also needs a display
+// label per category, which that map doesn't carry). "Persona Research" shows
+// as "AWS Persona" — the page's real title (widgets.ts is the single source
+// of truth for that rename); the category string itself stays internal.
+const CATEGORY_SECTIONS: Array<{ category: ProjectCategory; label: string; href: string }> = [
+  { category: 'Design Systems', label: 'Design Systems & Standards', href: '#/design-systems' },
+  { category: 'Persona Research', label: 'AWS Persona', href: '#/persona-research' },
+  { category: 'AI-Augmented Build', label: 'AI-Augmented Build', href: '#/ai-augmented-build' },
+];
 
 // Featured Projects full page. Design Systems, Persona Research, and
 // AI-Augmented Build projects already have their own dedicated pages with real
-// depth (multiple tabs each) — this page doesn't repeat that content, and
-// doesn't link out to it either (dropped 2026-08 — those pages are already one
-// click away via the side nav, and the plain link list read as inconsistent
-// with the rest of the site). Launches is folded into Overview; Earlier
+// depth (multiple tabs each) — this page doesn't repeat that content in full,
+// just a bolded-title + description line per project under a single linked
+// category heading (no per-project links, no category dropdown — not enough
+// volume yet to justify filtering). Launches is folded into Overview; Earlier
 // (Controls) keeps its own tab since it has real multi-entry content. Personal
 // (Hovercraft/Hyperloop/EcoCar) no longer has a tab here at all — it was a
 // thinner duplicate of the real write-ups now on the About page's Schooling
@@ -30,7 +43,22 @@ export default function FeaturedProjectsPage() {
             content: (
               <SpaceBetween size="l">
                 <Container header={<Header variant="h2">Featured Projects</Header>}>
-                  <Widget widgetId="featured-projects" mode="expanded" />
+                  <SpaceBetween size="l">
+                    {CATEGORY_SECTIONS.map((section) => (
+                      <div key={section.category}>
+                        <Header variant="h3">
+                          <Link href={section.href}>{section.label}</Link>
+                        </Header>
+                        <SpaceBetween size="xs">
+                          {PROJECTS.filter((p) => p.category === section.category).map((project) => (
+                            <Box variant="p" key={project.title}>
+                              <Box variant="strong">{project.title}</Box> — {project.description}
+                            </Box>
+                          ))}
+                        </SpaceBetween>
+                      </div>
+                    ))}
+                  </SpaceBetween>
                 </Container>
                 <Container header={<Header variant="h2">2025 Platform Launches</Header>}>
                   <SpaceBetween size="l">
