@@ -15,4 +15,8 @@ export interface Entry {
   title: string;
   period: string;
   sections: EntrySection[];
+  /** External link to a fuller write-up, rendered as `hrefLabel` (natural-
+   * language text, not the raw URL) at the end of the entry's content. */
+  href?: string;
+  hrefLabel?: string;
 }

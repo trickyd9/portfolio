@@ -12,13 +12,22 @@ import Link from '@cloudscape-design/components/link';
 import Button from '@cloudscape-design/components/button';
 import Divider from '@cloudscape-design/components/divider';
 import { CONTACT } from '../content/contact';
-import { PROJECTS } from '../content/data/projects';
 import { DEGREES, CERTIFICATIONS } from '../content/data/schooling';
 import { PROFESSIONAL_ROLES, ACADEMIC_GROUP, ACADEMIC_STANDALONE_ROLES } from '../content/data/experience';
 import { VOLUNTEER_ROLES } from '../content/data/hobbies';
 import { ART_CATEGORIES } from '../content/data/artPortfolio';
+import {
+  FINE_ART,
+  ANIMATIONS,
+  POSTERS,
+  GRAPHIC_DESIGN,
+  HOME_PROJECTS,
+  LANDSCAPE_ARCHITECTURE,
+} from '../content/data/creativeWork';
+import type { ArtworkPiece, AnimationPiece } from '../content/data/creativeWork';
 import { SKILL_CATEGORIES } from '../content/data/skills';
 import { EntryList } from '../components/EntrySection';
+import { ArtCategorySection, type Thumbnail } from '../components/ArtCategorySection';
 import headshot from '../assets/david-headshot.jpg';
 
 const RESUME_PDF = `${import.meta.env.BASE_URL}David-Trick-Resume.pdf`;
@@ -28,7 +37,59 @@ const PROJECT_LIST_MD = `${import.meta.env.BASE_URL}David-Trick-Project-List.md`
 
 const CALLOUT = 'Leader, collaborator, and driving force for intuitive, clear design.';
 
-const PERSONAL_PROJECTS = PROJECTS.filter((p) => p.category === 'Personal');
+function categoryByTitle(title: string) {
+  const category = ART_CATEGORIES.find((c) => c.title === title);
+  if (!category) throw new Error(`Missing art category: ${title}`);
+  return category;
+}
+
+const BASE = import.meta.env.BASE_URL;
+
+function artworkThumbnails(pieces: ArtworkPiece[]): Thumbnail[] {
+  return pieces.map((p) => ({ thumbSrc: `${BASE}${p.src}`, title: p.title }));
+}
+
+// YouTube's own thumbnail CDN, keyed by video ID — a real, stable endpoint,
+// not a derived/invented one.
+function animationThumbnails(pieces: AnimationPiece[]): Thumbnail[] {
+  return pieces.map((p) => ({ thumbSrc: `https://img.youtube.com/vi/${p.youtubeId}/mqdefault.jpg`, title: p.title }));
+}
+
+// creativeWork.ts's GRAPHIC_DESIGN and HOME_PROJECTS arrays each merge pieces
+// from two distinct source-site categories (confirmed against the original
+// WordPress posts, not guessed). Split here rather than in creativeWork.ts
+// since the merge there was deliberate (three thin sources folded into one
+// artist-facing card); this page just needs the finer split for its own
+// category-by-category layout.
+const LOGOS_SRC = new Set([
+  'art/graphic-design/logo.jpg',
+  'art/graphic-design/hllogo.jpg',
+  'art/graphic-design/fusionlogooptions.jpg',
+  'art/graphic-design/cslogooptions.jpg',
+  'art/graphic-design/gmglogo.jpg',
+  'art/graphic-design/syncdblk.jpg',
+  'art/graphic-design/sdlogo.jpg',
+  'art/graphic-design/relogo.jpg',
+  'art/graphic-design/cologo.jpg',
+  'art/graphic-design/itazlogo.jpg',
+]);
+const LOGOS = GRAPHIC_DESIGN.filter((p) => LOGOS_SRC.has(p.src));
+const PRINTED_MATTER = GRAPHIC_DESIGN.filter((p) => !LOGOS_SRC.has(p.src));
+
+// The source site's "Other Work" post, not the "Other Projects" (home)
+// post — the two are easy to conflate but distinct.
+const OTHER_WORK_SRC = new Set([
+  'art/home-projects/mysteryambigram.jpg',
+  'art/home-projects/davidambigram.jpg',
+  'art/home-projects/lleheartlady.jpg',
+  'art/home-projects/oweb.jpg',
+  'art/home-projects/sdblogweb.jpg',
+  'art/home-projects/apocweb.jpg',
+  'art/home-projects/cdcover.jpg',
+  'art/home-projects/hlvisor.jpg',
+]);
+const OTHER_WORK = HOME_PROJECTS.filter((p) => OTHER_WORK_SRC.has(p.src));
+const HOME_PROJECTS_ONLY = HOME_PROJECTS.filter((p) => !OTHER_WORK_SRC.has(p.src));
 
 function DownloadLinks() {
   return (
@@ -119,16 +180,7 @@ function SchoolingTab() {
                 <Box variant="h4" padding="n">
                   Projects from this time
                 </Box>
-                <SpaceBetween size="s">
-                  {degree.projects.map((project) => (
-                    <div key={project.title}>
-                      <Box variant="strong" display="block">
-                        {project.title}
-                      </Box>
-                      <Box variant="p">{project.description}</Box>
-                    </div>
-                  ))}
-                </SpaceBetween>
+                <EntryList entries={degree.projects} />
               </div>
             )}
             {degree.recommendation && (
@@ -180,6 +232,9 @@ function WorkExperienceTab() {
           </ExpandableSection>
         </SpaceBetween>
       </Container>
+      <Container header={<Header variant="h2">Volunteer</Header>}>
+        <EntryList entries={VOLUNTEER_ROLES} />
+      </Container>
     </SpaceBetween>
   );
 }
@@ -212,51 +267,49 @@ function SkillsTab() {
   );
 }
 
-function HobbiesTab() {
+// Thumbnails link out to the piece's original post rather than the raw
+// uploaded file — David's choice, keeping the same watermark/resolution
+// protection everywhere except the one linked-out post per category.
+function GraphicDesignTab() {
   return (
-    <SpaceBetween size="l">
-      <Container header={<Header variant="h2">Volunteer Experience</Header>}>
-        <EntryList entries={VOLUNTEER_ROLES} />
-      </Container>
-      <Container header={<Header variant="h2">Personal Projects</Header>}>
-        <SpaceBetween size="xs">
-          {PERSONAL_PROJECTS.map((project, index) => (
-            <ExpandableSection
-              key={project.title}
-              variant="default"
-              headerText={project.title}
-              headerDescription={project.period}
-              defaultExpanded={index === 0}
-            >
-              <Box variant="p">{project.description}</Box>
-            </ExpandableSection>
-          ))}
-        </SpaceBetween>
-      </Container>
-      <Container header={<Header variant="h2">Art &amp; Design</Header>}>
-        <SpaceBetween size="xs">
-          {ART_CATEGORIES.map((category, index) => (
-            <ExpandableSection key={category.href} variant="default" headerText={category.title} defaultExpanded={index === 0}>
-              <SpaceBetween size="xs">
-                <Link href={category.href} external>
-                  View on trickyddesign.wordpress.com
-                </Link>
-                <Box variant="p">{category.description}</Box>
-              </SpaceBetween>
-            </ExpandableSection>
-          ))}
-        </SpaceBetween>
-        <Box variant="small" color="text-body-secondary" padding={{ top: 's' }}>
-          Archive from a pre-AWS freelance/creative era (Syncopated Design, 2010–2017). A protected in-site gallery
-          is pending an image-hosting decision — linking to the original posts for now.
-        </Box>
-      </Container>
-    </SpaceBetween>
+    <Container header={<Header variant="h2">Graphic Design</Header>}>
+      <SpaceBetween size="xs">
+        <ArtCategorySection category={categoryByTitle('Posters')} thumbnails={artworkThumbnails(POSTERS)} defaultExpanded />
+        <ArtCategorySection category={categoryByTitle('Printed Matter')} thumbnails={artworkThumbnails(PRINTED_MATTER)} />
+        <ArtCategorySection category={categoryByTitle('Logos')} thumbnails={artworkThumbnails(LOGOS)} />
+        <ArtCategorySection category={categoryByTitle('Other Work')} thumbnails={artworkThumbnails(OTHER_WORK)} />
+      </SpaceBetween>
+      <Box variant="small" color="text-body-secondary" padding={{ top: 's' }}>
+        Archive from a pre-AWS freelance/creative era (Syncopated Design, 2010–2017). Thumbnails link out to each
+        piece's original post.
+      </Box>
+    </Container>
+  );
+}
+
+function ArtworkOtherTab() {
+  return (
+    <Container header={<Header variant="h2">Artwork &amp; Other</Header>}>
+      <SpaceBetween size="xs">
+        <ArtCategorySection category={categoryByTitle('Drawings / Paintings')} thumbnails={artworkThumbnails(FINE_ART)} defaultExpanded />
+        <ArtCategorySection category={categoryByTitle('Moving Imagery')} thumbnails={animationThumbnails(ANIMATIONS)} />
+        <ArtCategorySection
+          category={categoryByTitle('Landscape Architecture Classwork')}
+          thumbnails={artworkThumbnails(LANDSCAPE_ARCHITECTURE)}
+        />
+        <ArtCategorySection category={categoryByTitle('Home Projects')} thumbnails={artworkThumbnails(HOME_PROJECTS_ONLY)} />
+      </SpaceBetween>
+      <Box variant="small" color="text-body-secondary" padding={{ top: 's' }}>
+        Archive from a pre-AWS freelance/creative era (Syncopated Design, 2010–2017). Thumbnails link out to each
+        piece's original post.
+      </Box>
+    </Container>
   );
 }
 
 // About Me's dedicated full page — tabbed layout (Overview/Schooling/Work
-// Experience/Skills/Hobbies) matching David's reference design. All tabs beyond
+// Experience/Skills/Graphic Design/Artwork & Other) matching David's reference
+// design. All tabs beyond
 // Overview are bespoke, full-length content (content/data/*.ts) — richer than
 // the dashboard widgets they're loosely related to, so none of them reuse
 // Widget here. Every job/degree/project entry uses ExpandableSection
@@ -292,7 +345,8 @@ export default function AboutPage() {
           { id: 'schooling', label: 'Schooling', content: <SchoolingTab /> },
           { id: 'work-experience', label: 'Work Experience', content: <WorkExperienceTab /> },
           { id: 'skills', label: 'Skills', content: <SkillsTab /> },
-          { id: 'hobbies', label: 'Hobbies', content: <HobbiesTab /> },
+          { id: 'graphic-design', label: 'Graphic Design', content: <GraphicDesignTab /> },
+          { id: 'artwork-other', label: 'Artwork & Other', content: <ArtworkOtherTab /> },
         ]}
       />
     </ContentLayout>

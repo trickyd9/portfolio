@@ -1,7 +1,6 @@
-// Sourced from References/David Trick Resume.md — Volunteer Experience section.
-// Personal Projects and Art & Design reuse content/data/projects.ts and
-// content/data/artPortfolio.ts respectively (see AboutPage.tsx) rather than
-// duplicating that content here.
+// Sourced from References/David Trick Resume.md — Volunteer Experience
+// section. Rendered under About Me's Work Experience tab (see AboutPage.tsx) —
+// not a standalone "Hobbies" tab, which no longer exists.
 import type { Entry } from './entry';
 
 export const VOLUNTEER_ROLES: Entry[] = [

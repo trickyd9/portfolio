@@ -2,6 +2,7 @@ import ExpandableSection from '@cloudscape-design/components/expandable-section'
 import Container from '@cloudscape-design/components/container';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Box from '@cloudscape-design/components/box';
+import Link from '@cloudscape-design/components/link';
 import type { Entry, EntrySection } from '../content/data/entry';
 
 export function BulletList({ items }: { items: string[] }) {
@@ -40,7 +41,10 @@ export function EntryContent({ sections }: { sections: EntrySection[] }) {
 export function EntrySectionItem({ entry, defaultExpanded }: { entry: Entry; defaultExpanded?: boolean }) {
   return (
     <ExpandableSection variant="default" headerText={entry.title} headerDescription={entry.period} defaultExpanded={defaultExpanded}>
-      <EntryContent sections={entry.sections} />
+      <SpaceBetween size="m">
+        <EntryContent sections={entry.sections} />
+        {entry.href && <Link href={entry.href} external>{entry.hrefLabel ?? 'See full project'}</Link>}
+      </SpaceBetween>
     </ExpandableSection>
   );
 }
