@@ -22,7 +22,7 @@ import FeaturedProjectsPage from './pages/FeaturedProjectsPage';
 import PersonaResearchPage from './pages/PersonaResearchPage';
 import CareerPersonaResearchPage from './pages/CareerPersonaResearchPage';
 import PersonaSummaryPage from './pages/PersonaSummaryPage';
-import PersonaDashboardPage from './pages/PersonaDashboardPage';
+import PersonaDashboardPage, { PersonaDashboardNotice } from './pages/PersonaDashboardPage';
 import DesignSystemsPage from './pages/DesignSystemsPage';
 import AiAugmentedBuildPage from './pages/AiAugmentedBuildPage';
 import { CAREER_PERSONA_RESEARCH, careerPersonaResearchPath } from './content/data/careerPersonaResearch';
@@ -225,8 +225,14 @@ function AppShell() {
           </div>
         </TopNavigation>
       </div>
+      {/* `notifications` is where Cloudscape puts page-level notices: it renders
+          above the breadcrumbs and the page header, so a notice is read before
+          the content it qualifies. Scoped to the one route that has something
+          to say, the same conditional pattern the Job Market Explorer's drawer
+          used. The copy itself lives with its page, not in this shell. */}
       <AppLayoutToolbar
         headerSelector="#top-nav"
+        notifications={location.pathname === PERSONA_DASHBOARD_PATH ? <PersonaDashboardNotice /> : undefined}
         breadcrumbs={
           <BreadcrumbGroup
             items={breadcrumbItems}

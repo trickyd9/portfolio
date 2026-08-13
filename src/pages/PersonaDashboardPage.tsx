@@ -154,6 +154,26 @@ function toBoardItem(def: DashboardItemDefinition): BoardProps.Item<ItemData> {
   };
 }
 
+// Page-level notice, rendered through the app layout's `notifications` slot in
+// App.tsx rather than inside this page's content — that slot sits above the
+// breadcrumbs and header, which is where Cloudscape puts page notifications.
+// (ContentLayout has its own `notifications` slot, but its docs say not to use
+// it when the page is inside an app layout, which this one is.) The copy lives
+// here, next to the page it describes, rather than in the app shell.
+//
+// Sets expectations before a visitor forms the wrong impression of a clipped
+// card: the research behind this site found a portfolio's own execution gets
+// read as a work sample, so an unexplained cut-off reads as broken where a
+// flagged one reads as unfinished.
+export function PersonaDashboardNotice() {
+  return (
+    <Alert type="info" header="This dashboard is a work in progress">
+      For now, every widget is text-based in this initial proof of concept. Also content may not be appropriately
+      represented by the size of the card, though they are resizable via the handle in the bottom-right corner.
+    </Alert>
+  );
+}
+
 // Persona Dashboard — pick who you are, get a layout built from the Career
 // Persona Research findings, then change it freely. The persona selector lives
 // on the page rather than in the top nav (where the Job Market Explorer's role
@@ -198,15 +218,6 @@ export default function PersonaDashboardPage() {
       }
     >
       <SpaceBetween size="l">
-        {/* Sets expectations before a visitor forms the wrong impression of a
-            cut-off card — the research behind this site found the portfolio's
-            own execution gets read as a work sample, so an unexplained clipped
-            card costs more than the plain admission does. */}
-        <Alert type="info" header="This dashboard is a work in progress">
-          Every widget is text-based for now, so longer content can be clipped inside a card. Resizing a card with the
-          handle in its bottom-right corner will show more, and the cards that link to a full write-up have everything
-          there.
-        </Alert>
         <Container header={<Header variant="h2">I'm visiting as…</Header>}>
           <SpaceBetween size="m">
             <div style={{ maxWidth: 340 }}>
