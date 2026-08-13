@@ -203,7 +203,9 @@ export default function PersonaDashboardPage() {
       header={
         <Header
           variant="h1"
-          description="Personas give you a basis for understanding what someone is looking for, how they want it presented, and — just as usefully — what they don't need or want to see. That's a foundation to build on rather than a finished answer. This page demonstrates it: each widget is a cohesive piece of the work, and different personas want to interact with those pieces in different ways. Tell it who you are and the layout changes to match, then rearrange it however you like."
+          // One line, like every other page here — the fuller explanation is
+          // the lead paragraph at the top of the content instead.
+          description="A working example of what the persona research is for"
           // The back-step of the flow, mirroring the "See it applied" action on
           // the research page. Someone who arrives here first should be able to
           // find out why the layouts differ without hunting through the nav.
@@ -218,6 +220,17 @@ export default function PersonaDashboardPage() {
       }
     >
       <SpaceBetween size="l">
+        {/* Lead paragraph, in the content rather than the header: page
+            descriptions here are a single line, and this is the explanation
+            that a one-liner can't carry. Same place the About page puts its
+            callout — first thing in the content, above everything else. */}
+        <Box variant="p">
+          Personas give you a basis for understanding what someone is looking for, how they want it presented, and —
+          just as usefully — what they don't need or want to see. That's a foundation to build on rather than a finished
+          answer. This page demonstrates it: each widget is a cohesive piece of the work, and different personas want to
+          interact with those pieces in different ways. Tell it who you are and the layout changes to match, then
+          rearrange it however you like.
+        </Box>
         <Container header={<Header variant="h2">I'm visiting as…</Header>}>
           <SpaceBetween size="m">
             <div style={{ maxWidth: 340 }}>
