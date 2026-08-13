@@ -63,8 +63,8 @@ export interface ControlsProject {
   description: string;
 }
 
-// Rendered the same way as the Overview tab's category lists — bold title,
-// description below, no accordion. Descriptions expanded from the one-liners
+// Rendered the same way as the Featured Projects tab's category lists — bold
+// title, description below, no accordion. Descriptions expanded from the one-liners
 // this file used to carry using the fuller, already-written bullets on the
 // About page's Work Experience tab (experience.ts's "Controls Design
 // Engineer" entry) rather than inventing new detail — every added sentence
@@ -84,6 +84,10 @@ export const EARLIER_CONTROLS_PROJECTS: ControlsProject[] = [
     title: 'Modular EPMS Graphical Interface',
     description:
       'Designed the graphical interface for a 1MW modular electrical distribution system with a 10-inch touchscreen EPMS — submitted to the manufacturer for global production reproduction.',
+  },
+  {
+    title: '7-Page Colocation HMI Template',
+    description: 'Designed and built a 7-page colocation HMI template adopted for international colocation site deployments.',
   },
 ];
 

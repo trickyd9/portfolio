@@ -36,6 +36,38 @@ export const PROJECTS: Project[] = [
       'Standalone reference site documenting platform UX standards and providing a customer-interactive mockup for persona-based landing-page dashboards.',
   },
   {
+    title: 'UX Roadmap & Task Hierarchy',
+    category: 'Design Systems',
+    role: 'Owner',
+    period: '2026',
+    description:
+      '5 workstreams (UX Vision & Standards, Persona-Based Interaction Design, Mockups & Design Deliverables, Scaling & Tooling, Training & Enablement), a manager-facing framework doc, and 5 initiative one-pagers — presented to skip-level and direct manager, securing Q2 direction with persona-driven design as the execution focus.',
+  },
+  {
+    title: 'Cross-Org Terminology Standardization',
+    category: 'Design Systems',
+    role: 'Owner',
+    period: '2026',
+    description:
+      'Led a terminology standardization effort across 4 organizations for verification/validation UI labels — coordinated meetings, surfaced naming conflicts, and produced 6 naming decisions adopted platform-wide, plus a repeatable process for future terminology questions.',
+  },
+  {
+    title: 'UI Code Review Gatekeeper',
+    category: 'Design Systems',
+    role: 'Ongoing role contribution',
+    period: 'Ongoing',
+    description:
+      'De facto UI/UX approval authority for the platform team — 246+ design-feedback messages per year across cross-team code reviews: design-system compliance checks, usability callouts, and persona-impact flags.',
+  },
+  {
+    title: 'Drift Notification UX Standard',
+    category: 'Design Systems',
+    role: 'Owner',
+    period: '2026',
+    description:
+      'Defined the UX standard for drift/deviation notifications in data tables, extending color-only indicators to color + icon for accessibility — reviewed iterations with the implementing developer through to final approval.',
+  },
+  {
     title: '20-Persona Documentation System',
     category: 'Persona Research',
     role: 'Owner',
@@ -64,6 +96,46 @@ export const PROJECTS: Project[] = [
     description: 'Interactive React dashboards with draggable widget layouts and operational variants per persona — presented live to leadership.',
   },
   {
+    title: 'Persona Confidence Scoring & Outreach Prioritization',
+    category: 'Persona Research',
+    role: 'Owner',
+    period: '2026',
+    description:
+      'Added confidence scoring (High/Medium/Low) to all 20 personas, keyed to validation source quality — customer voice count, recency, regional and deployment-model spread. Default sort by confidence surfaced quality gaps and directly drove the customer outreach plan, including identifying the two highest-usage, lowest-confidence personas as top targets.',
+  },
+  {
+    title: 'North-Star Design Vision',
+    category: 'Persona Research',
+    role: 'Owner',
+    period: '2026',
+    description:
+      'Authored the platform’s north-star design document — widget-based atomic units → persona-templated dashboards → deep-dive experiences — mapping all 20 personas to default dashboard templates with a defined customization lifecycle (default → user-customized → reset).',
+  },
+  {
+    title: 'Q2/Q3 Persona Experience Execution Plan',
+    category: 'Persona Research',
+    role: 'Owner',
+    period: '2026',
+    description:
+      'Strategic plan defining how the platform determines what pages, widgets, and navigation to show based on job role — 3 architecture decisions (hybrid approach, experiences + widgets coexistence, phased priority order), 5 milestones, 16 mockup requirements, a collaboration model, and success criteria.',
+  },
+  {
+    title: 'Leadership Preview — Persona Vision as a Working UX Model',
+    category: 'Persona Research',
+    role: 'Owner',
+    period: '2026',
+    description:
+      'Presented the 4 persona landing-page dashboards live to leadership — the first exposure to the persona-driven UX vision as a working interactive model (role detection, draggable widgets, operational variants) rather than static mockups, followed by a Q3+ roadmap discussion.',
+  },
+  {
+    title: 'Field Customer Feedback Integration',
+    category: 'Persona Research',
+    role: 'Owner',
+    period: '2026',
+    description:
+      'Established a direct customer-feedback loop — extracted verbatim feedback from a field interview and incorporated it into the persona file, the validation review questions (3 new questions added), and the landing-page mockup (new data widgets); the same pattern was reused across subsequent interviews.',
+  },
+  {
     title: 'AI Development Agents Package',
     category: 'AI-Augmented Build',
     role: 'Owner',
@@ -83,6 +155,14 @@ export const PROJECTS: Project[] = [
     role: 'Owner',
     period: '2024 – Present',
     description: 'Custom AI agent for automated platform-page auditing; established the audit-as-CI pattern the broader agents package now extends.',
+  },
+  {
+    title: 'AI-Powered Sprint Management System',
+    category: 'AI-Augmented Build',
+    role: 'Owner',
+    period: '2026',
+    description:
+      'Designed a sprint management system operated through AI agents — sprint structure, punt pattern, and rules, documented as reusable configuration. Agents manage sprint boards, create punt clones, and track velocity; human-in-the-loop confirmation on agent-generated comments keeps oversight in place.',
   },
   {
     title: '2025 Platform Launches',
