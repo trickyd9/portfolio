@@ -8,6 +8,7 @@ import Link from '@cloudscape-design/components/link';
 import { LAUNCHES, EARLIER_CONTROLS_PROJECTS } from '../content/data/featuredProjectsFull';
 import { PROJECTS, type ProjectCategory } from '../content/data/projects';
 import { StatGrid } from '../components/StatGrid';
+import { ProjectLine } from '../components/EntrySection';
 
 // Design Systems / Persona Research / AI-Augmented Build each have their own
 // dedicated full page — declared here rather than reusing widgetContent.ts's
@@ -22,18 +23,17 @@ const CATEGORY_SECTIONS: Array<{ category: ProjectCategory; label: string; href:
 ];
 
 // Shared by the Featured Projects tab's per-category lists and the Controls
-// Standards tab — bold title, description below, no accordion and no
-// per-project link.
+// Standards tab. Renders through the shared `ProjectLine` primitive rather than
+// rebuilding the bold-title/description treatment, so this page and the three
+// specialization pages (which use `EntryLines` over the same primitive) stay
+// identical by construction instead of by discipline.
 function ProjectLines({ projects }: { projects: Array<{ title: string; description: string }> }) {
   return (
     <SpaceBetween size="s">
       {projects.map((project) => (
-        <div key={project.title}>
-          <Box variant="strong" display="block">
-            {project.title}
-          </Box>
+        <ProjectLine key={project.title} title={project.title}>
           <Box variant="p">{project.description}</Box>
-        </div>
+        </ProjectLine>
       ))}
     </SpaceBetween>
   );

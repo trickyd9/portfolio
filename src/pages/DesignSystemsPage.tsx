@@ -3,7 +3,7 @@ import Header from '@cloudscape-design/components/header';
 import Container from '@cloudscape-design/components/container';
 import Tabs from '@cloudscape-design/components/tabs';
 import { TENETS_AUDIT, STANDARDS_WEBSITE, ROADMAP_ENABLEMENT } from '../content/data/designSystemsFull';
-import { EntryGroupTab, EntryList } from '../components/EntrySection';
+import { EntryGroupTab, EntryLines } from '../components/EntrySection';
 import Widget from '../widgets/Widget';
 
 // Design Systems & Standards full page, on the shared project-page standard
@@ -33,7 +33,7 @@ export default function DesignSystemsPage() {
             label: 'UX Standards Website',
             content: (
               <Container header={<Header variant="h2">UX Standards Website</Header>}>
-                <EntryList entries={[STANDARDS_WEBSITE]} />
+                <EntryLines entries={[STANDARDS_WEBSITE]} />
               </Container>
             ),
           },

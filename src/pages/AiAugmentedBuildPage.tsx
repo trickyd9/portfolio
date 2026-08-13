@@ -3,7 +3,7 @@ import Header from '@cloudscape-design/components/header';
 import Container from '@cloudscape-design/components/container';
 import Tabs from '@cloudscape-design/components/tabs';
 import { AGENTS_AUDITING, PROTOTYPING_PIPELINE, AUTOMATION_TOOLS } from '../content/data/aiAugmentedBuildFull';
-import { EntryGroupTab, EntryList } from '../components/EntrySection';
+import { EntryGroupTab, EntryLines } from '../components/EntrySection';
 import Widget from '../widgets/Widget';
 
 // AI-Augmented Build full page, on the shared project-page standard
@@ -32,7 +32,7 @@ export default function AiAugmentedBuildPage() {
             label: 'Figma Make → React Pipeline',
             content: (
               <Container header={<Header variant="h2">Figma Make → React Prototyping Pipeline</Header>}>
-                <EntryList entries={[PROTOTYPING_PIPELINE]} />
+                <EntryLines entries={[PROTOTYPING_PIPELINE]} />
               </Container>
             ),
           },

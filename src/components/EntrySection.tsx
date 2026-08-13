@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import ExpandableSection from '@cloudscape-design/components/expandable-section';
 import Container from '@cloudscape-design/components/container';
 import Header from '@cloudscape-design/components/header';
@@ -96,9 +97,46 @@ export function EntrySectionItem({ entry, defaultExpanded }: { entry: Entry; def
   );
 }
 
+// The flat "project line" treatment used across the project pages: bold title,
+// body directly below, no accordion, no period line, no per-project link.
+// Defined here once so Featured Projects (whose data is plain
+// {title, description}) and the three specialization pages (whose data is
+// Entry) can't drift apart visually — they render through the same primitive.
+export function ProjectLine({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div>
+      <Box variant="strong" display="block">
+        {title}
+      </Box>
+      {children}
+    </div>
+  );
+}
+
+// Entry-shaped projects rendered as flat lines rather than accordions — the
+// standard for the project pages as of 2026-08-13. `EntryContent` still does
+// the section rendering, so an entry with headings or bullets keeps them; what
+// goes away is the ExpandableSection wrapper and the period line, matching how
+// Featured Projects presents the same kind of content.
+export function EntryLines({ entries }: { entries: Entry[] }) {
+  return (
+    <SpaceBetween size="l">
+      {entries.map((entry) => (
+        <ProjectLine key={entry.id} title={entry.title}>
+          <EntryContent sections={entry.sections} />
+        </ProjectLine>
+      ))}
+    </SpaceBetween>
+  );
+}
+
 // The first entry in any list always opens by default — everywhere a group of
 // Entries is rendered, use this instead of hand-mapping EntrySectionItem so the
 // rule stays automatic and can't drift per page.
+//
+// Still the right component for long-form, genuinely expandable content (the
+// About page's Work Experience and Schooling tabs). The project pages use
+// EntryLines above instead.
 export function EntryList({ entries }: { entries: Entry[] }) {
   return (
     <SpaceBetween size="xs">
@@ -121,7 +159,7 @@ export function EntryList({ entries }: { entries: Entry[] }) {
 export function EntryGroupTab({ entries, header }: { entries: Entry[]; header?: string }) {
   return (
     <Container header={header ? <Header variant="h2">{header}</Header> : undefined}>
-      <EntryList entries={entries} />
+      <EntryLines entries={entries} />
     </Container>
   );
 }
