@@ -59,10 +59,7 @@ export function EntrySectionItem({ entry, defaultExpanded }: { entry: Entry; def
     // `flexWrap: 'wrap'` with a min basis on the text column, rather than a
     // media query, is what drops the thumbnail below the text on narrow
     // viewports — no separate mobile-width CSS needed.
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'flex-start' }}>
-      <div style={{ flex: '1 1 260px', minWidth: 0 }}>
-        <EntryContent sections={entry.sections} />
-      </div>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, alignItems: 'flex-start' }}>
       <img
         src={`${import.meta.env.BASE_URL}${entry.thumbnailSrc}`}
         alt={entry.thumbnailAlt ?? entry.title}
@@ -77,6 +74,9 @@ export function EntrySectionItem({ entry, defaultExpanded }: { entry: Entry; def
           border: '1px solid rgba(128, 128, 128, 0.3)',
         }}
       />
+      <div style={{ flex: '1 1 260px', minWidth: 0 }}>
+        <EntryContent sections={entry.sections} />
+      </div>
     </div>
   ) : (
     <EntryContent sections={entry.sections} />

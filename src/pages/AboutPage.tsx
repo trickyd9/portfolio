@@ -180,7 +180,7 @@ function SchoolingTab() {
             {degree.projects && (
               <div>
                 <Box variant="h4" padding="n">
-                  <em>Projects from this time</em>
+                  <em>Featured Projects</em>
                 </Box>
                 <EntryList entries={degree.projects} />
               </div>

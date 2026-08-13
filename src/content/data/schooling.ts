@@ -5,12 +5,24 @@
 import type { Entry } from './entry';
 import { PROJECTS } from './projects';
 import { HOVERCRAFT_SUMMARY, HOVERCRAFT_ROLE, ECOCAR_SUMMARY, HYPERLOOP_THUMBNAIL } from './engineeringWork';
+import { POSTERS, GRAPHIC_DESIGN, type ArtworkPiece } from './creativeWork';
 
 function projectByTitle(title: string) {
   const project = PROJECTS.find((p) => p.title === title);
   if (!project) throw new Error(`Missing project: ${title}`);
   return project;
 }
+
+function artworkByTitle(pieces: ArtworkPiece[], title: string) {
+  const piece = pieces.find((p) => p.title === title);
+  if (!piece) throw new Error(`Missing artwork: ${title}`);
+  return piece;
+}
+
+// Posters/Printed Matter post URLs, same as artPortfolio.ts's ART_CATEGORIES
+// entries — not re-imported from there since only the two hrefs are needed.
+const POSTERS_POST_URL = 'https://trickyddesign.wordpress.com/2013/06/27/posters/';
+const PRINTED_MATTER_POST_URL = 'https://trickyddesign.wordpress.com/2013/06/27/printed-matter/';
 
 export interface Degree {
   id: string;
@@ -77,6 +89,49 @@ export const DEGREES: Degree[] = [
     homepage: 'https://www.arizona.edu/',
     note: 'Additional emphasis in Motion Graphics. Member of IEEE.',
     portfolioHref: 'https://trickyddesign.wordpress.com/',
+    // Descriptions are David's own, supplied directly (not derived from the
+    // poster/book itself) — lightly copyedited for spelling/grammar only.
+    projects: [
+      {
+        id: 'cochin-poster',
+        title: 'Cochin Font Poster',
+        period: '2002 – 2008',
+        sections: [
+          {
+            intro:
+              'Set in the shape of a pyramid and using text from the book "The Alchemist," this was a school project to showcase the four different styles (Regular, Bold, Italic, Bold Italic) in the Cochin font family.',
+          },
+        ],
+        href: POSTERS_POST_URL,
+        thumbnailSrc: artworkByTitle(POSTERS, 'Cochin').src,
+      },
+      {
+        id: 'consumption-poster',
+        title: 'Consumption',
+        period: '2002 – 2008',
+        sections: [
+          {
+            intro:
+              'Planned obsolescence — the concept that many manufactured items have a purposeful limit to how long they’ll be used for. This poster shows video-game consoles sized by sale amounts, on a timeline from 1972 to 2008.',
+          },
+        ],
+        href: POSTERS_POST_URL,
+        thumbnailSrc: artworkByTitle(POSTERS, 'Consumption').src,
+      },
+      {
+        id: 'a-to-z-typography-book',
+        title: 'A to Z Typography Book',
+        period: '2002 – 2008',
+        sections: [
+          {
+            intro:
+              'Photographs were taken of each letter of the alphabet, found in one form or another in and around Tucson. These photos were then set in a book along with excerpts taken from Ellen Lupton’s "Thinking with Type" and other font-based considerations. The book was then printed and produced for the school project.',
+          },
+        ],
+        href: PRINTED_MATTER_POST_URL,
+        thumbnailSrc: artworkByTitle(GRAPHIC_DESIGN, 'A to Z').src,
+      },
+    ],
   },
 ];
 
