@@ -310,9 +310,10 @@ function ArtworkTab() {
   );
 }
 
-// About Me's dedicated full page — tabbed layout (Overview/Schooling/Work
-// Experience/Skills/Graphic Design/Artwork) matching David's reference
-// design. All tabs beyond
+// About Me's dedicated full page — tabbed layout (Overview/Work
+// Experience/Schooling/Skills/Graphic Design/Artwork). Work Experience sits
+// ahead of Schooling per David (2026-08-12) — the two were swapped from the
+// original reference design's order. All tabs beyond
 // Overview are bespoke, full-length content (content/data/*.ts) — richer than
 // the dashboard widgets they're loosely related to, so none of them reuse
 // Widget here. Every job/degree/project entry uses ExpandableSection
@@ -345,8 +346,8 @@ export default function AboutPage() {
         onChange={({ detail }) => setActiveTabId(detail.activeTabId)}
         tabs={[
           { id: 'overview', label: 'Overview', content: <Container><OverviewTab /></Container> },
-          { id: 'schooling', label: 'Schooling', content: <SchoolingTab /> },
           { id: 'work-experience', label: 'Work Experience', content: <WorkExperienceTab /> },
+          { id: 'schooling', label: 'Schooling', content: <SchoolingTab /> },
           { id: 'skills', label: 'Skills', content: <SkillsTab /> },
           { id: 'graphic-design', label: 'Graphic Design', content: <GraphicDesignTab /> },
           { id: 'artwork', label: 'Artwork', content: <ArtworkTab /> },

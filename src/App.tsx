@@ -82,7 +82,10 @@ const STANDALONE_PAGE_TITLES: Record<string, string> = {
 // (its page and data are still in the repo, just unreferenced). See
 // WIDGET-TRACKER.md.
 const navItems: SideNavigationProps.Item[] = [
-  { type: 'link', text: 'About Me', href: WIDGETS['about-me'].fullPagePath! },
+  // The About Me page *is* the site's landing page (fullPagePath '/'), which is
+  // also what the side nav's "David Trick" header links to — so in the menu it
+  // reads as "Home" (David, 2026-08-12); "About Me" stays the page's own title.
+  { type: 'link', text: 'Home', href: WIDGETS['about-me'].fullPagePath! },
   {
     type: 'section',
     text: 'Projects',
