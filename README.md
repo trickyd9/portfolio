@@ -22,9 +22,26 @@ Open the URL it prints — note the **`/portfolio/` base path**
 | `npm run build` | Type-check (`tsc -b`) then build to `dist/` |
 | `npm run lint` | `oxlint` |
 | `npm run deploy` | Build, then publish `dist/` to the `gh-pages` branch — **this is what makes changes public** |
+| `npm run shot -- /projects` | Screenshot the running dev server (see below) |
 
 Commits to `main` change the source. Only `npm run deploy` changes what a
 visitor sees.
+
+## Looking at a change
+
+`scripts/screenshot.mjs` drives headless Chromium (Playwright) against the
+**already-running** dev server, so a change can be looked at rather than only
+type-checked. It doesn't start a server itself, so it can't leave one behind.
+
+```bash
+npm run dev                              # in one terminal
+npm run shot -- / /projects              # desktop
+npm run shot -- / --both                 # desktop + mobile (390px)
+```
+
+PNGs land in `.screenshots/` (git-ignored). Alongside the images it reports
+**console errors, failed requests, and horizontal overflow** — the last of which
+a screenshot can't show you, and which is the most common mobile regression here.
 
 ## Layout
 
