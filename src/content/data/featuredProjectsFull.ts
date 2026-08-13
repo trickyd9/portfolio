@@ -21,7 +21,10 @@ export const LAUNCHES: Launch[] = [
     id: 'full-text-search-ga',
     title: 'Full-Text Search GA',
     period: 'Sep 2025',
-    description: 'Search across devices, sites, alarms, and docs.',
+    // "20+ teams across 200+ sites" reuses the same real scope figure already
+    // stated on the About page's Overview tab, not a new claim.
+    description:
+      'Search across devices, sites, alarms, and docs — general availability for the data center monitoring platform used by 20+ teams across 200+ AWS data center sites globally.',
     stats: [
       { value: '85ms', label: 'p50 latency' },
       { value: '72%', label: 'adoption' },
@@ -33,7 +36,8 @@ export const LAUNCHES: Launch[] = [
     id: 'v2-platform-migration',
     title: 'V2 Platform Migration',
     period: 'Jun 2025',
-    description: 'Zero-downtime migration over a 6-month phased rollout.',
+    description:
+      'Zero-downtime migration of the platform’s backend over a 6-month phased rollout, with no disruption to the teams relying on it day to day.',
     stats: [
       { value: '10×', label: 'query performance (500ms → 50ms)' },
       { value: '35%', label: 'infra cost reduction' },
@@ -45,7 +49,8 @@ export const LAUNCHES: Launch[] = [
     id: 'mobile-beta',
     title: 'Mobile Beta',
     period: 'Nov 2025',
-    description: 'iOS/Android via React Native for AWS field technicians.',
+    description:
+      'iOS/Android via React Native, giving AWS field technicians mobile access to the data center monitoring platform.',
     stats: [
       { value: '78', label: 'beta users (target 50)' },
       { value: '0.3%', label: 'crash rate' },

@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import ContentLayout from '@cloudscape-design/components/content-layout';
 import Header from '@cloudscape-design/components/header';
 import Container from '@cloudscape-design/components/container';
@@ -5,6 +6,7 @@ import Tabs from '@cloudscape-design/components/tabs';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Box from '@cloudscape-design/components/box';
 import Link from '@cloudscape-design/components/link';
+import Divider from '@cloudscape-design/components/divider';
 import { LAUNCHES, EARLIER_CONTROLS_PROJECTS } from '../content/data/featuredProjectsFull';
 import { PROJECTS, type ProjectCategory } from '../content/data/projects';
 import { EntryGroupTab } from '../components/EntrySection';
@@ -49,11 +51,14 @@ export default function FeaturedProjectsPage() {
                         <Header variant="h3">
                           <Link href={section.href}>{section.label}</Link>
                         </Header>
-                        <SpaceBetween size="xs">
+                        <SpaceBetween size="s">
                           {PROJECTS.filter((p) => p.category === section.category).map((project) => (
-                            <Box variant="p" key={project.title}>
-                              <Box variant="strong">{project.title}</Box> — {project.description}
-                            </Box>
+                            <div key={project.title}>
+                              <Box variant="strong" display="block">
+                                {project.title}
+                              </Box>
+                              <Box variant="p">{project.description}</Box>
+                            </div>
                           ))}
                         </SpaceBetween>
                       </div>
@@ -61,23 +66,26 @@ export default function FeaturedProjectsPage() {
                   </SpaceBetween>
                 </Container>
                 <Container header={<Header variant="h2">2025 Platform Launches</Header>}>
-                  <SpaceBetween size="l">
+                  <SpaceBetween size="xl">
                     <Box variant="p" color="text-body-secondary">
                       Contributed as a team member to three 2025 launches:
                     </Box>
-                    {LAUNCHES.map((launch) => (
-                      <div key={launch.id}>
-                        <Box variant="h3" padding="n">
-                          {launch.title}
-                        </Box>
-                        <Box variant="small" color="text-body-secondary" display="block" padding={{ bottom: 's' }}>
-                          {launch.period}
-                        </Box>
-                        <Box variant="p" padding={{ bottom: 's' }}>
-                          {launch.description}
-                        </Box>
-                        <StatGrid stats={launch.stats} size="small" />
-                      </div>
+                    {LAUNCHES.map((launch, index) => (
+                      <Fragment key={launch.id}>
+                        {index > 0 && <Divider />}
+                        <div>
+                          <Box variant="h3" padding="n">
+                            {launch.title}
+                          </Box>
+                          <Box variant="small" color="text-body-secondary" display="block" padding={{ bottom: 's' }}>
+                            {launch.period}
+                          </Box>
+                          <Box padding={{ bottom: 's' }}>
+                            <StatGrid stats={launch.stats} size="small" />
+                          </Box>
+                          <Box variant="p">{launch.description}</Box>
+                        </div>
+                      </Fragment>
                     ))}
                   </SpaceBetween>
                 </Container>
