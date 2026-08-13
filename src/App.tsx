@@ -1,29 +1,21 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import type { ComponentType } from 'react';
-import { HashRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Density, Mode } from '@cloudscape-design/global-styles';
 import '@cloudscape-design/global-styles/index.css';
 import AppLayoutToolbar from '@cloudscape-design/components/app-layout-toolbar';
-import type { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import TopNavigation from '@cloudscape-design/components/top-navigation';
 import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
 import Autosuggest from '@cloudscape-design/components/autosuggest';
 import type { AutosuggestProps } from '@cloudscape-design/components/autosuggest';
 import SideNavigation from '@cloudscape-design/components/side-navigation';
 import type { SideNavigationProps } from '@cloudscape-design/components/side-navigation';
-import Drawer from '@cloudscape-design/components/drawer';
-import Header from '@cloudscape-design/components/header';
-import SpaceBetween from '@cloudscape-design/components/space-between';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
 import ButtonDropdown from '@cloudscape-design/components/button-dropdown';
 import type { ButtonDropdownProps } from '@cloudscape-design/components/button-dropdown';
 
 import { WIDGETS, widgetsWithFullPages, type WidgetId } from './content/widgets';
-import { COMPANIES, type CompanyId } from './content/jobMarket/companies';
-import { JOB_SEEKER_PERSONAS, type JobSeekerPersonaId } from './content/jobMarket/personas';
-import { defaultJobBoardItems, companyBoardItemFor, type JobBoardItemData } from './content/jobMarket/boardItem';
-import JobMarketPage from './pages/JobMarketPage';
 import WidgetFullPage from './pages/WidgetFullPage';
 import AboutPage from './pages/AboutPage';
 import FeaturedProjectsPage from './pages/FeaturedProjectsPage';
@@ -38,7 +30,6 @@ import { applyStoredSettings, useDisplaySettings } from './hooks/useDisplaySetti
 
 applyStoredSettings();
 
-const ADD_COMPANY_DRAWER_ID = 'add-company';
 const ABOUT_PATH = WIDGETS['about-me'].fullPagePath!;
 const ROLE_TITLE = 'Design Technologist';
 
@@ -64,7 +55,6 @@ const PERSONA_DASHBOARD_PATH = '/persona-dashboard';
 // widgetsWithFullPages()) still need friendly breadcrumb/search titles —
 // one map instead of a growing chain of pathname special-cases.
 const STANDALONE_PAGE_TITLES: Record<string, string> = {
-  '/job-market': 'Job Market Explorer',
   [CAREER_PERSONA_RESEARCH_PATH]: 'Career Persona Research',
   [PERSONA_DASHBOARD_PATH]: 'Persona Dashboard',
   // Just the persona's name: the breadcrumb trail already supplies the context
@@ -74,17 +64,15 @@ const STANDALONE_PAGE_TITLES: Record<string, string> = {
   ...Object.fromEntries(CAREER_PERSONA_RESEARCH.map((p) => [careerPersonaResearchPath(p.id), p.label])),
 };
 
-// Phase 0b: the static nav (About Me home, Projects group, visual portfolio)
-// plus the Job Market Explorer at /job-market — hand specified rather than
-// derived generically from widgetsWithFullPages(), since the order/grouping
-// here don't match that list's natural shape and /job-market isn't a widget's
-// full page. The Persona section (added 2026-08-10) sits after Projects: it
-// holds the two persona-research pages, which are related bodies of work but
-// not "projects" in the same portfolio-piece sense as the Projects group.
-// See WIDGET-TRACKER.md.
+// Hand specified rather than derived from widgetsWithFullPages(), since the
+// order/grouping here don't match that list's natural shape and several of
+// these aren't a widget's full page. "Persona Projects" holds the persona work
+// — the dashboard prototype and the two research bodies behind it. The Job
+// Market Explorer belongs in this section too once it's ready to show; it was
+// removed from the site on 2026-08-12 while it's still conceptual (its page and
+// data are still in the repo, just unreferenced). See WIDGET-TRACKER.md.
 const navItems: SideNavigationProps.Item[] = [
   { type: 'link', text: 'About Me', href: WIDGETS['about-me'].fullPagePath! },
-  { type: 'link', text: 'Job Market Explorer', href: '/job-market' },
   {
     type: 'section',
     text: 'Projects',
@@ -96,7 +84,7 @@ const navItems: SideNavigationProps.Item[] = [
   },
   {
     type: 'section',
-    text: 'Persona',
+    text: 'Persona Projects',
     items: [
       { type: 'link', text: 'Persona Dashboard', href: PERSONA_DASHBOARD_PATH },
       { type: 'link', text: 'AWS Persona', href: WIDGETS['persona-research-showcase'].fullPagePath! },
@@ -107,7 +95,7 @@ const navItems: SideNavigationProps.Item[] = [
 ];
 
 // Search covers every widget with a dedicated full page, plus every standalone
-// page (Job Market Explorer, Career Persona Research, and the 6 wrap sheets).
+// page (the persona dashboard, Career Persona Research, and the 6 persona pages).
 const searchOptions: AutosuggestProps.Options = [
   ...Object.entries(STANDALONE_PAGE_TITLES).map(([value, label]) => ({ value, label })),
   ...widgetsWithFullPages().map((w) => ({ value: w.fullPagePath, label: w.title })),
@@ -117,21 +105,8 @@ function AppShell() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [jobBoardItems, setJobBoardItems] = useState<JobBoardItemData[]>(() => defaultJobBoardItems());
-  // Defaults to ux-designer, not JOB_SEEKER_PERSONAS[0] — this is David's own
-  // actual use case for the tool (comparing UX/Design Technologist roles
-  // across companies), not an arbitrary first-in-list pick (2026-07-14, round 8).
-  const [primaryJobPersonaId, setPrimaryJobPersonaId] = useState<JobSeekerPersonaId>('ux-designer');
-  const [activeDrawerId, setActiveDrawerId] = useState<string | null>(null);
   const [searchValue, setSearchValue] = useState('');
   const { density, mode, setDensity, setMode } = useDisplaySettings();
-
-  const companiesOnBoard = useMemo(() => new Set(jobBoardItems.map((item) => item.data.companyId)), [jobBoardItems]);
-  const availableCompaniesToAdd = COMPANIES.filter((c) => !companiesOnBoard.has(c.id));
-
-  function addCompany(id: CompanyId) {
-    setJobBoardItems((prev) => [...prev, companyBoardItemFor(id)]);
-  }
 
   function goTo(href: string) {
     setSearchValue('');
@@ -179,38 +154,6 @@ function AppShell() {
     if (detail.id === 'density-comfortable') setDensity(Density.Comfortable);
     if (detail.id === 'density-compact') setDensity(Density.Compact);
   }
-
-  const drawers: AppLayoutProps.Drawer[] =
-    location.pathname === '/job-market'
-      ? [
-          {
-            id: ADD_COMPANY_DRAWER_ID,
-            trigger: { iconName: 'add-plus' },
-            ariaLabels: {
-              drawerName: 'Add company',
-              triggerButton: 'Add company',
-              closeButton: 'Close add company drawer',
-            },
-            content: (
-              <Drawer header={<Header variant="h2">More companies</Header>}>
-                <SpaceBetween size="s">
-                  <Box variant="p" color="text-status-inactive">
-                    Not currently on the board.
-                  </Box>
-                  {availableCompaniesToAdd.length === 0 && (
-                    <Box color="text-status-inactive">Every company is already on the board.</Box>
-                  )}
-                  {availableCompaniesToAdd.map((c) => (
-                    <Button key={c.id} fullWidth onClick={() => addCompany(c.id)}>
-                      + {c.name}
-                    </Button>
-                  ))}
-                </SpaceBetween>
-              </Drawer>
-            ),
-          },
-        ]
-      : [];
 
   return (
     <>
@@ -269,34 +212,6 @@ function AppShell() {
                 items={preferencesItems}
                 onItemClick={onPreferencesItemClick}
               />
-              {/* The Job Market Explorer's primary role — single-select, same
-                  header-dropdown treatment and behavior as the old visitor-persona
-                  switcher (picking an item replaces the selection and closes the
-                  menu). itemType 'checkbox' is just for the visual check next to
-                  the currently-selected role when reopened — onItemClick always
-                  replaces the whole selection, never toggles, so it still behaves
-                  as single-select. Searching additional roles alongside this one
-                  is a separate, additive page-level filter (JobMarketPage's "Add
-                  roles" control), not the same control, per David's explicit
-                  split. Scoped to /job-market since it only affects that page's
-                  board. */}
-              {location.pathname === '/job-market' && (
-                <span className="inline-dropdown">
-                  <ButtonDropdown
-                    variant="normal"
-                    ariaLabel="Primary role"
-                    items={JOB_SEEKER_PERSONAS.map((p) => ({
-                      id: p.id,
-                      text: p.label,
-                      itemType: 'checkbox',
-                      checked: p.id === primaryJobPersonaId,
-                    }))}
-                    onItemClick={({ detail }) => setPrimaryJobPersonaId(detail.id as JobSeekerPersonaId)}
-                  >
-                    {JOB_SEEKER_PERSONAS.find((p) => p.id === primaryJobPersonaId)!.label}
-                  </ButtonDropdown>
-                </span>
-              )}
             </div>
           </div>
         </TopNavigation>
@@ -323,25 +238,17 @@ function AppShell() {
             }}
           />
         }
-        drawers={drawers}
-        activeDrawerId={activeDrawerId}
-        onDrawerChange={({ detail }) => setActiveDrawerId(detail.activeDrawerId)}
         contentType="dashboard"
         content={
           <Routes>
-            <Route
-              path="/job-market"
-              element={
-                <JobMarketPage
-                  items={jobBoardItems}
-                  onItemsChange={setJobBoardItems}
-                  primaryPersonaId={primaryJobPersonaId}
-                />
-              }
-            />
             <Route path={PERSONA_DASHBOARD_PATH} element={<PersonaDashboardPage />} />
             <Route path={CAREER_PERSONA_RESEARCH_PATH} element={<CareerPersonaResearchPage />} />
             <Route path={`${CAREER_PERSONA_RESEARCH_PATH}/:personaId`} element={<PersonaSummaryPage />} />
+            {/* Anything unrecognised goes home rather than rendering an empty
+                content area — /job-market in particular is a live URL on the
+                currently-deployed site, so bookmarks to it survive its removal
+                as a redirect instead of a blank page. */}
+            <Route path="*" element={<Navigate to="/" replace />} />
             {widgetsWithFullPages().map((w) => {
               const BespokePage = BESPOKE_FULL_PAGES[w.id];
               return (
