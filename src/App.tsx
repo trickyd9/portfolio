@@ -58,7 +58,7 @@ const STANDALONE_PAGE_TITLES: Record<string, string> = {
   [CAREER_PERSONA_RESEARCH_PATH]: 'Career Persona Research',
   [PERSONA_DASHBOARD_PATH]: 'Persona Dashboard',
   // Just the persona's name: the breadcrumb trail already supplies the context
-  // ("About Me › Career Persona Research › Hiring Manager"), and "wrap sheet"
+  // ("Home › Career Persona Research › Hiring Manager"), and "wrap sheet"
   // is internal research jargon that shouldn't reach a visitor — see the voice
   // rule at the top of content/data/careerPersonaResearch.ts.
   ...Object.fromEntries(CAREER_PERSONA_RESEARCH.map((p) => [careerPersonaResearchPath(p.id), p.label])),
@@ -134,9 +134,9 @@ function AppShell() {
   const isWrapSheet = location.pathname.startsWith(`${CAREER_PERSONA_RESEARCH_PATH}/`);
   const breadcrumbItems: Array<{ text: string; href: string }> =
     location.pathname === '/'
-      ? [{ text: 'About Me', href: '/' }]
+      ? [{ text: 'Home', href: '/' }]
       : [
-          { text: 'About Me', href: '/' },
+          { text: 'Home', href: '/' },
           ...(isWrapSheet
             ? [{ text: 'Career Persona Research', href: CAREER_PERSONA_RESEARCH_PATH }]
             : []),
