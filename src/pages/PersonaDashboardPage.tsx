@@ -221,16 +221,32 @@ export default function PersonaDashboardPage() {
     >
       <SpaceBetween size="l">
         {/* Lead paragraph, in the content rather than the header: page
-            descriptions here are a single line, and this is the explanation
-            that a one-liner can't carry. Same place the About page puts its
-            callout — first thing in the content, above everything else. */}
-        <Box variant="p">
-          Personas give you a basis for understanding what someone is looking for, how they want it presented, and —
-          just as usefully — what they don't need or want to see. That's a foundation to build on rather than a finished
-          answer. This page demonstrates it: each widget is a cohesive piece of the work, and different personas want to
-          interact with those pieces in different ways. Tell it who you are and the layout changes to match, then
-          rearrange it however you like.
-        </Box>
+            descriptions here are a single line, and this is the explanation a
+            one-liner can't carry. Given a custom-styled Container so it reads
+            as a lead-in rather than as another content panel — softer
+            background, lighter border, no header. Colours come from CSS
+            variables in index.css so they follow the dark-mode toggle; the
+            `style` prop itself takes plain CSS values and can't switch theme
+            on its own. */}
+        <Container
+          style={{
+            root: {
+              background: 'var(--lead-callout-bg)',
+              borderColor: 'var(--lead-callout-border)',
+              borderRadius: '12px',
+              borderWidth: '1px',
+              boxShadow: 'none',
+            },
+          }}
+        >
+          <Box variant="p">
+            Personas give you a basis for understanding what someone is looking for, how they want it presented, and —
+            just as usefully — what they don't need or want to see. That's a foundation to build on rather than a
+            finished answer. This page demonstrates it: each widget is a cohesive piece of the work, and different
+            personas want to interact with those pieces in different ways. Tell it who you are and the layout changes to
+            match, then rearrange it however you like.
+          </Box>
+        </Container>
         <Container header={<Header variant="h2">I'm visiting as…</Header>}>
           <SpaceBetween size="m">
             <div style={{ maxWidth: 340 }}>
