@@ -352,7 +352,7 @@ export const APPLICATIONS: Entry[] = [
   {
     id: 'persona-dashboard',
     title: 'A dashboard that adapts to who is reading it',
-    period: 'In progress',
+    period: 'Built — see the Persona Dashboard',
     sections: [
       {
         intro:
@@ -364,7 +364,7 @@ export const APPLICATIONS: Entry[] = [
       },
       {
         intro:
-          'A first version is on the site now, under Persona Dashboard — it is still being filled in, so it currently carries only a few of the cards it will end up with.',
+          'It is built and on the site now, as the Persona Dashboard — the next page in this section. It carries nineteen cards drawn from professional work, creative work and engineering projects, and every persona starts on a different set of them. It is still a working prototype rather than a finished product: more cards will be added, and some pieces are still waiting on proper titles.',
       },
     ],
   },

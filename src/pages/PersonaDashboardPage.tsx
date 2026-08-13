@@ -182,7 +182,15 @@ export default function PersonaDashboardPage() {
       header={
         <Header
           variant="h1"
-          description="Tell it who you are and the layout changes to match how that kind of visitor actually reads a portfolio — then rearrange it however you like."
+          description="A working example of what the persona research is for. Tell it who you are and the layout changes to match how that kind of visitor actually reads a portfolio — then rearrange it however you like."
+          // The back-step of the flow, mirroring the "See it applied" action on
+          // the research page. Someone who arrives here first should be able to
+          // find out why the layouts differ without hunting through the nav.
+          actions={
+            <Button href="#/career-persona-research" iconAlign="left" iconName="angle-left">
+              The research behind it
+            </Button>
+          }
         >
           Persona Dashboard
         </Header>

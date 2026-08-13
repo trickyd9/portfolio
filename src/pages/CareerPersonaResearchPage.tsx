@@ -8,6 +8,7 @@ import Table from '@cloudscape-design/components/table';
 import StatusIndicator from '@cloudscape-design/components/status-indicator';
 import type { StatusIndicatorProps } from '@cloudscape-design/components/status-indicator';
 import Link from '@cloudscape-design/components/link';
+import Button from '@cloudscape-design/components/button';
 import {
   CAREER_PERSONA_RESEARCH,
   METHODOLOGY,
@@ -27,12 +28,18 @@ const TIER_STATUS_TYPE: Record<ConfidenceTier, StatusIndicatorProps.Type> = {
   verified: 'success',
 };
 
-// "Career Persona Research" — a new page under the top-level Persona nav
-// section, alongside the renamed AWS Persona page. Distinct project from AWS
-// Persona: this is desk research on how *portfolio visitors* (not AWS
-// customers) evaluate UX portfolios — see careerPersonaResearch.ts's header
-// comment. Not a widget's full page (no dashboard card), so it isn't routed
-// through widgetsWithFullPages() — hand-specified in App.tsx like /job-market.
+// "Career Persona Research" — the first half of the "Personas in Practice" nav
+// section: this establishes who visits and what they want, and the Persona
+// Dashboard is that research applied. Distinct project from AWS Persona (which
+// lives under Projects, since it documents delivered work rather than
+// demonstrating anything): this is desk research on how *portfolio visitors*
+// evaluate UX portfolios — see careerPersonaResearch.ts's header comment. Not a
+// widget's full page, so it's hand-specified in App.tsx.
+//
+// The header action is the forward step in that flow. It sits on the header
+// rather than inside a tab so it's reachable from any of the three — a visitor
+// who lands on Personas and never opens Applications should still find the
+// thing the research was for.
 export default function CareerPersonaResearchPage() {
   return (
     <ContentLayout
@@ -40,6 +47,11 @@ export default function CareerPersonaResearchPage() {
         <Header
           variant="h1"
           description="Research into how six different kinds of visitor actually read a design portfolio — and what that means for building one"
+          actions={
+            <Button href="#/persona-dashboard" iconAlign="right" iconName="angle-right">
+              See it applied
+            </Button>
+          }
         >
           Career Persona Research
         </Header>

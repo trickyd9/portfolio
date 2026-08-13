@@ -66,11 +66,21 @@ const STANDALONE_PAGE_TITLES: Record<string, string> = {
 
 // Hand specified rather than derived from widgetsWithFullPages(), since the
 // order/grouping here don't match that list's natural shape and several of
-// these aren't a widget's full page. "Persona Projects" holds the persona work
-// — the dashboard prototype and the two research bodies behind it. The Job
-// Market Explorer belongs in this section too once it's ready to show; it was
-// removed from the site on 2026-08-12 while it's still conceptual (its page and
-// data are still in the repo, just unreferenced). See WIDGET-TRACKER.md.
+// these aren't a widget's full page.
+//
+// Two persona-related groups, split on purpose (David, 2026-08-12). **AWS
+// Persona sits under Projects**: it documents work actually delivered at AWS,
+// so it belongs with the other accomplishments rather than being read as a
+// demonstration. **"Personas in Practice"** holds the applied work, ordered as
+// a flow rather than a list — Career Persona Research establishes who visits
+// and what they want, then Persona Dashboard is that research doing something.
+// Each page links forward/back to the other so the connection doesn't rely on
+// a visitor inferring it from the nav grouping alone.
+//
+// The Job Market Explorer belongs in the applied section too once it's ready to
+// show; it was removed from the site on 2026-08-12 while it's still conceptual
+// (its page and data are still in the repo, just unreferenced). See
+// WIDGET-TRACKER.md.
 const navItems: SideNavigationProps.Item[] = [
   { type: 'link', text: 'About Me', href: WIDGETS['about-me'].fullPagePath! },
   {
@@ -78,17 +88,17 @@ const navItems: SideNavigationProps.Item[] = [
     text: 'Projects',
     items: [
       { type: 'link', text: 'Featured Projects', href: WIDGETS['featured-projects'].fullPagePath! },
+      { type: 'link', text: 'AWS Persona', href: WIDGETS['persona-research-showcase'].fullPagePath! },
       { type: 'link', text: 'Design Systems & Standards', href: WIDGETS['design-systems-standards'].fullPagePath! },
       { type: 'link', text: 'AI-Augmented Build', href: WIDGETS['ai-augmented-build'].fullPagePath! },
     ],
   },
   {
     type: 'section',
-    text: 'Persona Projects',
+    text: 'Personas in Practice',
     items: [
-      { type: 'link', text: 'Persona Dashboard', href: PERSONA_DASHBOARD_PATH },
-      { type: 'link', text: 'AWS Persona', href: WIDGETS['persona-research-showcase'].fullPagePath! },
       { type: 'link', text: 'Career Persona Research', href: CAREER_PERSONA_RESEARCH_PATH },
+      { type: 'link', text: 'Persona Dashboard', href: PERSONA_DASHBOARD_PATH },
     ],
   },
   { type: 'link', text: 'University Visual Portfolio', href: WIDGETS['art-visual-portfolio'].fullPagePath! },
