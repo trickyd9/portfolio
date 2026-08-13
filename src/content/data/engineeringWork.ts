@@ -128,6 +128,28 @@ export const ECOCAR_SUMMARY =
 /** Video is on the source portfolio and verified still playable. */
 export const ECOCAR_VIDEO = { youtubeId: '_FOyEBtyZ-c', title: '2-Axis Milling of a Bracket' };
 
+// Hyperloop has no dashboard card — its own write-up describes work that had
+// only just started on a design not expected to be final, so it isn't shown as
+// a project there. These two exist for the Schooling tab's thumbnail, which is
+// a different job: illustrating a real entry on the résumé rather than
+// presenting the work as a finished piece.
+export const HYPERLOOP_THUMBNAIL: ArtworkPiece = {
+  // The post's own featured image — the landscape crop that appears at the top
+  // of the article, so the site matches what the source shows.
+  src: 'art/hyperloop/testcell.jpg',
+  title: 'Rotor lift, thrust and torque test cell',
+  caption: 'The test cell built to measure the lift, thrust and torque a rotor puts on a piece of test track.',
+};
+
+/** The same photo uncropped and taller — WordPress cropped the version above
+ * to landscape for its featured slot. Use this one where a portrait frame
+ * suits better; it is not what appears at the top of the post. */
+export const HYPERLOOP_THUMBNAIL_UNCROPPED: ArtworkPiece = {
+  src: 'art/hyperloop/testcell-full.jpg',
+  title: HYPERLOOP_THUMBNAIL.title,
+  caption: HYPERLOOP_THUMBNAIL.caption,
+};
+
 export const GYROTONIC_VIDEO = {
   youtubeId: 'y9cnIXjKwP0',
   title: 'Linear actuator prototype lifting the bench',
