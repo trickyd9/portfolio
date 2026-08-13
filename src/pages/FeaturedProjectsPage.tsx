@@ -21,8 +21,9 @@ const CATEGORY_SECTIONS: Array<{ category: ProjectCategory; label: string; href:
   { category: 'AI-Augmented Build', label: 'AI-Augmented Build', href: '#/ai-augmented-build' },
 ];
 
-// Shared by Overview's per-category lists and the Controls Standards tab —
-// bold title, description below, no accordion and no per-project link.
+// Shared by the Featured Projects tab's per-category lists and the Controls
+// Standards tab — bold title, description below, no accordion and no
+// per-project link.
 function ProjectLines({ projects }: { projects: Array<{ title: string; description: string }> }) {
   return (
     <SpaceBetween size="s">
@@ -43,10 +44,14 @@ function ProjectLines({ projects }: { projects: Array<{ title: string; descripti
 // depth (multiple tabs each) — this page doesn't repeat that content in full,
 // just a bolded-title + description line per project under a single linked
 // category heading (no per-project links, no category dropdown — not enough
-// volume yet to justify filtering). Launches is folded into Overview.
-// Controls Standards keeps its own tab (real multi-project content, no
-// dedicated page of its own to link a heading to — NDA'd AWS-internal work
-// with nothing public to point at, confirmed with David rather than guessed).
+// volume yet to justify filtering).
+//
+// Three tabs as of 2026-08-13 (David): the launches moved out of the first tab
+// into one of their own, so each tab is now a single kind of thing rather than
+// the first one carrying two. Controls Standards keeps its own tab (real
+// multi-project content, no dedicated page of its own to link a heading to —
+// NDA'd AWS-internal work with nothing public to point at, confirmed with
+// David rather than guessed).
 // Personal (Hovercraft/Hyperloop/EcoCar) no longer has a tab here at all — it
 // was a thinner duplicate of the real write-ups now on the About page's
 // Schooling tab. See WIDGET-TRACKER.md.
@@ -56,51 +61,55 @@ export default function FeaturedProjectsPage() {
       <Tabs
         tabs={[
           {
-            id: 'overview',
-            label: 'Overview',
+            id: 'featured-projects',
+            label: 'Featured Projects',
             content: (
-              <SpaceBetween size="l">
-                <Container header={<Header variant="h2">Featured Projects</Header>}>
-                  <SpaceBetween size="l">
-                    {CATEGORY_SECTIONS.map((section) => (
-                      <div key={section.category}>
-                        <Header variant="h3">
-                          <Link href={section.href}>{section.label}</Link>
-                        </Header>
-                        <ProjectLines projects={PROJECTS.filter((p) => p.category === section.category)} />
-                      </div>
-                    ))}
-                  </SpaceBetween>
-                </Container>
-                <Container header={<Header variant="h2">2025 Platform Launches</Header>}>
-                  <SpaceBetween size="xxl">
-                    <Box variant="p" color="text-body-secondary">
-                      Contributed as a team member to three 2025 launches:
-                    </Box>
-                    {LAUNCHES.map((launch) => (
-                      <div key={launch.id}>
-                        <Box variant="h3" padding="n">
-                          {launch.title}
-                        </Box>
-                        <Box variant="small" color="text-body-secondary" display="block" padding={{ bottom: 's' }}>
-                          {launch.period}
-                        </Box>
-                        <Box padding={{ bottom: 's' }}>
-                          <StatGrid stats={launch.stats} size="small" />
-                        </Box>
-                        <Box variant="p">{launch.description}</Box>
-                      </div>
-                    ))}
-                  </SpaceBetween>
-                </Container>
-              </SpaceBetween>
+              <Container header={<Header variant="h2">Featured Projects</Header>}>
+                <SpaceBetween size="l">
+                  {CATEGORY_SECTIONS.map((section) => (
+                    <div key={section.category}>
+                      <Header variant="h3">
+                        <Link href={section.href}>{section.label}</Link>
+                      </Header>
+                      <ProjectLines projects={PROJECTS.filter((p) => p.category === section.category)} />
+                    </div>
+                  ))}
+                </SpaceBetween>
+              </Container>
+            ),
+          },
+          {
+            id: 'platform-launches',
+            label: 'Platform Launches',
+            content: (
+              <Container header={<Header variant="h2">2025 launches</Header>}>
+                <SpaceBetween size="xxl">
+                  <Box variant="p" color="text-body-secondary">
+                    Contributed as a team member to three 2025 launches:
+                  </Box>
+                  {LAUNCHES.map((launch) => (
+                    <div key={launch.id}>
+                      <Box variant="h3" padding="n">
+                        {launch.title}
+                      </Box>
+                      <Box variant="small" color="text-body-secondary" display="block" padding={{ bottom: 's' }}>
+                        {launch.period}
+                      </Box>
+                      <Box padding={{ bottom: 's' }}>
+                        <StatGrid stats={launch.stats} size="small" />
+                      </Box>
+                      <Box variant="p">{launch.description}</Box>
+                    </div>
+                  ))}
+                </SpaceBetween>
+              </Container>
             ),
           },
           {
             id: 'controls-standards',
             label: 'Controls Standards',
             content: (
-              <Container>
+              <Container header={<Header variant="h2">Controls Design Engineering Standardization</Header>}>
                 <ProjectLines projects={EARLIER_CONTROLS_PROJECTS} />
               </Container>
             ),

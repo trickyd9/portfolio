@@ -1,10 +1,10 @@
-// RETIRED, kept for reference (2026-08-13). This is the original 5-persona list
-// from ../../PersonaWidgetSpec.md §1, which drove the first persona-switching
-// dashboard. Nothing imports it any more: the live model is the 6 research
-// personas in data/careerPersonaResearch.ts, whose findings drive the Persona
-// Dashboard via the weights in data/personaDashboard.ts. Kept because it's the
-// record of what the original spec described — delete it if that stops being
-// worth keeping around.
+// ON HOLD (2026-08-13, David) — see this folder's README.
+//
+// The original 5-persona list from the project's PersonaWidgetSpec.md §1, which
+// drove the first persona-switching dashboard. Nothing imports it: the live
+// model is the 6 research personas in ../data/careerPersonaResearch.ts, whose
+// findings drive the Persona Dashboard via the weights in
+// ../data/personaDashboard.ts.
 export type PersonaId =
   | 'recruiter'
   | 'hiring-manager'

@@ -34,10 +34,16 @@ visitor sees.
 type-checked. It doesn't start a server itself, so it can't leave one behind.
 
 ```bash
-npm run dev                              # in one terminal
-npm run shot -- / /projects              # desktop
-npm run shot -- / --both                 # desktop + mobile (390px)
+npm run dev                                     # in one terminal
+npm run shot -- / /projects                     # desktop
+npm run shot -- / --both                        # desktop + mobile (390px)
+npm run shot -- /projects --tab='Controls Standards'
 ```
+
+Several pages here are tabbed and the active tab isn't in the URL, so `--tab`
+(matched on the visible label) is the only way to see anything but the first
+one. It errors out listing the real tab names if the label doesn't match, rather
+than quietly shooting the default tab.
 
 PNGs land in `.screenshots/` (git-ignored). Alongside the images it reports
 **console errors, failed requests, and horizontal overflow** — the last of which
@@ -91,8 +97,10 @@ Its data refresh (`.github/workflows/refresh-uw-jobs.yml` →
 `scripts/refresh-uw-jobs.mjs` → `data/uw-jobs.json`) is **manual-dispatch only**
 as of 2026-08-13; the daily schedule was removed while nothing reads the data.
 
-`src/content/personas.ts` is likewise retired-but-kept — the live persona model
-is the six research personas in `src/content/data/careerPersonaResearch.ts`.
+`src/content/on-hold/` holds modules kept but not wired in — currently
+`personas.ts`, the original 5-persona list. See that folder's README; the live
+persona model is the six research personas in
+`src/content/data/careerPersonaResearch.ts`.
 
 ## Fuller documentation
 

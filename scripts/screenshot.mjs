@@ -10,8 +10,12 @@
 //   node scripts/screenshot.mjs /projects            # one route
 //   node scripts/screenshot.mjs / /projects --mobile # several routes, 390px
 //   node scripts/screenshot.mjs / --both             # desktop + mobile
+//   node scripts/screenshot.mjs /projects --tab='Platform Launches'
 //
 // Routes are the app's hash routes written without the '#' ('/', '/projects').
+// `--tab` clicks a tab by its visible label before shooting — several pages here
+// are tabbed and the active tab isn't in the URL, so it's the only way to see
+// anything but the first one.
 // PNGs land in .screenshots/ (git-ignored), named after route and width.
 
 import { mkdir, readdir } from 'node:fs/promises';
@@ -31,6 +35,13 @@ const flags = new Set(args.filter((a) => a.startsWith('--')));
 const routes = args.filter((a) => !a.startsWith('--'));
 if (routes.length === 0) routes.push('/');
 
+const tabArg = args.find((a) => a.startsWith('--tab='));
+const tabLabel = tabArg?.slice('--tab='.length);
+// Only the bare toggles belong in the flag set; --tab= carries a value.
+flags.delete(tabArg);
+
+const slug = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
 const viewports = flags.has('--both')
   ? [DESKTOP, MOBILE]
   : flags.has('--mobile')
@@ -38,8 +49,10 @@ const viewports = flags.has('--both')
     : [DESKTOP];
 
 // '/' -> 'home'; '/career-persona-research/hiring-manager' -> nested name
-const fileNameFor = (route, width) =>
-  `${route === '/' ? 'home' : route.replace(/^\//, '').replace(/\//g, '-')}-${width}.png`;
+const fileNameFor = (route, width) => {
+  const base = route === '/' ? 'home' : route.replace(/^\//, '').replace(/\//g, '-');
+  return `${base}${tabLabel ? `-${slug(tabLabel)}` : ''}-${width}.png`;
+};
 
 const browser = await chromium.launch();
 let problems = 0;
@@ -66,6 +79,18 @@ try {
       messages.length = 0;
       const url = `${BASE}#${route}`;
       await page.goto(url, { waitUntil: 'networkidle' });
+
+      if (tabLabel) {
+        // Fail loudly rather than silently shooting the default tab, which
+        // would look like a passing check of something never actually seen.
+        const tab = page.getByRole('tab', { name: tabLabel, exact: true });
+        if ((await tab.count()) === 0) {
+          const available = await page.getByRole('tab').allInnerTexts();
+          throw new Error(`No tab "${tabLabel}" on ${route}. Tabs here: ${available.join(' | ') || '(none)'}`);
+        }
+        await tab.click();
+        await page.waitForTimeout(250); // let the panel swap settle before shooting
+      }
 
       await mkdir(OUT_DIR, { recursive: true });
       await page.screenshot({ path: join(OUT_DIR, fileNameFor(route, viewport.width)), fullPage: true });
