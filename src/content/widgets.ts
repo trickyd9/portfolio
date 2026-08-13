@@ -121,10 +121,16 @@ export const WIDGETS: Record<WidgetId, WidgetDefinition> = {
     defaultRowSpan: 1,
     defaultMode: 'compact',
   },
+  // No `fullPagePath` as of 2026-08-12 — the standalone page and its nav entry
+  // were removed because this work is now covered better elsewhere: the About
+  // page's Graphic Design and Artwork & Other tabs show it with real
+  // thumbnails, and the Persona Dashboard's creative cards show it in context.
+  // Same treatment career-timeline and recommendations got when their pages
+  // became redundant: the widget and its content stay, only the page goes.
+  // `/art-portfolio` now falls through to the catch-all redirect home.
   'art-visual-portfolio': {
     id: 'art-visual-portfolio',
     title: 'University Visual Portfolio',
-    fullPagePath: '/art-portfolio',
     personas: ['other'],
     columnSpan: 1,
     defaultRowSpan: 4,

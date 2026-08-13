@@ -101,7 +101,6 @@ const navItems: SideNavigationProps.Item[] = [
       { type: 'link', text: 'Persona Dashboard', href: PERSONA_DASHBOARD_PATH },
     ],
   },
-  { type: 'link', text: 'University Visual Portfolio', href: WIDGETS['art-visual-portfolio'].fullPagePath! },
 ];
 
 // Search covers every widget with a dedicated full page, plus every standalone
