@@ -3,7 +3,6 @@
 // projects are detailed on their own full pages instead — see
 // src/pages/FeaturedProjectsPage.tsx and WIDGET-TRACKER.md for why). Fuller
 // descriptions sourced verbatim from References/David Trick - Project List.md.
-import type { Entry } from './entry';
 
 export interface Launch {
   id: string;
@@ -59,39 +58,32 @@ export const LAUNCHES: Launch[] = [
   },
 ];
 
-export const EARLIER_CONTROLS_PROJECTS: Entry[] = [
+export interface ControlsProject {
+  title: string;
+  description: string;
+}
+
+// Rendered the same way as the Overview tab's category lists — bold title,
+// description below, no accordion. Descriptions expanded from the one-liners
+// this file used to carry using the fuller, already-written bullets on the
+// About page's Work Experience tab (experience.ts's "Controls Design
+// Engineer" entry) rather than inventing new detail — every added sentence
+// here has a real bullet behind it there.
+export const EARLIER_CONTROLS_PROJECTS: ControlsProject[] = [
   {
-    id: 'controls-graphics-deployment-program',
     title: 'Global Automation Controls Graphics Deployment Program',
-    period: 'Owner, 2017 – 2022',
-    sections: [
-      {
-        intro:
-          'Built the global cross-team workflow for creating, reviewing, and deploying artwork for data center HMIs worldwide from the ground up. 3 ticketing templates still in active use.',
-      },
-    ],
+    description:
+      'Built the global cross-team workflow for creating, reviewing, and deploying SVG artwork for AWS data center HMIs worldwide, from the ground up — 3 ticketing templates still in active use. Also established the centralized Graphics Repository for completed artwork across all sites, authored the definitive SVG floorplan annotation runbook (shared 7+ times to onboard new team members), and automated the floorplan creation pipeline itself, replacing a PDF-based workflow with direct CAD file processing for a 60% reduction in average generation time.',
   },
   {
-    id: 'controls-gui-style-guide',
     title: 'Controls GUI Style Guide',
-    period: 'Co-author, 2017 – 2022',
-    sections: [
-      {
-        intro:
-          'Co-created the graphics standards package that established visual consistency across all AWS data centers globally. Still in active use 8+ years later.',
-      },
-    ],
+    description:
+      'Co-created the grayscale graphics standards package that established visual consistency across all AWS data centers globally — still in active use 8+ years later. Audited BMS graphics across every legacy US data center against 62 graphical standard elements, producing an ROI-ranked 3-phase remediation plan (~4,600 hours, ~$730K) pitched to senior leadership, and reviewed BMS/power-monitoring vendor graphic submittals for global sites (US, Europe, Asia-Pacific) against the same standards.',
   },
   {
-    id: 'modular-epms-interface',
     title: 'Modular EPMS Graphical Interface',
-    period: 'Owner, 2017 – 2022',
-    sections: [
-      {
-        intro:
-          'Designed the graphical interface for a modular electrical distribution system with a 10-inch touchscreen EPMS. Submitted to the manufacturer for global production reproduction.',
-      },
-    ],
+    description:
+      'Designed the graphical interface for a 1MW modular electrical distribution system with a 10-inch touchscreen EPMS — submitted to the manufacturer for global production reproduction.',
   },
 ];
 

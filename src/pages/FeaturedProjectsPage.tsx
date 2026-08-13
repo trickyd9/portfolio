@@ -7,7 +7,6 @@ import Box from '@cloudscape-design/components/box';
 import Link from '@cloudscape-design/components/link';
 import { LAUNCHES, EARLIER_CONTROLS_PROJECTS } from '../content/data/featuredProjectsFull';
 import { PROJECTS, type ProjectCategory } from '../content/data/projects';
-import { EntryGroupTab } from '../components/EntrySection';
 import { StatGrid } from '../components/StatGrid';
 
 // Design Systems / Persona Research / AI-Augmented Build each have their own
@@ -22,16 +21,35 @@ const CATEGORY_SECTIONS: Array<{ category: ProjectCategory; label: string; href:
   { category: 'AI-Augmented Build', label: 'AI-Augmented Build', href: '#/ai-augmented-build' },
 ];
 
+// Shared by Overview's per-category lists and the Controls Standards tab —
+// bold title, description below, no accordion and no per-project link.
+function ProjectLines({ projects }: { projects: Array<{ title: string; description: string }> }) {
+  return (
+    <SpaceBetween size="s">
+      {projects.map((project) => (
+        <div key={project.title}>
+          <Box variant="strong" display="block">
+            {project.title}
+          </Box>
+          <Box variant="p">{project.description}</Box>
+        </div>
+      ))}
+    </SpaceBetween>
+  );
+}
+
 // Featured Projects full page. Design Systems, Persona Research, and
 // AI-Augmented Build projects already have their own dedicated pages with real
 // depth (multiple tabs each) — this page doesn't repeat that content in full,
 // just a bolded-title + description line per project under a single linked
 // category heading (no per-project links, no category dropdown — not enough
-// volume yet to justify filtering). Launches is folded into Overview; Earlier
-// (Controls) keeps its own tab since it has real multi-entry content. Personal
-// (Hovercraft/Hyperloop/EcoCar) no longer has a tab here at all — it was a
-// thinner duplicate of the real write-ups now on the About page's Schooling
-// tab. See WIDGET-TRACKER.md.
+// volume yet to justify filtering). Launches is folded into Overview.
+// Controls Standards keeps its own tab (real multi-project content, no
+// dedicated page of its own to link a heading to — NDA'd AWS-internal work
+// with nothing public to point at, confirmed with David rather than guessed).
+// Personal (Hovercraft/Hyperloop/EcoCar) no longer has a tab here at all — it
+// was a thinner duplicate of the real write-ups now on the About page's
+// Schooling tab. See WIDGET-TRACKER.md.
 export default function FeaturedProjectsPage() {
   return (
     <ContentLayout header={<Header variant="h1">Featured Projects</Header>}>
@@ -49,16 +67,7 @@ export default function FeaturedProjectsPage() {
                         <Header variant="h3">
                           <Link href={section.href}>{section.label}</Link>
                         </Header>
-                        <SpaceBetween size="s">
-                          {PROJECTS.filter((p) => p.category === section.category).map((project) => (
-                            <div key={project.title}>
-                              <Box variant="strong" display="block">
-                                {project.title}
-                              </Box>
-                              <Box variant="p">{project.description}</Box>
-                            </div>
-                          ))}
-                        </SpaceBetween>
+                        <ProjectLines projects={PROJECTS.filter((p) => p.category === section.category)} />
                       </div>
                     ))}
                   </SpaceBetween>
@@ -87,7 +96,15 @@ export default function FeaturedProjectsPage() {
               </SpaceBetween>
             ),
           },
-          { id: 'earlier-controls', label: 'Earlier (Controls)', content: <EntryGroupTab entries={EARLIER_CONTROLS_PROJECTS} /> },
+          {
+            id: 'controls-standards',
+            label: 'Controls Standards',
+            content: (
+              <Container>
+                <ProjectLines projects={EARLIER_CONTROLS_PROJECTS} />
+              </Container>
+            ),
+          },
         ]}
       />
     </ContentLayout>
