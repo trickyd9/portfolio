@@ -9,6 +9,7 @@ import type { SelectProps } from '@cloudscape-design/components/select';
 
 import type { WidgetId } from '../content/widgets';
 import { WIDGET_CONTENT } from '../content/widgetContent';
+import { StatGrid } from '../components/StatGrid';
 import type { Block } from './blocks';
 
 // The single component every board item renders through, regardless of which
@@ -53,6 +54,9 @@ function BlockRenderer({ block }: { block: Block }) {
           </Box>
         </div>
       );
+
+    case 'statGrid':
+      return <StatGrid stats={block.stats} />;
 
     case 'tags':
       return (

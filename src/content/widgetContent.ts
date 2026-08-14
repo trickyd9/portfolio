@@ -100,14 +100,37 @@ export const WIDGET_CONTENT: Record<WidgetId, { compact: Block[]; expanded: Bloc
     ],
   },
 
+  // Numerals in the stat row, phrases in prose. This used to be two stacked
+  // `stat` blocks whose first value was "3-layer tenet system" — a phrase set in
+  // Cloudscape's large-value style, with a second large value directly beneath
+  // it. David flagged it on sight (2026-08-13). The 3-layer structure is real
+  // and still stated, just as a sentence, which is what it is.
   'design-systems-standards': {
-    compact: [{ type: 'stat', value: '3-layer tenet system', label: '15 design tenets → 19 standards → 17 component specs' }],
+    compact: [
+      {
+        type: 'statGrid',
+        stats: [
+          { value: '42', label: 'pages audited' },
+          { value: '103', label: 'audit rules' },
+        ],
+      },
+    ],
     expanded: [
-      { type: 'stat', value: '3-layer tenet system', label: '15 design tenets → 19 standards → 17 component specs' },
-      { type: 'stat', value: '42 pages', label: 'full platform audit coverage' },
+      {
+        type: 'statGrid',
+        stats: [
+          { value: '42', label: 'pages audited' },
+          { value: '103', label: 'audit rules' },
+          { value: '6', label: 'rules recommended for CI' },
+        ],
+      },
       {
         type: 'text',
-        text: 'UX Audit Program (Schema v2.5.1): 103 machine-checkable rules across 13 page types + 15 documented exceptions, every rule traceable to a design tenet — covering design-system compliance, accessibility, data states, and visual consistency. 6 rules are recommended for promotion to CI enforcement.',
+        text: '3-layer tenet system: 15 design tenets → 19 standard tenets → 17 component specs, every rule traceable to a tenet.',
+      },
+      {
+        type: 'text',
+        text: 'UX Audit Program (Schema v2.5.1) — rules span 13 page types with 15 documented exceptions, covering design-system compliance, accessibility, data states, and visual consistency. Full platform coverage: ~112 findings across 28 pages, 14 pages clean.',
       },
     ],
   },

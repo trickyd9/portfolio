@@ -6,6 +6,13 @@ export type Block =
   | { type: 'heading'; text: string }
   | { type: 'text'; text: string; secondary?: boolean }
   | { type: 'stat'; value: string; label: string }
+  /** A bordered row of stats, rendered through the shared `StatGrid` component —
+   * the same treatment AWS Persona and Career Persona Research use for their
+   * "by the numbers" moments. Prefer this over several consecutive `stat`
+   * blocks, which stack vertically and read as competing headlines. Values
+   * should be numerals: `stat`/`statGrid` set them in Cloudscape's large-value
+   * style, which a phrase looks wrong in. */
+  | { type: 'statGrid'; stats: Array<{ value: string; label: string }> }
   | { type: 'tags'; items: string[] }
   | { type: 'list'; items: Array<{ primary: string; secondary?: string; href?: string }> }
   | {
