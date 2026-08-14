@@ -140,7 +140,7 @@ function OverviewTab() {
             <Box variant="p">
               I have over 9 years of experience as a Software UX Designer at AWS, standardizing and creating
               intuitive user experiences for a data center monitoring platform. Our current product is used and
-              supported by 20+ teams across 200+ AWS data center sites globally. I am the sole UX designer
+              supported by 20+ teams across AWS's global data center fleet. I am the sole UX designer
               responsible for the platform's vision, standards, design systems, research, and cross-team UX
               coordination.
             </Box>

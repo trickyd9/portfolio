@@ -40,6 +40,13 @@ export const PERSONA_FRAMEWORK: Entry[] = [
   },
 ];
 
+// Three entries, not four: the project list's "Customer Requirements Working
+// Sessions" is merged into the field-feedback entry below rather than added
+// alongside it (David's direction, 2026-08-13). Both describe the same thing —
+// customer input captured live and turned into a downstream artifact — so they
+// read as one capability instead of two thin adjacent ones. Every sentence in
+// the merged entry still traces to its own paragraph in the source doc; nothing
+// was synthesized across them.
 export const VALIDATION_FEEDBACK: Entry[] = [
   {
     id: 'customer-validation-program',
@@ -48,18 +55,33 @@ export const VALIDATION_FEEDBACK: Entry[] = [
     sections: [
       {
         intro:
-          'Designed and ran the customer-facing validation program: 6 review documents covering all 20 personas with ~112 targeted, non-jargon questions written for non-technical audiences. Established an unbiased feedback channel and a customer-interaction template. Multiple polls and interview cycles drove platform-wide design decisions including status-display preferences, terminology choices, and dashboard widget composition.',
+          'Designed and ran the customer-facing validation program: 6 review documents covering all 20 personas with ~112 targeted, non-jargon questions written for non-technical audiences. Established an unbiased feedback channel and a customer-interaction template. Multiple polls and interview cycles drove platform-wide design decisions including status-display preferences, terminology choices, and dashboard widget composition. Collected 18 form responses alongside 10 recorded interviews and 1 async written exchange, reaching 4 job families across 4 operating contexts (Americas, Asia-Pacific, EMEA, and colocation deployments). All 4 launch personas moved from Low/Medium to High confidence, with 8 sub-persona variants promoted to fully verified.',
       },
     ],
   },
   {
-    id: 'field-feedback-integration',
-    title: 'Field Customer Feedback Integration',
+    id: 'operational-evidence-cross-check',
+    title: 'Operational-Evidence Cross-Check',
     period: 'Owner, 2026',
     sections: [
       {
         intro:
-          'Established a direct customer-feedback loop: extracted verbatim feedback from a field interview and incorporated it into the persona file, the validation review questions (3 new questions added), and the persona landing-page mockup (new data widgets). Pattern reused across subsequent customer interviews.',
+          'Cross-checked interview findings against the ticketing system of record rather than accepting them at face value — 6 structured evidence scrapes producing per-persona corroboration hit-rates of 1.0, 0.90, 0.833, and 0.727. Moved the persona set from anecdotal to evidenced, and independently validated the underlying data models as a side effect. The strongest credibility signal in the persona program: the claims are checkable against system data.',
+      },
+    ],
+  },
+  {
+    id: 'requirements-and-field-feedback',
+    title: 'Customer Requirements Sessions & Field Feedback Loop',
+    period: 'Owner, 2026',
+    sections: [
+      {
+        intro:
+          'Ran a 6-session customer working-session program across two workstreams — AI-assisted site and page configuration, and trending/charting/multi-metric UX — spanning six distinct customer and engineering groups. Each session distills into a consistent user-story capture (As a… I want… so that… with priority and source), giving downstream delivery a single traceable requirements artifact instead of scattered meeting notes. Extended with async written follow-ups for invitees who could not attend live.',
+      },
+      {
+        intro:
+          'The same loop runs on individual field interviews: verbatim feedback extracted and incorporated into the persona file, the validation review questions (3 new questions added), and the persona landing-page mockup (new data widgets). Pattern reused across subsequent customer interviews.',
       },
     ],
   },
@@ -73,7 +95,7 @@ export const DASHBOARDS_VISION: Entry[] = [
     sections: [
       {
         intro:
-          'Built 4 interactive React dashboards covering the launch persona set with draggable widget layouts and operational variants per persona. Includes a contextual drawer for per-user widget customization. Implementations are interactive prototypes deployed to the UX Standards Website sandbox.',
+          'Built 4 interactive React dashboards covering the launch persona set with draggable widget layouts and operational variants per persona. Includes a contextual drawer for per-user widget customization. Implementations are interactive prototypes, originally deployed to the reference-site sandbox.',
       },
     ],
   },
@@ -106,7 +128,7 @@ export const DASHBOARDS_VISION: Entry[] = [
     sections: [
       {
         intro:
-          'Presented the 4 persona landing-page dashboards live on the UX Standards Website sandbox to immediate leadership. First leadership exposure to the persona-driven UX vision as a working interactive UX model (with role detection, draggable widgets, and operational variants) rather than static mockups or documents. Demo included a Q3+ roadmap discussion.',
+          'Presented the 4 persona landing-page dashboards live on the reference-site sandbox to immediate leadership. First leadership exposure to the persona-driven UX vision as a working interactive UX model (with role detection, draggable widgets, and operational variants) rather than static mockups or documents. Demo included a Q3+ roadmap discussion.',
       },
     ],
   },

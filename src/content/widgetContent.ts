@@ -46,7 +46,7 @@ export const WIDGET_CONTENT: Record<WidgetId, { compact: Block[]; expanded: Bloc
       { type: 'text', text: 'Currently: Design Technologist II at Amazon Web Services' },
       {
         type: 'text',
-        text: 'Software UX designer with 9+ years at AWS leading the user experience for a data center monitoring platform used and supported by 20+ teams across 200+ AWS data center sites globally. Sole UX designer responsible for the platform’s vision, standards, design systems, research, and cross-team UX coordination. Specializes in persona-driven research and design.',
+        text: 'Software UX designer with 9+ years at AWS leading the user experience for a data center monitoring platform used and supported by 20+ teams across AWS’s global data center fleet. Sole UX designer responsible for the platform’s vision, standards, design systems, research, and cross-team UX coordination. Specializes in persona-driven research and design.',
       },
       {
         type: 'text',
@@ -104,10 +104,10 @@ export const WIDGET_CONTENT: Record<WidgetId, { compact: Block[]; expanded: Bloc
     compact: [{ type: 'stat', value: '3-layer tenet system', label: '15 design tenets → 19 standards → 17 component specs' }],
     expanded: [
       { type: 'stat', value: '3-layer tenet system', label: '15 design tenets → 19 standards → 17 component specs' },
-      { type: 'stat', value: '6 rules', label: 'promoted to CI enforcement' },
+      { type: 'stat', value: '42 pages', label: 'full platform audit coverage' },
       {
         type: 'text',
-        text: 'UX Audit Program (Schema v1.7.0): 39 global rules + page-type exceptions, every rule traceable to a design tenet — covering design-system compliance, accessibility, data states, and visual consistency.',
+        text: 'UX Audit Program (Schema v2.5.1): 103 machine-checkable rules across 13 page types + 15 documented exceptions, every rule traceable to a design tenet — covering design-system compliance, accessibility, data states, and visual consistency. 6 rules are recommended for promotion to CI enforcement.',
       },
     ],
   },
@@ -118,7 +118,7 @@ export const WIDGET_CONTENT: Record<WidgetId, { compact: Block[]; expanded: Bloc
       { type: 'stat', value: '39', label: 'AI development agent capabilities (16 skills, 1 agent, 3 SOPs, 19 context files)' },
       {
         type: 'text',
-        text: 'A unified audit-aware page generator produces standards-compliant React/CloudScape from natural-language descriptions. The Figma Make → React pipeline turned 6 AI-generated mockups into 4 interactive persona dashboards. Standards violations now affect code reviews, while persona feedback ships as non-blocking advisory cards.',
+        text: 'A unified audit-aware page generator produces standards-compliant React/Cloudscape from natural-language descriptions. The Figma Make → React pipeline turned 6 AI-generated mockups into 4 interactive persona dashboards. Standards violations now affect code reviews, while persona feedback ships as non-blocking advisory cards.',
       },
     ],
   },

@@ -5,7 +5,7 @@ import Tabs from '@cloudscape-design/components/tabs';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Box from '@cloudscape-design/components/box';
 import Link from '@cloudscape-design/components/link';
-import { LAUNCHES, EARLIER_CONTROLS_PROJECTS } from '../content/data/featuredProjectsFull';
+import { LAUNCHES, LAUNCHES_INVOLVEMENT_NOTE, EARLIER_CONTROLS_PROJECTS } from '../content/data/featuredProjectsFull';
 import { PROJECTS, type ProjectCategory } from '../content/data/projects';
 import { ProjectLine } from '../components/EntrySection';
 
@@ -84,7 +84,7 @@ export default function FeaturedProjectsPage() {
               <Container header={<Header variant="h2">2025 launches</Header>}>
                 <SpaceBetween size="xxl">
                   <Box variant="p" color="text-body-secondary">
-                    Contributed as a team member to three 2025 launches:
+                    Contributed as a team member to 2025 platform launches:
                   </Box>
                   {LAUNCHES.map((launch) => (
                     <div key={launch.id}>
@@ -97,6 +97,9 @@ export default function FeaturedProjectsPage() {
                       <Box variant="p">{launch.description}</Box>
                     </div>
                   ))}
+                  <Box variant="p" color="text-body-secondary">
+                    {LAUNCHES_INVOLVEMENT_NOTE}
+                  </Box>
                 </SpaceBetween>
               </Container>
             ),

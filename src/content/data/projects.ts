@@ -25,15 +25,23 @@ export const PROJECTS: Project[] = [
     role: 'Owner',
     period: '2026',
     description:
-      'Schema v1.7.0 with 39 global rules + page-type exceptions, each traceable to a design tenet. 6 rules promoted to CI enforcement.',
+      'Schema v2.5.1 with 103 machine-checkable rules across 13 page types + 15 documented exceptions, each traceable to a design tenet. Full platform coverage — all 42 pages audited, ~112 findings across 28 pages, 14 clean.',
+  },
+  {
+    title: 'UX Standards & Requirements Wiki',
+    category: 'Design Systems',
+    role: 'Owner',
+    period: '2026',
+    description:
+      'Consolidated the platform’s UX guidance — standards, audit rules, audit results, page types and components, accessibility requirements — into a single maintained entry point, replacing a purpose-built standalone site as the thing the team maintains.',
   },
   {
     title: 'UX Standards Website',
     category: 'Design Systems',
     role: 'Owner',
-    period: '2026',
+    period: '2026 — content since consolidated into the wiki',
     description:
-      'Standalone reference site documenting platform UX standards and providing a customer-interactive mockup for persona-based landing-page dashboards.',
+      'Standalone reference site documenting platform UX standards and providing a customer-interactive mockup for persona-based landing-page dashboards — the sandbox that let the persona vision be clicked through rather than read about.',
   },
   {
     title: 'UX Roadmap & Task Hierarchy',
@@ -57,7 +65,7 @@ export const PROJECTS: Project[] = [
     role: 'Ongoing role contribution',
     period: 'Ongoing',
     description:
-      'De facto UI/UX approval authority for the platform team — 246+ design-feedback messages per year across cross-team code reviews: design-system compliance checks, usability callouts, and persona-impact flags.',
+      'De facto UI/UX approval authority for the platform team — 200+ design-feedback messages across cross-team code reviews: design-system compliance checks, usability callouts, and persona-impact flags.',
   },
   {
     title: 'Drift Notification UX Standard',
@@ -86,7 +94,16 @@ export const PROJECTS: Project[] = [
     category: 'Persona Research',
     role: 'Owner',
     period: '2026',
-    description: '6 review documents, ~112 non-jargon questions, an unbiased feedback channel — drove platform-wide decisions on status display and terminology.',
+    description:
+      '6 review documents, ~112 non-jargon questions, an unbiased feedback channel — 18 form responses, 10 recorded interviews and 1 async exchange across 4 job families and 4 operating contexts. All 4 launch personas moved Low/Medium → High confidence; 8 sub-persona variants fully verified.',
+  },
+  {
+    title: 'Operational-Evidence Cross-Check',
+    category: 'Persona Research',
+    role: 'Owner',
+    period: '2026',
+    description:
+      'Cross-checked interview findings against the ticketing system of record rather than taking them at face value — 6 structured evidence scrapes producing per-persona corroboration hit-rates of 1.0, 0.90, 0.833, and 0.727. Moved the persona set from anecdotal to evidenced.',
   },
   {
     title: '4 Persona Landing-Page Dashboards',
@@ -128,19 +145,19 @@ export const PROJECTS: Project[] = [
       'Presented the 4 persona landing-page dashboards live to leadership — the first exposure to the persona-driven UX vision as a working interactive model (role detection, draggable widgets, operational variants) rather than static mockups, followed by a Q3+ roadmap discussion.',
   },
   {
-    title: 'Field Customer Feedback Integration',
+    title: 'Customer Requirements Sessions & Field Feedback Loop',
     category: 'Persona Research',
     role: 'Owner',
     period: '2026',
     description:
-      'Established a direct customer-feedback loop — extracted verbatim feedback from a field interview and incorporated it into the persona file, the validation review questions (3 new questions added), and the landing-page mockup (new data widgets); the same pattern was reused across subsequent interviews.',
+      'A 6-session customer working-session program across two workstreams and six customer/engineering groups, each session distilled into a consistent user-story capture so delivery gets one traceable requirements artifact instead of scattered notes. The same loop runs on field interviews — verbatim feedback fed back into the persona file, the review questions, and the landing-page mockup.',
   },
   {
     title: 'AI Development Agents Package',
     category: 'AI-Augmented Build',
     role: 'Owner',
     period: '2026',
-    description: '39 validated capabilities (16 skills, 1 agent, 3 SOPs, 19 context files); unified audit-aware page generator producing standards-compliant React/CloudScape.',
+    description: '39 validated capabilities (16 skills, 1 agent, 3 SOPs, 19 context files); unified audit-aware page generator producing standards-compliant React/Cloudscape.',
   },
   {
     title: 'Figma Make → React Rapid Prototyping Pipeline',
@@ -153,7 +170,7 @@ export const PROJECTS: Project[] = [
     title: 'AI-Powered Page Auditing Agent',
     category: 'AI-Augmented Build',
     role: 'Owner',
-    period: '2024 – Present',
+    period: '2026',
     description: 'Custom AI agent for automated platform-page auditing; established the audit-as-CI pattern the broader agents package now extends.',
   },
   {
@@ -170,7 +187,7 @@ export const PROJECTS: Project[] = [
     role: 'Team member',
     period: '2025',
     description:
-      'Full-text search GA, v2 platform migration, and mobile beta — contributed as a team member on all three.',
+      'Full-text search GA and the v1 → v2 platform migration — contributed as a team member on both. Primarily back-end initiatives; involvement was heavier on the configuration-tooling migration, which carried the UX interactions.',
   },
   {
     title: 'Global Automation Controls Graphics Deployment Program',

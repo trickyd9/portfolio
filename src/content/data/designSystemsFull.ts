@@ -11,7 +11,7 @@ export const TENETS_AUDIT: Entry[] = [
     sections: [
       {
         intro:
-          'Authored a 3-layer reference for how the platform should look, behave, and evolve: 15 design tenets (the philosophy — start from the job, the system knows you, filter don\'t flood, progressive disclosure) → 19 standard tenets (navigation, visual language, data states, writing, permissions, data visualization, architecture) → 17 component specs across all page types. Every component rule traces back through a standard to a design tenet.',
+          'Authored a 3-layer reference for how the platform should look, behave, and evolve: 15 design tenets (the philosophy — start from the job, the system knows you, filter don\'t flood, progressive disclosure) → 19 standard tenets (navigation, visual language, data states, writing, permissions, data visualization, architecture) → 17 component specs across all page types. Built on top of Cloudscape, AWS\'s open-source design system, so the standards extend an established component library rather than replacing it. Every component rule traces back through a standard to a design tenet.',
       },
     ],
   },
@@ -22,7 +22,7 @@ export const TENETS_AUDIT: Entry[] = [
     sections: [
       {
         intro:
-          'Audited the platform against a tenet-based audit schema developed in parallel — schema v1.7.0 with 39 global rules + specific page-type exceptions, each rule traceable to a specific design tenet. Covered design system compliance, accessibility, data state handling, interaction safety, and visual consistency. Most recent round added 6 new rules + 3 extensions + 3 new tenets from a structured best-practices gap analysis. 6 rules promoted to CI enforcement.',
+          'Audited the platform against a tenet-based audit schema developed in parallel — schema v2.5.1 with 103 machine-checkable rules (31 high · 48 medium · 18 low · 6 advisory) across 13 page types + 15 documented page-type exceptions, each rule traceable to a specific design tenet. Covered design system compliance, accessibility, data state handling, interaction safety, and visual consistency. Full platform coverage: all 42 pages audited, then re-audited end to end against the current schema — ~112 findings across 28 pages, 14 pages clean. 6 rules recommended for promotion to CI enforcement (pending).',
       },
     ],
   },
@@ -39,14 +39,31 @@ export const TENETS_AUDIT: Entry[] = [
   },
 ];
 
-export const STANDARDS_WEBSITE: Entry = {
-  id: 'ux-standards-website',
-  title: 'UX Standards Website',
+// The wiki superseded the standalone website as the thing the team maintains,
+// so the two render together in one "Standards Reference" tab, current first and
+// its predecessor second — they're one story (a reference that moved homes), not
+// two unrelated projects, and splitting them across tabs would read as though the
+// website simply died. Order matters here: don't re-sort this array.
+export const STANDARDS_WIKI: Entry = {
+  id: 'ux-standards-wiki',
+  title: 'UX Standards & Requirements Wiki',
   period: 'Owner, 2026',
   sections: [
     {
       intro:
-        "Standalone reference site (non-production sandbox) serving a dual purpose: documents the platform's UX standards (page types, components, audit rules, accessibility requirements) and provides a customer-interactive, customizable mockup for persona-based landing-page dashboards. Used internally as a demoable artifact for the persona vision and data collection.",
+        "Consolidated the platform's UX guidance into a single maintained entry point for the team: the standards, the audit rules, the audit results, page types and components, accessibility requirements, and mockup summaries. Replaced a purpose-built standalone site as the thing the team maintains — same reference content, no separate application to own.",
+    },
+  ],
+};
+
+export const STANDARDS_WEBSITE: Entry = {
+  id: 'ux-standards-website',
+  title: 'UX Standards Website',
+  period: 'Owner, 2026 — content since consolidated into the wiki',
+  sections: [
+    {
+      intro:
+        "Standalone reference site (non-production sandbox) that served a dual purpose: documented the platform's UX standards (page types, components, audit rules, accessibility requirements) and provided a customer-interactive, customizable mockup for persona-based landing-page dashboards. Used internally as a demoable artifact for the persona vision and data collection — the interactive sandbox is what let the persona vision be clicked through rather than read about, and it carried that work through its review period. Its documentation content now lives on the wiki.",
     },
   ],
 };
@@ -81,7 +98,7 @@ export const ROADMAP_ENABLEMENT: Entry[] = [
     sections: [
       {
         intro:
-          'De facto UI/UX approval authority for the platform team. 246+ design-feedback messages per year across cross-team code reviews — design-system compliance checks, usability callouts, persona-impact flags. Codified into the AI-augmented build-step model.',
+          'De facto UI/UX approval authority for the platform team. 200+ design-feedback messages across cross-team code reviews — design-system compliance checks, usability callouts, persona-impact flags. Codified into the AI-augmented build-step model.',
       },
     ],
   },
@@ -92,7 +109,7 @@ export const ROADMAP_ENABLEMENT: Entry[] = [
     sections: [
       {
         intro:
-          'Provides on-demand UX direction via team chat and CR comments for in-progress work. Examples include container consistency on monitoring pages, primary-button placement, and table-cell formatting decisions. Decisions are captured back into the standards document where pattern-worthy.',
+          'Provides on-demand UX direction via asynchronous chat and via code-review comments for in-progress work. Examples include container consistency on monitoring pages, primary-button placement, and table-cell formatting decisions. Decisions are captured back into the standards document where pattern-worthy.',
       },
     ],
   },

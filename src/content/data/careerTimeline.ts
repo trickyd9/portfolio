@@ -10,7 +10,7 @@ export const AWS_TIMELINE: TimelineEntry[] = [
     title: 'Design Technologist II — Amazon Web Services',
     period: 'Aug 2022 – Present',
     detail:
-      'Sole UX designer for a data center monitoring platform used by 20+ teams across 200+ sites; authored the 3-layer UX tenets/standards system, led the 20-persona research program, and built a 39-capability AI development agents package.',
+      'Sole UX designer for a data center monitoring platform used by 20+ teams across AWS’s global data center fleet; authored the 3-layer UX tenets/standards system, led the 20-persona research program, and built a 39-capability AI development agents package.',
   },
   {
     title: 'Controls Design Engineer — Amazon Web Services',
@@ -38,7 +38,7 @@ export const EARLY_TIMELINE: TimelineEntry[] = [
   },
   {
     title: 'Freelance Designer — Syncopated Design',
-    period: 'May 2010 – Sep 2014',
-    detail: 'Full-spectrum design services: branding, typography, publication design, websites, animation, UI/UX for clients across industries.',
+    period: 'May 2010 – Sep 2017',
+    detail: 'Full-spectrum design services: branding, typography, publication design, websites, animation, UI/UX for clients across industries. Created and owned Syncopated Design until Sept 2014.',
   },
 ];

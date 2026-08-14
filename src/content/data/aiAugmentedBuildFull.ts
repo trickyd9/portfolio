@@ -11,7 +11,7 @@ export const AGENTS_AUDITING: Entry[] = [
     sections: [
       {
         intro:
-          'Built an internal AI development agents package with 39 validated capabilities (16 skills, 1 agent, 3 SOPs, 19 context files) approved by the team. Audit skill available for on-demand UX review during development. Page-creation skill generates standards-compliant shells so new pages pass the audit schema on first run. Two workflow modes: interactive + persona-aware for local development, deterministic for the CI pipeline. Standards violations now affect code reviews while persona feedback ships as non-blocking advisory cards.',
+          "Built an internal AI development agents package on Kiro, AWS's agentic IDE, with 39 validated capabilities (16 skills, 1 agent, 3 SOPs, 19 context files) approved by the team. Audit skill available for on-demand UX review during development. Page-creation skill generates standards-compliant shells so new pages pass the audit schema on first run. Two workflow modes: interactive + persona-aware for local development, deterministic for the CI pipeline. Standards violations now affect code reviews while persona feedback ships as non-blocking advisory cards.",
       },
     ],
   },
@@ -40,11 +40,11 @@ export const AGENTS_AUDITING: Entry[] = [
   {
     id: 'ai-page-auditing-agent',
     title: 'AI-Powered Page Auditing Agent',
-    period: 'Owner, 2024 – Present',
+    period: 'Owner, 2026',
     sections: [
       {
         intro:
-          'Original custom AI agent for automated platform-page auditing — predecessor to the agents package above. Started in 2024, established the audit-as-CI pattern that the broader agents package now extends and operationalizes.',
+          'Original custom AI agent for automated platform-page auditing — predecessor to the agents package above. Established the audit-as-CI pattern that the broader agents package now extends and operationalizes.',
       },
     ],
   },

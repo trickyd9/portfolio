@@ -3,7 +3,7 @@ export const CORE_COMPETENCIES: string[] = [
   'UX Design',
   'Design Systems & Standards',
   'Persona-Driven Research',
-  'CloudScape',
+  'Cloudscape',
   'Figma & Figma Make',
   'React/TypeScript',
   'GraphQL',
@@ -21,7 +21,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     skills: [
       'Figma',
       'Figma Make',
-      'CloudScape Design System',
+      'Cloudscape Design System',
       'Adobe Creative Suite (Illustrator, Photoshop, InDesign)',
       'Inkscape',
       'Design systems',
