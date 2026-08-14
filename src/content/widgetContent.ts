@@ -46,7 +46,7 @@ export const WIDGET_CONTENT: Record<WidgetId, { compact: Block[]; expanded: Bloc
       { type: 'text', text: 'Currently: Design Technologist II at Amazon Web Services' },
       {
         type: 'text',
-        text: 'Software UX designer with 9+ years at AWS leading the user experience for a data center monitoring platform used and supported by 20+ teams across AWS’s global data center fleet. Sole UX designer responsible for the platform’s vision, standards, design systems, research, and cross-team UX coordination. Specializes in persona-driven research and design.',
+        text: 'Software UX designer with 9+ years at AWS, leading the user experience for a data center monitoring platform supported by 20+ teams across AWS’s global data center fleet. Sole UX designer for the platform’s vision, standards, design systems, research, and cross-team coordination. Specializes in persona-driven research and design.',
       },
       {
         type: 'text',

@@ -6,7 +6,7 @@ LinkedIn: linkedin.com/in/davidtrick/
 
 ## Professional Summary
 
-Software UX designer with 9+ years at AWS leading the user experience for a data center monitoring platform used and supported by 20+ teams across AWS's global data center fleet. Sole UX designer responsible for the platform's vision, standards, design systems, research, and cross-team UX coordination. Specializes in **persona-driven research and design** as the method for taking a multi-role industrial product from one-size-fits-all toward role-specific interface logic — generating persona candidates, validating with field customers, and incorporating the results into shipped pages.
+Software UX designer with 9+ years at AWS, leading the user experience for a data center monitoring platform supported by 20+ teams across AWS's global data center fleet. Sole UX designer for the platform's vision, standards, design systems, research, and cross-team coordination. Specializes in **persona-driven research and design** — taking a multi-role industrial product from one-size-fits-all toward role-specific interface logic, from persona candidates through customer validation to shipped pages.
 
 BFA in Graphic Design + BS in Mechanical Engineering. Works in design systems, software engineering (React/TypeScript, GraphQL, AWS CDK), and AI-augmented workflows — turning design decisions into shipped, standards-compliant code.
 
