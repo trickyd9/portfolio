@@ -49,12 +49,24 @@ const SHOT_DIR = join(SITE_DIR, '.screenshots');
 const escapeHtml = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 // Inline markdown. Order matters: links first so their text can still take
-// bold/italic, and `_..._` before `*...*` since the sources use underscores.
+// bold/italic, then `**bold**` before `*italic*` so the italic pattern can't
+// eat half a bold marker.
+//
+// Both italic spellings are handled. This file originally did `_..._` only,
+// with a comment claiming "the sources use underscores" — true when it was
+// written, and wrong hours later: David re-exported both the resume and the
+// project list on 2026-08-13 from a tool that emits `*...*`, and every italic
+// in them silently rendered as literal asterisks in the PDF. The lesson is
+// that the source documents are hand-authored elsewhere and their markdown
+// dialect can change without warning, so don't narrow these patterns to
+// whatever the current files happen to use. Always eyeball `--png` output
+// after an export.
 function inline(text) {
   return escapeHtml(text)
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, href) => `<a href="${href}">${label}</a>`)
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-    .replace(/_([^_]+)_/g, '<em>$1</em>');
+    .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
+    .replace(/_([^_\n]+)_/g, '<em>$1</em>');
 }
 
 function toHtml(markdown) {

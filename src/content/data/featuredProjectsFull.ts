@@ -71,7 +71,7 @@ export const EARLIER_CONTROLS_PROJECTS: ControlsProject[] = [
   {
     title: 'Modular EPMS Graphical Interface',
     description:
-      'Designed the graphical interface for a 1MW modular electrical distribution system with a 10-inch touchscreen EPMS — submitted to the manufacturer for global production reproduction.',
+      'Designed the graphical interface for a modular electrical distribution system with a 10-inch touchscreen EPMS — submitted to the manufacturer for global production reproduction.',
   },
   {
     title: '7-Page Colocation HMI Template',

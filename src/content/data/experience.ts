@@ -9,11 +9,14 @@
 // "6 rules promoted to CI enforcement" became "recommended (pending)", the Mobile
 // Beta launch was dropped, the ~4,600h/~$730K remediation sizing came out as
 // unsubstantiated, and "200+ AWS data center sites" became "AWS's global data
-// center fleet". Two figures the resume deliberately KEEPS and the project list
-// simply doesn't mention — the 1MW EPMS and the grayscale style guide — are not
-// contradictions, so they stay. Where the two genuinely disagree (the floorplan
-// workflow: "PDF-based" in the resume, "image-based" in the project list) the
-// newer doc wins, which is the resume.
+// center fleet". Where the two genuinely disagree (the floorplan workflow:
+// "PDF-based" in the resume, "image-based" in the project list) the newer doc
+// wins, which is the resume.
+//
+// The 1MW EPMS figure was removed everywhere later the same day, including from
+// the resume master in KnowledgeBase/References/ — David's rule is that a claim
+// carrying a metric has to have a real one behind it, and that one didn't. The
+// grayscale style guide stays: "grayscale" is a description, not a metric.
 import type { Entry } from './entry';
 
 export const PROFESSIONAL_ROLES: Entry[] = [
@@ -84,7 +87,7 @@ export const PROFESSIONAL_ROLES: Entry[] = [
           'Established the centralized Graphics Repository for completed SVG artwork across all sites and authored the definitive SVG floorplan annotation runbook (shared 7+ times to onboard team members)',
           'Audited BMS graphics across all legacy US data centers against 62 graphical standard elements, scoring every site and writing a one-pager per site; produced an ROI-ranked 3-phase remediation plan sized at a multi-work-year effort and pitched the program to senior leadership with a test-site proposal',
           'Automated the floorplan creation pipeline by replacing the PDF-based workflow with direct CAD file processing, self-teaching the CAD toolchain to do it — 60% reduction in average generation time across two optimization phases',
-          'Designed the graphical interface for a 1MW modular electrical distribution system with 10-inch touchscreen EPMS, submitted to manufacturer for global production reproduction',
+          'Designed the graphical interface for a modular electrical distribution system with 10-inch touchscreen EPMS, submitted to manufacturer for global production reproduction',
           'Designed and built a 7-page colocation HMI template adopted for international colocation site deployments',
           'Reviewed BMS and power-monitoring vendor graphic submittals for global sites (US, Europe, Asia-Pacific) against AWS controls standards',
         ],

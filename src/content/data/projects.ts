@@ -208,7 +208,7 @@ export const PROJECTS: Project[] = [
     category: 'Earlier (Controls)',
     role: 'Owner',
     period: '2017 – 2022',
-    description: 'Graphical interface for a 1MW modular electrical distribution system with a 10-inch touchscreen EPMS, submitted for global production reproduction.',
+    description: 'Graphical interface for a modular electrical distribution system with a 10-inch touchscreen EPMS, submitted for global production reproduction.',
   },
   {
     title: '3D-Printed Hovercraft Prototype',

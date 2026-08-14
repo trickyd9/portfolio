@@ -61,7 +61,7 @@ End-to-end persona lifecycle for the platform — generation of new persona cand
 - Established the **centralized Graphics Repository** for completed SVG artwork across all sites and authored the definitive SVG floorplan annotation runbook (shared 7+ times to onboard team members)
 - Audited BMS graphics across all legacy US data centers against 62 graphical standard elements; produced a ROI-ranked 3-phase remediation program sized at a multi-work-year effort and pitched it to senior leadership
 - Automated the floorplan creation pipeline by replacing the PDF-based workflow with direct CAD file processing — **60% reduction** in average generation time across two optimization phases
-- Designed the graphical interface for a **1MW modular electrical distribution system** with 10-inch touchscreen EPMS, submitted to manufacturer for global production reproduction
+- Designed the graphical interface for a **modular electrical distribution system** with 10-inch touchscreen EPMS, submitted to manufacturer for global production reproduction
 - Designed and built a **7-page colocation HMI template** adopted for international colocation site deployments
 - Reviewed BMS and power-monitoring vendor graphic submittals for global sites (US, Europe, Asia-Pacific) against AWS controls standards
 
