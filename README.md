@@ -38,7 +38,12 @@ npm run dev                                     # in one terminal
 npm run shot -- / /projects                     # desktop
 npm run shot -- / --both                        # desktop + mobile (390px)
 npm run shot -- /projects --tab='Controls Standards'
+npm run shot -- / --dark                        # the site's own dark mode
 ```
+
+`--dark` seeds the site's real light/dark setting in `localStorage`, not the OS
+`prefers-color-scheme` — the site has its own toggle, so emulating the OS would
+prove nothing about what a visitor actually sees.
 
 Several pages here are tabbed and the active tab isn't in the URL, so `--tab`
 (matched on the visible label) is the only way to see anything but the first

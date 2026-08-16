@@ -11,6 +11,7 @@
 //   node scripts/screenshot.mjs / /projects --mobile # several routes, 390px
 //   node scripts/screenshot.mjs / --both             # desktop + mobile
 //   node scripts/screenshot.mjs /projects --tab='Platform Launches'
+//   node scripts/screenshot.mjs / --dark            # site's own dark mode
 //
 // Routes are the app's hash routes written without the '#' ('/', '/projects').
 // `--tab` clicks a tab by its visible label before shooting — several pages here
@@ -42,6 +43,12 @@ flags.delete(tabArg);
 
 const slug = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
+// The site's light/dark is its own setting in localStorage (hooks/useDisplaySettings.ts),
+// not the OS `prefers-color-scheme` — so emulating the OS colour scheme would
+// prove nothing. Seed the real setting instead, before any page script runs.
+const DARK = flags.has('--dark');
+const STORAGE_KEY = 'portfolio-preview:settings';
+
 const viewports = flags.has('--both')
   ? [DESKTOP, MOBILE]
   : flags.has('--mobile')
@@ -50,8 +57,9 @@ const viewports = flags.has('--both')
 
 // '/' -> 'home'; '/career-persona-research/hiring-manager' -> nested name
 const fileNameFor = (route, width) => {
-  const base = route === '/' ? 'home' : route.replace(/^\//, '').replace(/\//g, '-');
-  return `${base}${tabLabel ? `-${slug(tabLabel)}` : ''}-${width}.png`;
+  // Route can carry a query string (?tab=…), which is not a legal filename.
+  const base = route === '/' ? 'home' : slug(route);
+  return `${base}${tabLabel ? `-${slug(tabLabel)}` : ''}${DARK ? '-dark' : ''}-${width}.png`;
 };
 
 const browser = await chromium.launch();
@@ -60,6 +68,12 @@ let problems = 0;
 try {
   for (const viewport of viewports) {
     const context = await browser.newContext({ viewport, deviceScaleFactor: 2 });
+    if (DARK) {
+      await context.addInitScript(
+        ([key, value]) => window.localStorage.setItem(key, value),
+        [STORAGE_KEY, JSON.stringify({ density: 'comfortable', mode: 'dark' })],
+      );
+    }
     const page = await context.newPage();
 
     // Collected per page load below, but wired once per context.
