@@ -1,4 +1,4 @@
-# David Trick — Project Brag List
+# David Trick — Project List
 
 Companion artifact to the resume, lists the projects behind the resume bullets, organized the same way the resume is organized: **UX Vision/Standards/Design Systems** · **Persona-Driven Research & Design** *(specialization)* · **AI-Augmented Design-to-Build** · **Cross-Team Enablement** · **Earlier (Controls Design Engineer)**.
 
