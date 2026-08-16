@@ -12,7 +12,10 @@ const HIGHLIGHTS = [
   { value: '20', label: 'documented personas' },
   { value: '6', label: 'job-family categories' },
   { value: '4', label: 'interactive dashboards' },
-  { value: '112', label: 'validation questions' },
+  // "~112", not "112": both source docs qualify this one as approximate, and
+  // every other surface on the site carries the tilde. A KPI tile is the last
+  // place that should quietly round an estimate into a hard number.
+  { value: '~112', label: 'validation questions' },
 ];
 
 // AWS Persona full page (renamed 2026-08-10 from "Persona-Driven Research

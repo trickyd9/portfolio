@@ -34,7 +34,12 @@ export const PROFESSIONAL_ROLES: Entry[] = [
         bullets: [
           'Authored 3-layer UX tenets and standards document — 15 design tenets → 19 standard tenets → 17 component specs — synthesized from 6 source documents as the platform\'s single source of truth',
           'Completed UX Audit Program — full platform coverage, all 42 pages audited against tenet-based Schema v2.5.1 (103 machine-checkable rules across 13 page types + 15 documented exceptions, every rule traceable to a specific design tenet); 6 rules recommended for promotion to CI enforcement',
-          'Built a standalone UX Standards Website (React/Cloudscape) deployed to production with custom domain, SSL, and CDN — first dedicated UX standards reference for the platform and a sandbox vehicle for persona-based dashboards; its documentation content has since been consolidated into the UX Standards & Requirements Wiki, a single maintained entry point with no separate application to own',
+          // "deployed to production with custom domain, SSL, and CDN" was cut
+          // 2026-08-16: the updated resume dropped that phrasing, and the
+          // updated project list calls the same site a "non-production
+          // sandbox" — so the claim contradicted both sources rather than
+          // merely outrunning them. Don't restore it from an older draft.
+          'Built a standalone UX Standards Website (React/Cloudscape) — first dedicated UX standards reference for the platform and a sandbox vehicle for persona-based dashboards; its documentation content has since been consolidated into the UX Standards & Requirements Wiki, a single maintained entry point with no separate application to own',
           'Led cross-organization terminology standardization across 4 organizations; 6 naming decisions adopted platform-wide',
           "Team's UI/UX approver on cross-team code reviews — design-system compliance, accessibility, and persona-impact callouts as a recurring contribution",
           'Defined the complete UX roadmap (5 workstreams, 19 epics) and presented to leadership; secured Q2 direction with persona-driven design as the execution focus',
