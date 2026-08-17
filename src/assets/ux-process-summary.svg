@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ux-process-summary" viewBox="0 0 1000 330"
+     role="img" aria-label="UX process in four phases. Discover, stages one to three: requests from data-owning teams and customers, alignment with the feature creation team, user stories. Define, stages four to five: scoping and mockups trade off until they agree, then the design document is locked; this phase repeats until aligned. Deliver, stages six to nine: build, user testing, clear blockers, release; this repeats once per phase until scope is complete. Sustain, stage ten: maintain and solicit feedback on a roughly six-month cadence, which returns to Deliver rather than to intake.">
+  <style>
+    #ux-process-summary {
+      --surface: #FFFFFF; --ink: #0F1A20; --ink-2: #46565F;
+      --accent: #0B6B75; --accent-soft: #E0EEEF;
+    }
+    @media (prefers-color-scheme: dark) {
+      #ux-process-summary {
+        --surface: #141D22; --ink: #E4ECEF; --ink-2: #93A4AD;
+        --accent: #4FC3CE; --accent-soft: #102A2E;
+      }
+    }
+    #ux-process-summary .card  { fill: var(--surface); stroke: var(--ink); stroke-width: 1.4; }
+    #ux-process-summary .cardl { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.4; }
+    #ux-process-summary .pen   { stroke: var(--ink); stroke-width: 1.4; fill: none; }
+    #ux-process-summary .pena  { stroke: var(--accent); stroke-width: 1.4; fill: none; stroke-linejoin: round; }
+    #ux-process-summary .mark  { stroke: var(--accent); stroke-width: 1.6; fill: none; }
+    #ux-process-summary .mkf   { fill: var(--accent); }
+    #ux-process-summary .ah    { fill: var(--ink); }
+    #ux-process-summary .aha   { fill: var(--accent); }
+    #ux-process-summary .n { font-family: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace; font-size: 10.5px; letter-spacing: .12em; fill: var(--accent); }
+    #ux-process-summary .h { font-family: "Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 14px; font-weight: 600; letter-spacing: .14em; fill: var(--ink); }
+    #ux-process-summary .d { font-family: "Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 11.5px; fill: var(--ink-2); }
+    #ux-process-summary .e { font-family: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace; font-size: 10.5px; letter-spacing: .04em; fill: var(--accent); }
+  </style>
+
+  <defs>
+    <marker id="s-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <polygon class="ah" points="0,0.5 10,5 0,9.5" />
+    </marker>
+    <marker id="s-aha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <polygon class="aha" points="0,0.5 10,5 0,9.5" />
+    </marker>
+    <!-- inline styles, not classes: document CSS does not reach into a <use> shadow tree -->
+    <g id="loopmark">
+      <path d="M 6.93 4 A 8 8 0 1 1 6.93 -4"
+            style="fill:none;stroke:var(--accent);stroke-width:1.6" />
+      <polygon points="4.4,-6.4 10.1,-4.6 6.4,-0.4"
+               style="fill:var(--accent)" />
+    </g>
+  </defs>
+
+  <!-- 01–03 DISCOVER -->
+  <rect class="card" x="16" y="56" width="224" height="150" rx="2" />
+  <text class="n" x="34" y="82">01&#8211;03</text>
+  <text class="h" x="34" y="106">DISCOVER</text>
+  <text class="d" x="34" y="130">Requests from data-owning</text>
+  <text class="d" x="34" y="147">teams and from customers.</text>
+  <text class="d" x="34" y="164">Align the feature creation</text>
+  <text class="d" x="34" y="181">team; gather user stories.</text>
+
+  <line class="pen" x1="244" y1="131" x2="259" y2="131" marker-end="url(#s-ah)" />
+
+  <!-- 04–05 DEFINE -->
+  <rect class="cardl" x="264" y="56" width="224" height="150" rx="2" />
+  <text class="n" x="282" y="82">04&#8211;05</text>
+  <text class="h" x="282" y="106">DEFINE</text>
+  <text class="d" x="282" y="130">Scoping and mockups trade</text>
+  <text class="d" x="282" y="147">off against each other until</text>
+  <text class="d" x="282" y="164">they agree, then the design</text>
+  <text class="d" x="282" y="181">document is locked.</text>
+  <use href="#loopmark" x="462" y="80" />
+
+  <line class="pen" x1="492" y1="131" x2="507" y2="131" marker-end="url(#s-ah)" />
+
+  <!-- 06–09 DELIVER -->
+  <rect class="cardl" x="512" y="56" width="224" height="150" rx="2" />
+  <text class="n" x="530" y="82">06&#8211;09</text>
+  <text class="h" x="530" y="106">DELIVER</text>
+  <text class="d" x="530" y="130">Build the phase, test it with</text>
+  <text class="d" x="530" y="147">users, clear the blockers,</text>
+  <text class="d" x="530" y="164">release. Once per phase</text>
+  <text class="d" x="530" y="181">until scope is complete.</text>
+  <use href="#loopmark" x="710" y="80" />
+
+  <line class="pen" x1="740" y1="131" x2="755" y2="131" marker-end="url(#s-ah)" />
+
+  <!-- 10 SUSTAIN -->
+  <rect class="cardl" x="760" y="56" width="224" height="150" rx="2" />
+  <text class="n" x="778" y="82">10</text>
+  <text class="h" x="778" y="106">SUSTAIN</text>
+  <text class="d" x="778" y="130">Maintain, and solicit</text>
+  <text class="d" x="778" y="147">feedback on roughly a</text>
+  <text class="d" x="778" y="164">six-month cadence. New</text>
+  <text class="d" x="778" y="181">needs re-enter at build.</text>
+  <use href="#loopmark" x="958" y="80" />
+
+  <!-- return arcs -->
+  <path class="pena" d="M 444 206 C 444 248, 308 248, 308 214" marker-end="url(#s-aha)" />
+  <text class="e" x="376" y="268" text-anchor="middle">until aligned</text>
+
+  <path class="pena" d="M 692 206 C 692 248, 556 248, 556 214" marker-end="url(#s-aha)" />
+  <text class="e" x="624" y="268" text-anchor="middle">per phase</text>
+
+  <path class="pena" d="M 872 206 V 292 H 700 V 214" marker-end="url(#s-aha)" />
+  <text class="e" x="786" y="310" text-anchor="middle">~6 months &#183; same project</text>
+</svg>

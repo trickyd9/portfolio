@@ -7,69 +7,67 @@ import SpaceBetween from '@cloudscape-design/components/space-between';
 import Box from '@cloudscape-design/components/box';
 import Table from '@cloudscape-design/components/table';
 import Divider from '@cloudscape-design/components/divider';
-import {
-  colorBackgroundCellShaded,
-  colorBorderDividerDefault,
-  borderRadiusContainer,
-} from '@cloudscape-design/design-tokens';
 import { TENETS_AUDIT, STANDARDS_WIKI, STANDARDS_WEBSITE, ROADMAP_ENABLEMENT } from '../content/data/designSystemsFull';
-import { UX_PROCESS_CAPTION, UX_PROCESS_INTRO, UX_PROCESS_NOTE, UX_PROCESS_STAGES } from '../content/data/uxProcess';
+import { UX_STANDARDS_CAPTION, UX_STANDARDS_INTRO, UX_STANDARDS_LAYERS } from '../content/data/uxStandards';
 import { EntryGroupTab } from '../components/EntrySection';
-import { UxProcessSummary } from '../components/UxProcessSummary';
+import { UxStandardsStack } from '../components/UxStandardsStack';
 import Widget from '../widgets/Widget';
 
-/** The `?tab=` value that opens the Design Process tab — imported by the About
- *  page so the link and the tab id can't drift apart. */
-export const DESIGN_PROCESS_TAB_ID = 'design-process';
-
-function DesignProcessTab() {
+// The lead tab. It used to be the widget alone; the stack diagram was added
+// 2026-08-16 so the page opens by *showing* the three-layer structure the widget
+// could only assert in a sentence, and — the part no prose on the page carried —
+// what each of those layers does to a feature while it is being built.
+//
+// Order is the same as the Design Process tab below: intro, diagram, caption,
+// then the detail. The widget sits last rather than first because it is the
+// numbers behind the structure, not the structure itself; it stays in place
+// unchanged because the Persona Dashboard renders the same widget.
+function StandardsStackTab() {
   return (
-    <Container header={<Header variant="h2">Design Process</Header>}>
+    <Container header={<Header variant="h2">Design Systems & Standards</Header>}>
       <SpaceBetween size="l">
-        <Box variant="p">{UX_PROCESS_INTRO}</Box>
-        <UxProcessSummary />
+        <Box variant="p">{UX_STANDARDS_INTRO}</Box>
+        <UxStandardsStack />
         <Box variant="small" color="text-body-secondary">
-          {UX_PROCESS_CAPTION}
+          {UX_STANDARDS_CAPTION}
         </Box>
         <Divider />
-        {/* `variant="embedded"` because this table already sits inside a
-            Container — the site's no-container-in-container rule. */}
+        {/* `variant="embedded"` — already inside a Container, per the site's
+            no-container-in-container rule.
+            `wrapLines` is load-bearing, not cosmetic: Cloudscape's Table defaults
+            it to false, which clips any cell too long for its column rather than
+            wrapping it. The two longest rows here (02 and verify) lost the end of
+            their sentence in both themes without it.
+            Three columns, not four. A "Where a builder meets it" column was tried
+            and cut because it restates the diagram's right-hand column — the
+            diagram carries what each layer does, this table defines what it is. */}
         <Table
           variant="embedded"
-          header={<Header variant="h3">Stage detail</Header>}
-          items={UX_PROCESS_STAGES}
+          wrapLines
+          header={<Header variant="h3">Layer detail</Header>}
+          items={UX_STANDARDS_LAYERS}
           columnDefinitions={[
-            { id: 'stage', header: 'Stage', cell: (item) => item.stage, width: 100 },
-            { id: 'activity', header: 'Activity', cell: (item) => <Box variant="strong">{item.activity}</Box>, width: 230 },
-            { id: 'who', header: "Who's in the room", cell: (item) => item.who, width: 220 },
-            { id: 'movesOn', header: 'Moves on when', cell: (item) => item.movesOn },
+            { id: 'layer', header: 'Layer', cell: (item) => item.layer, width: 90 },
+            {
+              id: 'name',
+              header: 'What it is',
+              width: 200,
+              cell: (item) => (
+                <>
+                  <Box variant="strong" display="block">
+                    {item.name}
+                  </Box>
+                  <Box variant="small" color="text-body-secondary" display="block">
+                    {item.countLabel}
+                  </Box>
+                </>
+              ),
+            },
+            { id: 'decides', header: 'What it decides', cell: (item) => item.decides },
           ]}
         />
-        {/* Same shaded-container treatment the Persona Dashboard uses for its
-            lead paragraph: reads as commentary rather than as another panel of
-            content. Values are Cloudscape design tokens, never hand-picked. */}
-        <Container
-          style={{
-            root: {
-              background: colorBackgroundCellShaded,
-              borderColor: colorBorderDividerDefault,
-              borderRadius: borderRadiusContainer,
-              borderWidth: '1px',
-              boxShadow: 'none',
-            },
-          }}
-        >
-          <SpaceBetween size="s">
-            <Box variant="h4" padding="n">
-              {UX_PROCESS_NOTE.heading}
-            </Box>
-            {UX_PROCESS_NOTE.paragraphs.map((paragraph) => (
-              <Box variant="p" key={paragraph.slice(0, 40)}>
-                {paragraph}
-              </Box>
-            ))}
-          </SpaceBetween>
-        </Container>
+        <Divider />
+        <Widget widgetId="design-systems-standards" mode="expanded" />
       </SpaceBetween>
     </Container>
   );
@@ -87,16 +85,17 @@ function DesignProcessTab() {
 // project-list detail behind the pitch (content/data/designSystemsFull.ts) —
 // see WIDGET-TRACKER.md.
 //
-// Design Process (2026-08-16) is the one tab here that isn't a project — it's
-// how the work gets done rather than what was delivered. It sits on this page
-// because process and standards are the same conversation, and the About page's
-// Overview links straight to it.
+// Design Process was briefly a tab here (2026-08-16) and moved out to its own
+// page the same day — see pages/DesignProcessPage.tsx. It was the one tab that
+// wasn't a project, and David wanted it directly under Home rather than four
+// tabs deep. Every tab remaining on this page is a project.
 //
-// Tabs on this page are URL-addressable (`#/design-systems?tab=design-process`)
-// so that link can land on the right tab. Cloudscape Tabs are uncontrolled by
-// default and hold the active tab in component state alone, which no incoming
-// link can reach. This is the only page that needs it so far; generalize to the
-// other tabbed pages if a second link ever has to point at a specific tab.
+// Tabs here stay URL-addressable (`#/design-systems?tab=standards-reference`)
+// even though the link that needed it has gone with the Design Process tab.
+// Cloudscape Tabs are uncontrolled by default and hold the active tab in
+// component state alone, which no incoming link can reach; this restores the
+// ability to link at a specific tab, and is kept because the next such link is
+// more likely than not. Generalize to the other tabbed pages when one appears.
 export default function DesignSystemsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -104,16 +103,7 @@ export default function DesignSystemsPage() {
     {
       id: 'design-systems',
       label: 'Design Systems & Standards',
-      content: (
-        <Container header={<Header variant="h2">Design Systems & Standards</Header>}>
-          <Widget widgetId="design-systems-standards" mode="expanded" />
-        </Container>
-      ),
-    },
-    {
-      id: DESIGN_PROCESS_TAB_ID,
-      label: 'Design Process',
-      content: <DesignProcessTab />,
+      content: <StandardsStackTab />,
     },
     {
       id: 'standards-reference',

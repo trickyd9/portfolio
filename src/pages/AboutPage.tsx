@@ -28,7 +28,6 @@ import type { ArtworkPiece, AnimationPiece } from '../content/data/creativeWork'
 import { SKILL_CATEGORIES } from '../content/data/skills';
 import { EntryList } from '../components/EntrySection';
 import { ArtCategorySection, type Thumbnail } from '../components/ArtCategorySection';
-import { DESIGN_PROCESS_TAB_ID } from './DesignSystemsPage';
 import headshot from '../assets/david-headshot.jpg';
 
 const RESUME_PDF = `${import.meta.env.BASE_URL}David-Trick-Resume.pdf`;
@@ -151,11 +150,11 @@ function OverviewTab() {
               generating persona candidates, validating with field customers, and incorporating the results into
               shipped pages.
             </Box>
-            {/* Deep-links to the Design Process tab rather than the page's
-                default tab — see DESIGN_PROCESS_TAB_ID's declaration for why
-                that page's tabs are URL-addressable at all. Not `external`:
-                it's an in-app route, so it shouldn't get the new-tab icon. */}
-            <Link href={`#/design-systems?tab=${DESIGN_PROCESS_TAB_ID}`}>How my design process occurs</Link>
+            {/* Was a deep link into a Design Process tab on Design Systems &
+                Standards; that content moved to its own page 2026-08-16, so
+                this is a plain route now. Not `external`: it's an in-app
+                route, so it shouldn't get the new-tab icon. */}
+            <Link href="#/design-process">How my design process occurs</Link>
           </SpaceBetween>
         </div>
       </div>

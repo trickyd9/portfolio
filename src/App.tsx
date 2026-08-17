@@ -24,6 +24,7 @@ import CareerPersonaResearchPage from './pages/CareerPersonaResearchPage';
 import PersonaSummaryPage from './pages/PersonaSummaryPage';
 import PersonaDashboardPage, { PersonaDashboardNotice } from './pages/PersonaDashboardPage';
 import DesignSystemsPage from './pages/DesignSystemsPage';
+import DesignProcessPage from './pages/DesignProcessPage';
 import AiAugmentedBuildPage from './pages/AiAugmentedBuildPage';
 import { CAREER_PERSONA_RESEARCH, careerPersonaResearchPath } from './content/data/careerPersonaResearch';
 import { applyStoredSettings, useDisplaySettings } from './hooks/useDisplaySettings';
@@ -45,11 +46,15 @@ const BESPOKE_FULL_PAGES: Partial<Record<WidgetId, ComponentType>> = {
   'featured-projects': FeaturedProjectsPage,
   'persona-research-showcase': PersonaResearchPage,
   'design-systems-standards': DesignSystemsPage,
+  // The layered stack replaced the tabbed version at this same path (David,
+  // 2026-08-17). The URL is unchanged, so the widget card, the persona dashboard's
+  // detailPath, Featured Projects and every existing bookmark keep working.
   'ai-augmented-build': AiAugmentedBuildPage,
 };
 
 const CAREER_PERSONA_RESEARCH_PATH = '/career-persona-research';
 const PERSONA_DASHBOARD_PATH = '/persona-dashboard';
+const DESIGN_PROCESS_PATH = '/design-process';
 
 // Non-widget pages (no dashboard card behind them, so not in
 // widgetsWithFullPages()) still need friendly breadcrumb/search titles —
@@ -57,6 +62,7 @@ const PERSONA_DASHBOARD_PATH = '/persona-dashboard';
 const STANDALONE_PAGE_TITLES: Record<string, string> = {
   [CAREER_PERSONA_RESEARCH_PATH]: 'Career Persona Research',
   [PERSONA_DASHBOARD_PATH]: 'Persona Dashboard',
+  [DESIGN_PROCESS_PATH]: 'Design Process',
   // Just the persona's name: the breadcrumb trail already supplies the context
   // ("Home › Career Persona Research › Hiring Manager"), and "wrap sheet"
   // is internal research jargon that shouldn't reach a visitor — see the voice
@@ -86,6 +92,10 @@ const navItems: SideNavigationProps.Item[] = [
   // also what the side nav's "David Trick" header links to — so in the menu it
   // reads as "Home" (David, 2026-08-12); "About Me" stays the page's own title.
   { type: 'link', text: 'Home', href: WIDGETS['about-me'].fullPagePath! },
+  // Directly under Home, above Projects (David, 2026-08-16). It's a top-level
+  // link rather than a member of a section because it isn't a project — it's
+  // how the work gets done, which is what a hiring manager reads first.
+  { type: 'link', text: 'Design Process', href: DESIGN_PROCESS_PATH },
   {
     type: 'section',
     text: 'Projects',
@@ -272,6 +282,7 @@ function AppShell() {
         content={
           <Routes>
             <Route path={PERSONA_DASHBOARD_PATH} element={<PersonaDashboardPage />} />
+            <Route path={DESIGN_PROCESS_PATH} element={<DesignProcessPage />} />
             <Route path={CAREER_PERSONA_RESEARCH_PATH} element={<CareerPersonaResearchPage />} />
             <Route path={`${CAREER_PERSONA_RESEARCH_PATH}/:personaId`} element={<PersonaSummaryPage />} />
             {/* Anything unrecognised goes home rather than rendering an empty

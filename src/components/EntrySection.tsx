@@ -7,11 +7,16 @@ import Box from '@cloudscape-design/components/box';
 import Link from '@cloudscape-design/components/link';
 import type { Entry, EntrySection } from '../content/data/entry';
 
-export function BulletList({ items }: { items: string[] }) {
+// `items` is ReactNode rather than string so a caller can emphasize part of a
+// bullet (AiBuildStackPage does) without every list on the site growing its own
+// <ul>. Plain strings still work unchanged, which is what every other caller
+// passes. Keyed by index because a node isn't a usable key and these lists are
+// static — nothing reorders, inserts, or removes.
+export function BulletList({ items }: { items: ReactNode[] }) {
   return (
     <ul style={{ margin: '8px 0', paddingLeft: '20px' }}>
-      {items.map((item) => (
-        <li key={item}>
+      {items.map((item, index) => (
+        <li key={index}>
           <Box variant="p">{item}</Box>
         </li>
       ))}

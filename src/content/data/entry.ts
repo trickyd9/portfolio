@@ -10,6 +10,22 @@ export interface EntrySection {
   bullets?: string[];
 }
 
+// A project named on a diagram, opened as a popover rather than laid out in
+// full. `blurb` is deliberately one short paragraph: the full write-up lives in
+// the tab or page named by `fullDetailIn`, and the popover points there instead
+// of carrying a second copy that could drift from it.
+//
+// Shared by the AI-Augmented Build and AWS Persona pages, which render it
+// through components/ProjectPopover.tsx.
+export interface PopoverProject {
+  id: string;
+  title: string;
+  period: string;
+  blurb: string;
+  /** Where the full text lives, e.g. "Agents & Auditing tab". */
+  fullDetailIn: string;
+}
+
 export interface Entry {
   id: string;
   title: string;

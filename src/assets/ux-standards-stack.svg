@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ux-standards-stack" viewBox="0 0 1000 1076"
+     role="img" aria-label="The UX standards stack and its effect on building a feature. Left column, what was authored, synthesized from six source documents: a base layer of Cloudscape, AWS's open-source design system, which the standards extend rather than replace; layer one, fifteen design tenets, the philosophy; layer two, nineteen standard tenets, the rules by domain; layer three, seventeen component specs, the implementation across all page types; and a verification layer, schema version 2.5.1, one hundred and three machine-checkable rules across thirteen page types with fifteen documented exceptions. Right column, what each layer does when a feature is built: the design tenets become the argument cited in design debates; the standard tenets become rules already decided before the feature starts; the component specs make a new page start compliant; the audit rules become the check at code review, audit, and eventually CI. Traceability runs both ways: every component rule resolves up to a design tenet and every audit finding cites the tenet it violates. Three supporting notes cover distribution through a single wiki entry point, cross-organization terminology alignment, and the UX roadmap.">
+  <style>
+    #ux-standards-stack {
+      --surface: #FFFFFF; --ink: #0F1A20; --ink-2: #46565F; --ink-3: #7B8B94;
+      --accent: #0B6B75; --accent-soft: #E0EEEF;
+    }
+    @media (prefers-color-scheme: dark) {
+      #ux-standards-stack {
+        --surface: #141D22; --ink: #E4ECEF; --ink-2: #93A4AD; --ink-3: #6C7C85;
+        --accent: #4FC3CE; --accent-soft: #102A2E;
+      }
+    }
+    #ux-standards-stack .card  { fill: var(--surface); stroke: var(--ink); stroke-width: 1.4; }
+    #ux-standards-stack .cardl { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.4; }
+    #ux-standards-stack .cardg { fill: none; stroke: var(--ink-3); stroke-width: 1.2; stroke-dasharray: 5 4; }
+    #ux-standards-stack .pen   { stroke: var(--ink); stroke-width: 1.4; fill: none; }
+    #ux-standards-stack .pena  { stroke: var(--accent); stroke-width: 1.4; fill: none; }
+    #ux-standards-stack .hair  { stroke: var(--ink-3); stroke-width: 1; fill: none; }
+    #ux-standards-stack .ah    { fill: var(--ink); }
+    #ux-standards-stack .aha   { fill: var(--accent); }
+    #ux-standards-stack .n  { font-family: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace; font-size: 10.5px; letter-spacing: .12em; fill: var(--accent); }
+    #ux-standards-stack .ng { font-family: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace; font-size: 10.5px; letter-spacing: .12em; fill: var(--ink-3); }
+    #ux-standards-stack .hh { font-family: "Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 15px; font-weight: 600; letter-spacing: .16em; fill: var(--ink); }
+    #ux-standards-stack .h  { font-family: "Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 14px; font-weight: 600; letter-spacing: .13em; fill: var(--ink); }
+    #ux-standards-stack .hg { font-family: "Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 14px; font-weight: 600; letter-spacing: .13em; fill: var(--ink-3); }
+    #ux-standards-stack .d  { font-family: "Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 11.5px; fill: var(--ink-2); }
+    #ux-standards-stack .ds { font-family: "Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 11px; fill: var(--ink-2); }
+    #ux-standards-stack .e  { font-family: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace; font-size: 10.5px; letter-spacing: .04em; fill: var(--accent); }
+  </style>
+
+  <defs>
+    <marker id="k-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <polygon class="ah" points="0,0.5 10,5 0,9.5" />
+    </marker>
+    <marker id="k-aha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <polygon class="aha" points="0,0.5 10,5 0,9.5" />
+    </marker>
+  </defs>
+
+  <!-- ================= COLUMN HEADERS ================= -->
+  <text class="hh" x="16" y="30">WHAT I AUTHORED</text>
+  <text class="e"  x="16" y="50">synthesized from 6 source documents &#183; single source of truth</text>
+  <line class="hair" x1="16" y1="60" x2="452" y2="60" />
+
+  <text class="hh" x="548" y="30">WHAT IT DOES TO A FEATURE</text>
+  <text class="e"  x="548" y="50">one consequence per layer, at the point it applies</text>
+  <line class="hair" x1="548" y1="60" x2="984" y2="60" />
+
+  <!-- ================= BASE LAYER ================= -->
+  <rect class="cardg" x="16" y="72" width="436" height="108" rx="2" />
+  <text class="ng" x="34" y="98">BASE &#183; NOT MINE</text>
+  <text class="hg" x="34" y="122">CLOUDSCAPE</text>
+  <text class="d"  x="34" y="146">AWS&#8217;s open-source design system. The standards</text>
+  <text class="d"  x="34" y="163">extend an established library rather than replace it.</text>
+
+  <text class="ng" x="548" y="122">the only layer here I didn&#8217;t write</text>
+
+  <line class="pen" x1="234" y1="183" x2="234" y2="196" marker-end="url(#k-ah)" />
+
+  <!-- ================= LAYER 1 ================= -->
+  <rect class="card" x="16" y="202" width="436" height="124" rx="2" />
+  <text class="n" x="34" y="228">LAYER 01 &#183; PHILOSOPHY</text>
+  <text class="h" x="34" y="252">15 DESIGN TENETS</text>
+  <text class="d" x="34" y="276">Why the platform behaves the way it does.</text>
+  <text class="d" x="34" y="293">Start from the job &#183; The system knows you</text>
+  <text class="d" x="34" y="310">Filter, don&#8217;t flood &#183; Progressive disclosure</text>
+
+  <line class="pena" x1="456" y1="264" x2="542" y2="264" marker-end="url(#k-aha)" />
+
+  <rect class="card" x="548" y="202" width="436" height="124" rx="2" />
+  <text class="n" x="566" y="228">WHEN A DECISION IS CONTESTED</text>
+  <text class="h" x="566" y="252">THE ARGUMENT</text>
+  <text class="d" x="566" y="276">Design debates cite a tenet instead of an opinion,</text>
+  <text class="d" x="566" y="293">and every rule below can name the tenet it serves.</text>
+  <text class="d" x="566" y="310">The philosophy is what gets appealed to, not taste.</text>
+
+  <line class="pen" x1="234" y1="329" x2="234" y2="342" marker-end="url(#k-ah)" />
+
+  <!-- ================= LAYER 2 ================= -->
+  <rect class="card" x="16" y="348" width="436" height="124" rx="2" />
+  <text class="n" x="34" y="374">LAYER 02 &#183; RULES</text>
+  <text class="h" x="34" y="398">19 STANDARD TENETS</text>
+  <text class="d" x="34" y="422">What that philosophy requires, by domain.</text>
+  <text class="d" x="34" y="439">Navigation &#183; Visual language &#183; Data states</text>
+  <text class="d" x="34" y="456">Writing &#183; Permissions &#183; Data viz &#183; Architecture</text>
+
+  <line class="pena" x1="456" y1="410" x2="542" y2="410" marker-end="url(#k-aha)" />
+
+  <rect class="card" x="548" y="348" width="436" height="124" rx="2" />
+  <text class="n" x="566" y="374">BEFORE THE FEATURE STARTS</text>
+  <text class="h" x="566" y="398">THE RULE, ALREADY SETTLED</text>
+  <text class="d" x="566" y="422">Navigation, data states, writing, permissions and</text>
+  <text class="d" x="566" y="439">data viz are decided once, not renegotiated per</text>
+  <text class="d" x="566" y="456">feature. Terminology settled across 4 orgs.</text>
+
+  <line class="pen" x1="234" y1="475" x2="234" y2="488" marker-end="url(#k-ah)" />
+
+  <!-- ================= LAYER 3 ================= -->
+  <rect class="card" x="16" y="494" width="436" height="108" rx="2" />
+  <text class="n" x="34" y="520">LAYER 03 &#183; IMPLEMENTATION</text>
+  <text class="h" x="34" y="544">17 COMPONENT SPECS</text>
+  <text class="d" x="34" y="568">What to actually build, across all page types &#8212;</text>
+  <text class="d" x="34" y="585">required and forbidden components for each.</text>
+
+  <line class="pena" x1="456" y1="548" x2="542" y2="548" marker-end="url(#k-aha)" />
+
+  <rect class="card" x="548" y="494" width="436" height="108" rx="2" />
+  <text class="n" x="566" y="520">WHILE IT&#8217;S BUILT</text>
+  <text class="h" x="566" y="544">A COMPLIANT STARTING POINT</text>
+  <text class="d" x="566" y="568">The page type resolves to a component set, so a</text>
+  <text class="d" x="566" y="585">new page starts compliant instead of being fixed.</text>
+
+  <line class="pen" x1="234" y1="605" x2="234" y2="618" marker-end="url(#k-ah)" />
+
+  <!-- ================= VERIFICATION LAYER ================= -->
+  <rect class="cardl" x="16" y="624" width="436" height="141" rx="2" />
+  <text class="n" x="34" y="650">VERIFICATION &#183; SCHEMA v2.5.1</text>
+  <text class="h" x="34" y="674">103 MACHINE-CHECKABLE RULES</text>
+  <text class="d" x="34" y="698">31 high &#183; 48 medium &#183; 18 low &#183; 6 advisory</text>
+  <text class="d" x="34" y="715">13 page types &#183; 15 documented exceptions</text>
+  <text class="d" x="34" y="732">Every rule traceable to a specific design tenet.</text>
+
+  <line class="pena" x1="456" y1="695" x2="542" y2="695" marker-end="url(#k-aha)" />
+
+  <rect class="cardl" x="548" y="624" width="436" height="141" rx="2" />
+  <text class="n" x="566" y="650">BEFORE IT SHIPS</text>
+  <text class="h" x="566" y="674">THE CHECK</text>
+  <text class="d" x="566" y="698">Code review: design-system compliance, accessibility</text>
+  <text class="d" x="566" y="715">and persona impact, as the team&#8217;s UI/UX approver.</text>
+  <text class="d" x="566" y="732">Full platform coverage &#8212; all 42 pages audited.</text>
+  <text class="d" x="566" y="749">6 rules recommended for CI enforcement (pending).</text>
+
+  <!-- ================= TRACEABILITY STRIP ================= -->
+  <rect class="cardl" x="16" y="797" width="968" height="76" rx="2" />
+  <text class="n" x="34" y="821">TRACEABILITY &#8212; BOTH DIRECTIONS</text>
+  <text class="d" x="34" y="843">Every component rule resolves upward to a design tenet; every audit finding cites the tenet it violates.</text>
+  <text class="d" x="34" y="860">That is what makes it a stack rather than four separate documents.</text>
+
+  <!-- ================= SUPPORTING NOTES ================= -->
+  <rect class="card" x="16" y="901" width="309" height="150" rx="2" />
+  <text class="n"  x="34" y="925">DISTRIBUTION</text>
+  <text class="h"  x="34" y="947">ONE ENTRY POINT</text>
+  <text class="ds" x="34" y="969">Built a standalone UX standards site in</text>
+  <text class="ds" x="34" y="985">React/Cloudscape — the platform&#8217;s first, and</text>
+  <text class="ds" x="34" y="1001">the sandbox for persona dashboards. Its</text>
+  <text class="ds" x="34" y="1017">content now lives in the wiki: one place to</text>
+  <text class="ds" x="34" y="1033">maintain, no separate app to own.</text>
+
+  <rect class="card" x="345" y="901" width="310" height="150" rx="2" />
+  <text class="n"  x="363" y="925">ALIGNMENT</text>
+  <text class="h"  x="363" y="947">SHARED VOCABULARY</text>
+  <text class="ds" x="363" y="969">Led terminology standardization across</text>
+  <text class="ds" x="363" y="985">4 organizations; 6 naming decisions</text>
+  <text class="ds" x="363" y="1001">adopted platform-wide, plus a repeatable</text>
+  <text class="ds" x="363" y="1017">process for the next naming question.</text>
+
+  <rect class="card" x="675" y="901" width="309" height="150" rx="2" />
+  <text class="n"  x="693" y="925">DIRECTION</text>
+  <text class="h"  x="693" y="947">THE ROADMAP</text>
+  <text class="ds" x="693" y="969">Defined the complete UX roadmap —</text>
+  <text class="ds" x="693" y="985">5 workstreams, 19 epics — and presented</text>
+  <text class="ds" x="693" y="1001">it to leadership, securing Q2 direction</text>
+  <text class="ds" x="693" y="1017">with persona-driven design as the</text>
+  <text class="ds" x="693" y="1033">execution focus.</text>
+</svg>

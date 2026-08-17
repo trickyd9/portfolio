@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ai-stack-full" viewBox="0 0 1000 1190"
+     role="img" aria-label="Six-layer stack for AI-augmented design-to-build, read bottom to top. Layer zero, foundation: Cloudscape, AWS's open-source design system, extended rather than replaced, carrying fifteen design tenets, nineteen standard tenets, and seventeen component specs. Layer one, schema: audit schema version 2.5.1 with 103 machine-checkable rules across 13 page types and 15 documented exceptions, split 31 high, 48 medium, 18 low, and 6 advisory; every rule traces to a design tenet. All 42 platform pages were audited, then re-audited, producing about 112 findings across 28 pages with 14 pages clean. Layer two, context: nineteen context files encode the standards, schema, and page-type taxonomy for the agents to load at run time, alongside a written companion for AI mockup tools outside the package. Layer three, capabilities: sixteen skills, one agent, and three service operating procedures, built on Kiro, AWS's agentic IDE, totalling 39 validated team-approved capabilities including the audit skill and the unified page generator. Layer four, modes: the same capability set runs interactive and persona-aware for local development, or deterministic in the CI pipeline. Layer five, enforcement: standards violations affect code reviews while persona feedback ships as non-blocking advisory cards, with six rules recommended for promotion to CI enforcement, pending. Two channels run the full height: on the left, every finding traces down to a design tenet; on the right, each layer is generated from the one below it. Below the stack sit three adjacent systems on the same agent substrate but outside the audit path: sprint management, design activity detection, and the Figma Make to React pipeline.">
+  <style>
+    #ai-stack-full {
+      --surface: #FFFFFF; --ink: #0F1A20; --ink-2: #46565F; --ink-3: #7B8B94;
+      --accent: #0B6B75; --accent-soft: #E0EEEF;
+    }
+    @media (prefers-color-scheme: dark) {
+      #ai-stack-full {
+        --surface: #141D22; --ink: #E4ECEF; --ink-2: #93A4AD; --ink-3: #6C7C85;
+        --accent: #4FC3CE; --accent-soft: #102A2E;
+      }
+    }
+    #ai-stack-full .band  { fill: var(--surface); stroke: var(--ink); stroke-width: 1.4; }
+    #ai-stack-full .bandl { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.4; }
+    #ai-stack-full .bandg { fill: none; stroke: var(--ink-3); stroke-width: 1.2; stroke-dasharray: 5 4; }
+    #ai-stack-full .sub   { fill: var(--surface); stroke: var(--ink-2); stroke-width: 1.2; }
+    #ai-stack-full .adj   { fill: var(--surface); stroke: var(--ink-2); stroke-width: 1.2; stroke-dasharray: 4 3; }
+    #ai-stack-full .pen   { stroke: var(--ink); stroke-width: 1.4; fill: none; stroke-linejoin: round; }
+    #ai-stack-full .pena  { stroke: var(--accent); stroke-width: 1.4; fill: none; stroke-linejoin: round; }
+    #ai-stack-full .rule  { stroke: var(--ink-2); stroke-width: 1; opacity: .5; }
+    #ai-stack-full .ah    { fill: var(--ink); }
+    #ai-stack-full .aha   { fill: var(--accent); }
+    #ai-stack-full .n   { font-family: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace; font-size: 10.5px; letter-spacing: .12em; fill: var(--accent); }
+    #ai-stack-full .ng  { font-family: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace; font-size: 10.5px; letter-spacing: .12em; fill: var(--ink-3); }
+    #ai-stack-full .t   { font-family: "Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 15px; font-weight: 600; letter-spacing: .13em; fill: var(--ink); }
+    #ai-stack-full .tg  { font-family: "Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 15px; font-weight: 600; letter-spacing: .13em; fill: var(--ink-3); }
+    #ai-stack-full .st  { font-family: "Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 14px; font-weight: 600; fill: var(--ink); }
+    #ai-stack-full .d   { font-family: "Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 12.5px; fill: var(--ink-2); }
+    #ai-stack-full .ds  { font-family: "Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 11.5px; fill: var(--ink-2); }
+    #ai-stack-full .e   { font-family: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace; font-size: 10.5px; letter-spacing: .04em; fill: var(--ink-2); }
+    #ai-stack-full .r   { font-family: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace; font-size: 10.5px; letter-spacing: .05em; fill: var(--accent); }
+    #ai-stack-full .g   { font-family: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace; font-size: 10.5px; letter-spacing: .13em; fill: var(--accent); }
+    #ai-stack-full .num { font-family: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace; font-size: 26px; fill: var(--accent); }
+    #ai-stack-full .lab { font-family: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace; font-size: 9.5px; letter-spacing: .11em; fill: var(--ink-2); }
+  </style>
+
+  <defs>
+    <marker id="af-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <polygon class="ah" points="0,0.5 10,5 0,9.5" />
+    </marker>
+    <marker id="af-aha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <polygon class="aha" points="0,0.5 10,5 0,9.5" />
+    </marker>
+  </defs>
+
+  <!-- ===== left channel: traceability, reads downward ===== -->
+  <line class="pena" x1="64" y1="52" x2="64" y2="918" marker-end="url(#af-aha)" />
+  <text class="r" x="40" y="485" text-anchor="middle"
+        transform="rotate(-90 40 485)">every finding traces down to a design tenet</text>
+
+  <!-- ===== right channel: generation, reads upward ===== -->
+  <line class="pen" x1="936" y1="918" x2="936" y2="52" marker-end="url(#af-ah)" />
+  <text class="e" x="962" y="485" text-anchor="middle"
+        transform="rotate(-90 962 485)">each layer is generated from the one below</text>
+
+  <!-- ===== LAYER 05 — ENFORCEMENT ===== -->
+  <rect class="band" x="96" y="40" width="808" height="130" rx="2" />
+  <text class="n" x="120" y="72">LAYER 05</text>
+  <text class="t" x="120" y="98">ENFORCEMENT</text>
+  <text class="e" x="120" y="120">WHERE IT LANDS</text>
+  <text class="d" x="372" y="74">Standards violations now affect code reviews — a failing rule is</text>
+  <text class="d" x="372" y="94">feedback the review has to answer. Persona feedback ships as</text>
+  <text class="d" x="372" y="114">non-blocking advisory cards, informing the build without gating it.</text>
+  <text class="r" x="372" y="146">6 RULES RECOMMENDED FOR PROMOTION TO CI ENFORCEMENT &#183; PENDING</text>
+
+  <!-- ===== LAYER 04 — MODES ===== -->
+  <rect class="band" x="96" y="184" width="808" height="130" rx="2" />
+  <text class="n" x="120" y="216">LAYER 04</text>
+  <text class="t" x="120" y="242">RUN MODES</text>
+  <text class="e" x="120" y="264">ONE CAPABILITY SET</text>
+
+  <rect class="sub" x="372" y="204" width="252" height="90" rx="2" />
+  <text class="st" x="390" y="232">Interactive + persona-aware</text>
+  <text class="ds" x="390" y="256">Local development. Clarifies intent,</text>
+  <text class="ds" x="390" y="274">surfaces persona impact as it builds.</text>
+
+  <rect class="sub" x="632" y="204" width="252" height="90" rx="2" />
+  <text class="st" x="650" y="232">Deterministic</text>
+  <text class="ds" x="650" y="256">CI pipeline. Same rules, no dialogue,</text>
+  <text class="ds" x="650" y="274">so the result is reproducible.</text>
+
+  <!-- ===== LAYER 03 — CAPABILITIES ===== -->
+  <rect class="bandl" x="96" y="328" width="808" height="150" rx="2" />
+  <text class="n" x="120" y="360">LAYER 03</text>
+  <text class="t" x="120" y="386">CAPABILITIES</text>
+  <text class="e" x="120" y="408">THE PACKAGE</text>
+
+  <text class="num" x="372" y="372">16</text>
+  <text class="lab" x="372" y="390">SKILLS</text>
+  <text class="num" x="486" y="372">1</text>
+  <text class="lab" x="486" y="390">AGENT</text>
+  <text class="num" x="600" y="372">3</text>
+  <text class="lab" x="600" y="390">SOPS</text>
+  <text class="num" x="714" y="372">19</text>
+  <text class="lab" x="714" y="390">CONTEXT FILES</text>
+
+  <text class="d" x="372" y="422">The audit skill runs an on-demand UX review during development.</text>
+  <text class="d" x="372" y="442">The page generator turns a natural-language description into a</text>
+  <text class="d" x="372" y="462">standards-compliant shell that passes the schema on its first run.</text>
+
+  <!-- ===== LAYER 02 — CONTEXT ===== -->
+  <rect class="band" x="96" y="492" width="808" height="120" rx="2" />
+  <text class="n" x="120" y="524">LAYER 02</text>
+  <text class="t" x="120" y="550">CONTEXT</text>
+  <text class="e" x="120" y="572">WHAT THE AGENTS READ</text>
+  <text class="d" x="372" y="520">Nineteen context files encode the standards, the audit schema, and</text>
+  <text class="d" x="372" y="540">the page-type taxonomy in the form the agents load at run time. A</text>
+  <text class="d" x="372" y="560">written companion &#8212; &#8220;How to Make a Platform Page&#8221; &#8212; carries the</text>
+  <text class="d" x="372" y="580">same rules to AI mockup tools and assistants outside the package.</text>
+  <text class="e" x="372" y="600">COUNTED WITHIN THE 39 ABOVE</text>
+
+  <!-- ===== LAYER 01 — SCHEMA ===== -->
+  <rect class="bandl" x="96" y="626" width="808" height="160" rx="2" />
+  <text class="n" x="120" y="658">LAYER 01</text>
+  <text class="t" x="120" y="684">AUDIT SCHEMA</text>
+  <text class="e" x="120" y="706">THE CONTRACT</text>
+
+  <text class="num" x="372" y="670">103</text>
+  <text class="lab" x="372" y="688">MACHINE-CHECKABLE RULES</text>
+  <text class="num" x="600" y="670">13</text>
+  <text class="lab" x="600" y="688">PAGE TYPES</text>
+  <text class="num" x="714" y="670">15</text>
+  <text class="lab" x="714" y="688">EXCEPTIONS</text>
+
+  <text class="r" x="372" y="714">31 HIGH &#183; 48 MEDIUM &#183; 18 LOW &#183; 6 ADVISORY</text>
+  <text class="d" x="372" y="740">Schema v2.5.1. Every rule traces to a specific design tenet, so a</text>
+  <text class="d" x="372" y="760">finding is never just a preference.</text>
+  <text class="e" x="372" y="778">42 PAGES AUDITED AND RE-AUDITED &#8212; ~112 FINDINGS / 28 PAGES / 14 CLEAN</text>
+
+  <!-- ===== LAYER 00 — FOUNDATION ===== -->
+  <rect class="bandg" x="96" y="800" width="808" height="130" rx="2" />
+  <text class="ng" x="120" y="832">LAYER 00</text>
+  <text class="tg" x="120" y="858">FOUNDATION</text>
+  <text class="e" x="120" y="880">INHERITED</text>
+  <text class="d" x="372" y="830">Cloudscape, AWS&#8217;s open-source design system, extended rather than</text>
+  <text class="d" x="372" y="850">replaced &#8212; the platform&#8217;s rules sit on an established library.</text>
+  <text class="e" x="372" y="882">15 DESIGN TENETS &#8594; 19 STANDARD TENETS &#8594; 17 COMPONENT SPECS</text>
+  <text class="ng" x="372" y="906">AUTHORED SEPARATELY &#8212; DETAILED IN THE UX STANDARDS STACK</text>
+
+  <!-- ===== adjacent systems ===== -->
+  <line class="rule" x1="96" y1="974" x2="904" y2="974" />
+  <text class="g" x="96" y="1000">ADJACENT &#8212; SAME AGENT SUBSTRATE, OUTSIDE THE AUDIT PATH</text>
+
+  <rect class="adj" x="96" y="1016" width="260" height="110" rx="2" />
+  <text class="st" x="114" y="1044">Sprint management</text>
+  <text class="ds" x="114" y="1068">Agents run the boards, create punt</text>
+  <text class="ds" x="114" y="1086">clones, and track velocity. A human</text>
+  <text class="ds" x="114" y="1104">confirms agent-written comments.</text>
+
+  <rect class="adj" x="370" y="1016" width="260" height="110" rx="2" />
+  <text class="st" x="388" y="1044">Design activity detection</text>
+  <text class="ds" x="388" y="1068">Auto-discovers AI-generated design</text>
+  <text class="ds" x="388" y="1086">files across 17 scanned projects;</text>
+  <text class="ds" x="388" y="1104">manual registration eliminated.</text>
+
+  <rect class="adj" x="644" y="1016" width="260" height="110" rx="2" />
+  <text class="st" x="662" y="1044">Figma Make &#8594; React</text>
+  <text class="ds" x="662" y="1068">6 AI-generated mockups became 4</text>
+  <text class="ds" x="662" y="1086">interactive persona dashboards &#8212;</text>
+  <text class="ds" x="662" y="1104">exploration straight to prototype.</text>
+
+  <text class="e" x="96" y="1160">PREDECESSOR &#8212; THE ORIGINAL PAGE-AUDITING AGENT ESTABLISHED THE AUDIT-AS-CI PATTERN THIS PACKAGE EXTENDS</text>
+</svg>

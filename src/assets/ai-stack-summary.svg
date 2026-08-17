@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ai-stack-summary" viewBox="0 0 1000 356"
+     role="img" aria-label="The AI-augmented design-to-build stack in six layers, read bottom to top. Layer zero, foundation, inherited and authored separately: Cloudscape plus fifteen design tenets, nineteen standard tenets, and seventeen component specs. Layer one, audit schema version 2.5.1: 103 machine-checkable rules across 13 page types with 15 exceptions. Layer two, context: nineteen context files carry the standards, schema, and page-type taxonomy to the agents. Layer three, capabilities: sixteen skills, one agent, and three SOPs, totalling 39 validated capabilities built on Kiro. Layer four, run modes: interactive and persona-aware for local development, deterministic in CI. Layer five, enforcement: violations affect code reviews while persona feedback ships as non-blocking advisory cards. Every finding traces down to a design tenet, and each layer is generated from the one below.">
+  <style>
+    #ai-stack-summary {
+      --surface: #FFFFFF; --ink: #0F1A20; --ink-2: #46565F; --ink-3: #7B8B94;
+      --accent: #0B6B75; --accent-soft: #E0EEEF;
+    }
+    @media (prefers-color-scheme: dark) {
+      #ai-stack-summary {
+        --surface: #141D22; --ink: #E4ECEF; --ink-2: #93A4AD; --ink-3: #6C7C85;
+        --accent: #4FC3CE; --accent-soft: #102A2E;
+      }
+    }
+    #ai-stack-summary .band  { fill: var(--surface); stroke: var(--ink); stroke-width: 1.4; }
+    #ai-stack-summary .bandl { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.4; }
+    #ai-stack-summary .bandg { fill: none; stroke: var(--ink-3); stroke-width: 1.2; stroke-dasharray: 5 4; }
+    #ai-stack-summary .n  { font-family: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace; font-size: 10.5px; letter-spacing: .12em; fill: var(--accent); }
+    #ai-stack-summary .ng { font-family: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace; font-size: 10.5px; letter-spacing: .12em; fill: var(--ink-3); }
+    #ai-stack-summary .h  { font-family: "Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 13px; font-weight: 600; letter-spacing: .13em; fill: var(--ink); }
+    #ai-stack-summary .hg { font-family: "Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 13px; font-weight: 600; letter-spacing: .13em; fill: var(--ink-3); }
+    #ai-stack-summary .d  { font-family: "Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 12.5px; fill: var(--ink-2); }
+    #ai-stack-summary .e  { font-family: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace; font-size: 10.5px; letter-spacing: .04em; fill: var(--accent); }
+  </style>
+
+  <!-- 05 ENFORCEMENT -->
+  <rect class="band" x="16" y="16" width="968" height="44" rx="2" />
+  <text class="n" x="34" y="43">05</text>
+  <text class="h" x="110" y="43">ENFORCEMENT</text>
+  <text class="d" x="330" y="43">Violations affect code reviews &#183; persona feedback ships as non-blocking advisory cards</text>
+
+  <!-- 04 RUN MODES -->
+  <rect class="band" x="16" y="68" width="968" height="44" rx="2" />
+  <text class="n" x="34" y="95">04</text>
+  <text class="h" x="110" y="95">RUN MODES</text>
+  <text class="d" x="330" y="95">Interactive + persona-aware for local development &#183; deterministic in the CI pipeline</text>
+
+  <!-- 03 CAPABILITIES -->
+  <rect class="bandl" x="16" y="120" width="968" height="44" rx="2" />
+  <text class="n" x="34" y="147">03</text>
+  <text class="h" x="110" y="147">CAPABILITIES</text>
+  <text class="d" x="330" y="147">16 skills &#183; 1 agent &#183; 3 SOPs &#8212; 39 validated capabilities, team-approved, built on Kiro</text>
+
+  <!-- 02 CONTEXT -->
+  <rect class="band" x="16" y="172" width="968" height="44" rx="2" />
+  <text class="n" x="34" y="199">02</text>
+  <text class="h" x="110" y="199">CONTEXT</text>
+  <text class="d" x="330" y="199">19 context files carry the standards, the schema, and the page-type taxonomy</text>
+
+  <!-- 01 AUDIT SCHEMA -->
+  <rect class="bandl" x="16" y="224" width="968" height="44" rx="2" />
+  <text class="n" x="34" y="251">01</text>
+  <text class="h" x="110" y="251">AUDIT SCHEMA</text>
+  <text class="d" x="330" y="251">v2.5.1 &#183; 103 machine-checkable rules &#183; 13 page types &#183; 15 documented exceptions</text>
+
+  <!-- 00 FOUNDATION -->
+  <rect class="bandg" x="16" y="276" width="968" height="44" rx="2" />
+  <text class="ng" x="34" y="303">00</text>
+  <text class="hg" x="110" y="303">FOUNDATION</text>
+  <text class="d" x="330" y="303">Cloudscape + 15 design tenets &#8594; 19 standard tenets &#8594; 17 component specs</text>
+
+  <text class="e" x="16" y="344">EVERY FINDING TRACES DOWN TO A DESIGN TENET &#183; EACH LAYER IS GENERATED FROM THE ONE BELOW</text>
+</svg>

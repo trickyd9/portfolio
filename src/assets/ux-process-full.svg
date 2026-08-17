@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ux-process-full" viewBox="0 0 1000 1770"
+     role="img" aria-label="Ten-stage UX process reading top to bottom, with three loops. Feature requests arrive from two sources: a team with data to publish, and a customer requesting data. Both converge on stage one, project intake, which is where new projects enter. Stage two aligns the feature creation team with customer requirements and requests user stories. Stage three collects user stories directly from users. Stage four is a tight loop between scoping and phasing with the feature creation team and creating mockups for the design document. Stage five finalizes the design document. Stages six through nine form a delivery cycle that turns once per phase: build the phase increment, run user acceptance testing while showing the phased rollout to come, build and update against the findings, and release the phase, then return to stage six. Stage ten maintains the product and solicits feedback on roughly a six-month cadence, returning to stage six for the same project rather than to intake.">
+  <style>
+    #ux-process-full {
+      --surface: #FFFFFF; --ink: #0F1A20; --ink-2: #46565F;
+      --accent: #0B6B75; --accent-soft: #E0EEEF;
+    }
+    @media (prefers-color-scheme: dark) {
+      #ux-process-full {
+        --surface: #141D22; --ink: #E4ECEF; --ink-2: #93A4AD;
+        --accent: #4FC3CE; --accent-soft: #102A2E;
+      }
+    }
+    #ux-process-full .node  { fill: var(--surface); stroke: var(--ink); stroke-width: 1.4; }
+    #ux-process-full .nodel { fill: var(--surface); stroke: var(--accent); stroke-width: 1.4; }
+    #ux-process-full .src   { fill: var(--surface); stroke: var(--ink-2); stroke-width: 1.2; stroke-dasharray: 4 3; }
+    #ux-process-full .pen   { stroke: var(--ink); stroke-width: 1.4; fill: none; stroke-linejoin: round; }
+    #ux-process-full .pena  { stroke: var(--accent); stroke-width: 1.4; fill: none; stroke-linejoin: round; }
+    #ux-process-full .penm  { stroke: var(--ink-2); stroke-width: 1.2; fill: none; stroke-linejoin: round; }
+    #ux-process-full .enc   { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1; stroke-dasharray: 5 4; }
+    #ux-process-full .axis  { stroke: var(--ink-2); stroke-width: 1; stroke-dasharray: 2 6; opacity: .35; }
+    #ux-process-full .ah    { fill: var(--ink); }
+    #ux-process-full .aha   { fill: var(--accent); }
+    #ux-process-full .ahm   { fill: var(--ink-2); }
+    #ux-process-full .n  { font-family: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace; font-size: 10.5px; letter-spacing: .12em; fill: var(--accent); }
+    #ux-process-full .t  { font-family: "Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 15px; font-weight: 600; letter-spacing: -.005em; fill: var(--ink); }
+    #ux-process-full .d  { font-family: "Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 12.5px; fill: var(--ink-2); }
+    #ux-process-full .e  { font-family: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace; font-size: 10.5px; letter-spacing: .04em; fill: var(--ink-2); }
+    #ux-process-full .g  { font-family: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace; font-size: 10.5px; letter-spacing: .13em; fill: var(--accent); }
+    #ux-process-full .r  { font-family: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace; font-size: 10.5px; letter-spacing: .04em; fill: var(--accent); }
+  </style>
+
+  <defs>
+    <marker id="f-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <polygon class="ah" points="0,0.5 10,5 0,9.5" />
+    </marker>
+    <marker id="f-aha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <polygon class="aha" points="0,0.5 10,5 0,9.5" />
+    </marker>
+    <marker id="f-ahm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <polygon class="ahm" points="0,0.5 10,5 0,9.5" />
+    </marker>
+  </defs>
+
+  <line class="axis" x1="500" y1="20" x2="500" y2="1745" />
+
+  <!-- ===== request sources ===== -->
+  <rect class="src" x="140" y="30" width="320" height="70" rx="2" />
+  <text class="t" x="158" y="58">Team with data to publish</text>
+  <text class="d" x="158" y="80">Wants it surfaced on the site</text>
+
+  <rect class="src" x="540" y="30" width="320" height="70" rx="2" />
+  <text class="t" x="558" y="58">Customer requesting data</text>
+  <text class="d" x="558" y="80">Asking for data not yet carried</text>
+
+  <path class="penm" d="M 300 100 V 126 H 500" />
+  <path class="penm" d="M 700 100 V 126 H 500" />
+  <line class="pen" x1="500" y1="126" x2="500" y2="161" marker-end="url(#f-ah)" />
+  <text class="e" x="512" y="149">feature request</text>
+
+  <!-- ===== 01 ===== -->
+  <rect class="node" x="280" y="166" width="440" height="84" rx="2" />
+  <text class="n" x="302" y="190">01</text>
+  <text class="t" x="302" y="214">Project intake</text>
+  <text class="d" x="302" y="236">Log the ask, its source, and the constraint driving it</text>
+  <text class="r" x="734" y="206">new projects</text>
+  <text class="r" x="734" y="222">enter here</text>
+
+  <line class="pen" x1="500" y1="250" x2="500" y2="289" marker-end="url(#f-ah)" />
+  <text class="e" x="512" y="275">request accepted</text>
+
+  <!-- ===== 02 ===== -->
+  <rect class="node" x="280" y="294" width="440" height="94" rx="2" />
+  <text class="n" x="302" y="318">02</text>
+  <text class="t" x="302" y="342">Feature creation team alignment</text>
+  <text class="d" x="302" y="364">Ask the feature creation team for user stories, and</text>
+  <text class="d" x="302" y="382">align what they build with what customers require</text>
+
+  <line class="pen" x1="500" y1="388" x2="500" y2="427" marker-end="url(#f-ah)" />
+  <text class="e" x="512" y="413">stories + alignment</text>
+
+  <!-- ===== 03 ===== -->
+  <rect class="node" x="280" y="432" width="440" height="84" rx="2" />
+  <text class="n" x="302" y="456">03</text>
+  <text class="t" x="302" y="480">User conversations</text>
+  <text class="d" x="302" y="502">Collect user stories from the people doing the actual work</text>
+
+  <line class="pena" x1="500" y1="516" x2="500" y2="555" marker-end="url(#f-aha)" />
+  <text class="e" x="512" y="541">user stories in hand</text>
+
+  <!-- ===== 04 · design loop ===== -->
+  <rect class="enc" x="110" y="560" width="780" height="250" rx="2" />
+  <text class="g" x="130" y="588">04 &#160;&#8212;&#160; ITERATE UNTIL SCOPE AND MOCKUPS AGREE</text>
+
+  <rect class="nodel" x="130" y="608" width="310" height="140" rx="2" />
+  <text class="n" x="152" y="634">04a</text>
+  <text class="t" x="152" y="658">Scoping &amp; phasing</text>
+  <text class="d" x="152" y="684">With the feature creation team:</text>
+  <text class="d" x="152" y="704">what&#8217;s in, what&#8217;s out, and what</text>
+  <text class="d" x="152" y="724">waits for a later phase</text>
+
+  <rect class="nodel" x="560" y="608" width="310" height="140" rx="2" />
+  <text class="n" x="582" y="634">04b</text>
+  <text class="t" x="582" y="658">Mockups &amp; design doc</text>
+  <text class="d" x="582" y="684">Draft the flows and screens,</text>
+  <text class="d" x="582" y="704">and write them into the</text>
+  <text class="d" x="582" y="724">design document</text>
+
+  <line class="pena" x1="446" y1="658" x2="553" y2="658" marker-end="url(#f-aha)" />
+  <text class="e" x="500" y="648" text-anchor="middle">phasing limits</text>
+
+  <line class="pena" x1="554" y1="702" x2="447" y2="702" marker-end="url(#f-aha)" />
+  <text class="e" x="500" y="720" text-anchor="middle">gaps in scope</text>
+
+  <line class="pen" x1="500" y1="810" x2="500" y2="849" marker-end="url(#f-ah)" />
+  <text class="e" x="512" y="835">scope + mockups signed off</text>
+
+  <!-- ===== 05 ===== -->
+  <rect class="node" x="280" y="854" width="440" height="84" rx="2" />
+  <text class="n" x="302" y="878">05</text>
+  <text class="t" x="302" y="902">Design document finalized</text>
+  <text class="d" x="302" y="924">Approved mockups and agreed phasing, locked as the reference</text>
+
+  <line class="pen" x1="500" y1="938" x2="500" y2="977" marker-end="url(#f-ah)" />
+  <text class="e" x="512" y="963">build reference</text>
+
+  <!-- ===== 06–09 · delivery cycle ===== -->
+  <rect class="enc" x="110" y="982" width="780" height="606" rx="2" />
+  <text class="g" x="130" y="1010">06&#8211;09 &#160;&#8212;&#160; DELIVERY CYCLE &#183; ONE TURN PER PHASE</text>
+
+  <rect class="nodel" x="280" y="1026" width="440" height="100" rx="2" />
+  <text class="n" x="302" y="1050">06</text>
+  <text class="t" x="302" y="1074">Build the phase increment</text>
+  <text class="d" x="302" y="1096">Phase features go into build &#8212; or a proof of concept</text>
+  <text class="d" x="302" y="1114">first, if the risk warrants one</text>
+  <!-- sits left of 06, beside where the six-month loop lands (not the per-phase return) -->
+  <text class="r" x="125" y="1046">re-entry point</text>
+  <text class="r" x="125" y="1062">for existing work</text>
+
+  <line class="pena" x1="500" y1="1126" x2="500" y2="1161" marker-end="url(#f-aha)" />
+  <text class="e" x="512" y="1148">first draft functioning</text>
+
+  <rect class="nodel" x="280" y="1166" width="440" height="124" rx="2" />
+  <text class="n" x="302" y="1190">07</text>
+  <text class="t" x="302" y="1214">User acceptance testing</text>
+  <text class="d" x="302" y="1236">Walk users through it, showing the phased rollout of</text>
+  <text class="d" x="302" y="1254">features still to come. Surface new requirements,</text>
+  <text class="d" x="302" y="1272">launch blockers, and shifts in priority</text>
+
+  <line class="pena" x1="500" y1="1290" x2="500" y2="1325" marker-end="url(#f-aha)" />
+  <text class="e" x="512" y="1312">findings + reprioritization</text>
+
+  <rect class="nodel" x="280" y="1330" width="440" height="84" rx="2" />
+  <text class="n" x="302" y="1354">08</text>
+  <text class="t" x="302" y="1378">Build / update</text>
+  <text class="d" x="302" y="1400">Clear the launch blockers and work the reprioritized list</text>
+
+  <line class="pena" x1="500" y1="1414" x2="500" y2="1449" marker-end="url(#f-aha)" />
+  <text class="e" x="512" y="1436">blockers cleared</text>
+
+  <rect class="nodel" x="280" y="1454" width="440" height="100" rx="2" />
+  <text class="n" x="302" y="1478">09</text>
+  <text class="t" x="302" y="1502">Phase release</text>
+  <text class="d" x="302" y="1524">First turn ships the initial phase; every turn after</text>
+  <text class="d" x="302" y="1542">it ships P2, P3, and onward</text>
+
+  <path class="pena" d="M 720 1504 H 850 V 1076 H 726" marker-end="url(#f-aha)" />
+  <text class="r" x="730" y="1358">next phase &#8212;</text>
+  <text class="r" x="730" y="1376">repeat until</text>
+  <text class="r" x="730" y="1394">scope is</text>
+  <text class="r" x="730" y="1412">delivered</text>
+
+  <line class="pen" x1="500" y1="1588" x2="500" y2="1627" marker-end="url(#f-ah)" />
+  <text class="e" x="512" y="1614">full scope delivered</text>
+
+  <!-- ===== 10 ===== -->
+  <rect class="node" x="280" y="1632" width="440" height="100" rx="2" />
+  <text class="n" x="302" y="1656">10</text>
+  <text class="t" x="302" y="1680">Maintain &amp; solicit feedback</text>
+  <text class="d" x="302" y="1702">Check back for additional feature needs on roughly</text>
+  <text class="d" x="302" y="1720">a six-month cadence</text>
+
+  <!-- outer maintenance loop: 10 back to 06 -->
+  <path class="pena" d="M 280 1682 H 55 V 1076 H 274" marker-end="url(#f-aha)" />
+  <text class="g" x="44" y="1380" text-anchor="middle" transform="rotate(-90 44 1380)">NEW FEATURE NEEDS &#183; ~6-MONTH CADENCE &#183; BACK TO 06</text>
+</svg>
